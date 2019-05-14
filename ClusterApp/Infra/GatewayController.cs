@@ -28,17 +28,23 @@ namespace Gateway.Controllers
         }
 
         [NonAction]
-        public ActionResult<JsonResult> ExecuteService(RestClient client, RestRequest request)
+        public ActionResult<JsonResult> ExecutarServico(RestClient client, RestRequest request)
         {
             var response = client.Execute(request);
 
             switch (response.StatusCode)
             {
-                case HttpStatusCode.OK: return Ok(response.Content);
-                
                 default:
                 case HttpStatusCode.BadRequest: return BadRequest(response.Content);
+
+                case HttpStatusCode.OK: return Ok(response.Content);
             }
+        }
+
+        [NonAction]
+        public void ObterSessao(ref RestRequest request )
+        {
+            request.AddHeader("SessionID", this.Request.Headers["SessionID"]);
         }
     }
 }

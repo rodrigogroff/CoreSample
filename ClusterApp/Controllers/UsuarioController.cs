@@ -17,7 +17,7 @@ namespace Gateway.Controllers
 
             request.AddJsonBody(obj);
 
-            return ExecuteService(client, request);
+            return ExecutarServico(client, request);
         }
 
         // GET api/values/5
@@ -26,8 +26,10 @@ namespace Gateway.Controllers
         {
             var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
-            
-            return ExecuteService(client, request);
+
+            ObterSessao(ref request);
+
+            return ExecutarServico(client, request);
         }
 
         /*

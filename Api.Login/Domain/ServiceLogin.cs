@@ -11,9 +11,9 @@ namespace Api.Login.Domain
     {
         public string error = "";
 
-        public OutputLogin Autenticar(ReqLoginInformation login)
+        public LoginAuthentication Autenticar(ReqLoginInformation login)
         {
-            return new OutputLogin
+            return new LoginAuthentication
             {
                 Nome = "Ferdinando " + login.Login,
                 SessionID = "123",                

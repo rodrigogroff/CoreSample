@@ -24,7 +24,9 @@ namespace Api.Login.Controllers
         [HttpGet("api/usuario/{id}")]
         public ActionResult<JsonResult> Get(int id)
         {
-            return null;
+            var s = this.Request.Headers["SessionID"];
+
+            return Ok(new { usuario = "Nome" + id  + " - " + s });
         }
     }
 }

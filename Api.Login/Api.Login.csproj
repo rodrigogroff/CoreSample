@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Json\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
