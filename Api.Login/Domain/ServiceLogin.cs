@@ -11,10 +11,16 @@ namespace Api.Login.Domain
     {
         public string error = "";
 
-        public OutputLogin Validar(ReqLoginInformation login)
+        public OutputLogin Autenticar(ReqLoginInformation login)
         {
-            error = "Método não implementado";
-            return null;
+            return new OutputLogin
+            {
+                Nome = "Ferdinando " + login.Login,
+                SessionID = "123",                
+            };
+
+            //error = "Método não implementado";
+            //return null;
         }
     }
 }

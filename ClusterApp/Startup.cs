@@ -10,18 +10,18 @@ namespace Gateway
 {
     public static class LocalNetworkTypes
     {
-        public const string login = "login";
+        public const string usuario = "usuario";
         public const string empresa = "empresa";
         public const string lojista = "lojista";
     }
 
     public class LocalNetwork
     {
-        public List<string> logins { get; set; }
+        public List<string> usuarios { get; set; }
         public List<string> empresas { get; set; }
         public List<string> lojistas { get; set; }
 
-        int idx_login = 0, idx_empresas = 0, idx_lojistas = 0;
+        int idx_usuario = 0, idx_empresas = 0, idx_lojistas = 0;
 
         public string GetHost (string _type)
         {
@@ -30,7 +30,7 @@ namespace Gateway
 
             switch (_type)
             {
-                case LocalNetworkTypes.login: lst = logins; idx = idx_login; break;
+                case LocalNetworkTypes.usuario: lst = usuarios; idx = idx_usuario; break;
                 case LocalNetworkTypes.empresa: lst = empresas; idx = idx_empresas; break;
                 case LocalNetworkTypes.lojista: lst = lojistas; idx = idx_lojistas; break;
             }
@@ -42,7 +42,7 @@ namespace Gateway
         {
             if (lst == null) return null;
             if (lst.Count() == 0) return null;
-            if (lst.Count() == 1) return logins[0];
+            if (lst.Count() == 1) return lst[0];
             else
             {
                 int max = lst.Count();
@@ -50,7 +50,7 @@ namespace Gateway
                 if (++idx >= max)
                     idx = 0;
 
-                return logins[idx];
+                return usuarios[idx];
             }
         }
     }

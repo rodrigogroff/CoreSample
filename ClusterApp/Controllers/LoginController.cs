@@ -5,21 +5,14 @@ using RestSharp;
 
 namespace Gateway.Controllers
 {
-    public class ReqLoginInformation
-    {
-        public string Login { get; set; }
-
-        public string Passwd { get; set; }
-    }
-
-    public class LoginController : GatewayController
+     public class LoginController : GatewayController
     {
         public LoginController(IOptions<LocalNetwork> network) : base (network) { }
 
-        [HttpPost("api/login/autenticar")]
+        [HttpPost("api/usuario/autenticar")]
         public ActionResult<JsonResult> Post([FromBody] ReqLoginInformation obj)
         {
-            var client = new RestClient(network.GetHost(LocalNetworkTypes.login));
+            var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
 
             request.AddJsonBody(obj);
@@ -28,10 +21,13 @@ namespace Gateway.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("api/usuario/{id}")]
+        public ActionResult<JsonResult> Get(int id)
         {
-            return "value";
+            var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
+            var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
+            
+            return ExecuteService(client, request);
         }
 
         /*

@@ -21,6 +21,7 @@ namespace Gateway.Controllers
             switch (methodStr)
             {
                 case "POST": return Method.POST;
+                case "PUT": return Method.PUT;
             }
 
             return Method.GET;
@@ -29,12 +30,15 @@ namespace Gateway.Controllers
         [NonAction]
         public ActionResult<JsonResult> ExecuteService(RestClient client, RestRequest request)
         {
-            IRestResponse response = client.Execute(request);
+            var response = client.Execute(request);
 
-            if (response.StatusCode != HttpStatusCode.OK)
-                return BadRequest(response.Content);
-
-            return Ok(response.Content);
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK: return Ok(response.Content);
+                
+                default:
+                case HttpStatusCode.BadRequest: return BadRequest(response.Content);
+            }
         }
     }
 }
