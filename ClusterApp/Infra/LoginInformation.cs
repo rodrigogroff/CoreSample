@@ -1,13 +1,20 @@
 ﻿
 namespace Gateway.Controllers
 {
+    public class ServiceError
+    {
+        public string Mensagem;
+        public string Dados;
+        public string DebugInfo;
+    }
+
     public class LoginAuthentication
     {
         public string SessionID;
         public string Nome;
     }
 
-    public class ReqLoginInformation
+    public class LoginInformation
     {
         public string Login;
         public string Passwd; 

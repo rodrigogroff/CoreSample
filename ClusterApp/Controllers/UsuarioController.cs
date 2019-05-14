@@ -10,7 +10,7 @@ namespace Gateway.Controllers
         public LoginController(IOptions<LocalNetwork> network) : base (network) { }
 
         [HttpPost("api/usuario/autenticar")]
-        public ActionResult<JsonResult> Post([FromBody] ReqLoginInformation obj)
+        public ActionResult<JsonResult> Post([FromBody] LoginInformation obj)
         {
             var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));

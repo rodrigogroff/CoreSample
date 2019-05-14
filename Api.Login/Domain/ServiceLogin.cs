@@ -11,7 +11,7 @@ namespace Api.Login.Domain
     {
         public string error = "";
 
-        public LoginAuthentication Autenticar(ReqLoginInformation login)
+        public LoginAuthentication Autenticar(LoginInformation login)
         {
             return new LoginAuthentication
             {

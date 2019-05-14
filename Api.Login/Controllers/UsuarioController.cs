@@ -11,12 +11,17 @@ namespace Api.Login.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpPost("api/usuario/autenticar")]
-        public ActionResult<JsonResult> Post([FromBody] ReqLoginInformation login)
+        public ActionResult<JsonResult> Post([FromBody] LoginInformation login)
         {
             var resp = new ServiceLogin().Autenticar(login);
 
             if (resp == null)
-                return BadRequest(new { error = "feio!!" });
+                return BadRequest(new ServiceError
+                {
+                    Mensagem = "feio!!",
+                    Dados = "123",
+                    DebugInfo = "..."
+                });
             else
                 return Ok(resp);
         }
@@ -24,9 +29,15 @@ namespace Api.Login.Controllers
         [HttpGet("api/usuario/{id}")]
         public ActionResult<JsonResult> Get(int id)
         {
-            var s = this.Request.Headers["SessionID"];
+            var s = this.Request.Headers[GatewayController.SessionID];
 
             return Ok(new { usuario = "Nome" + id  + " - " + s });
+        }
+
+        [HttpPost("api/usuario")]
+        public ActionResult<JsonResult> Post([FromBody] UserInformation login)
+        {
+            return Ok(new { });
         }
     }
 }
