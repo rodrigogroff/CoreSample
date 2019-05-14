@@ -1,11 +1,9 @@
-﻿using System.Net;
-using Api.Login.Domain;
+﻿using Api.Usuario.Domain;
+using Api.Usuario.Json;
 using Gateway.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using RestSharp;
 
-namespace Api.Login.Controllers
+namespace Api.Usuario.Controllers
 {
     [ApiController]
     public class UsuarioController : ControllerBase

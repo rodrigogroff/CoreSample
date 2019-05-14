@@ -1,5 +1,5 @@
 ﻿
-namespace Gateway.Controllers
+namespace Api.Usuario.Json
 {
     public class UserInformation
     {
