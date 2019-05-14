@@ -5,7 +5,7 @@ using RestSharp;
 
 namespace Gateway.Controllers
 {
-     public class LoginController : GatewayController
+    public class LoginController : GatewayController
     {
         public LoginController(IOptions<LocalNetwork> network) : base (network) { }
 
@@ -27,7 +27,7 @@ namespace Gateway.Controllers
             var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
 
-            ObterSessao(ref request);
+            ObterDadosSessao(ref request);
 
             return ExecutarServico(client, request);
         }
