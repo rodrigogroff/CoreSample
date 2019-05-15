@@ -6,13 +6,9 @@ namespace Api.Usuario.Domain
     {
         public string error = "";
 
-        public LoginAuthentication Autenticar(LoginInformation login)
+        public bool Autenticar(LoginInformation login)
         {
-            return new LoginAuthentication
-            {
-                Nome = "Ferdinando " + login.Login,
-                SessionID = "123",                
-            };
+            return true;
 
             //error = "Método não implementado";
             //return null;

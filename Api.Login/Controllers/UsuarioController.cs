@@ -2,6 +2,7 @@
 using Api.Usuario.Json;
 using Gateway.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Api.Usuario.Controllers
 {
@@ -9,23 +10,27 @@ namespace Api.Usuario.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpPost("api/usuario/autenticar")]
-        public ActionResult<JsonResult> Post([FromBody] LoginInformation login)
+        public ActionResult<string> Post([FromBody] LoginInformation login)
         {
-            var resp = new ServiceLogin().Autenticar(login);
+            var usuarioAutenticado = new ServiceLogin().Autenticar(login);
 
-            if (resp == null)
+            if (!usuarioAutenticado)
                 return BadRequest(new ServiceError
                 {
                     Mensagem = "feio!!",
                     Dados = "123",
                     DebugInfo = "..."
                 });
-            else
-                return Ok(resp);
+
+            return Ok(new LoginAuthentication
+            {
+                Nome = login.Login + " OK",
+                Token = "dsfdsfsdgfdgffd"
+            }); 
         }
 
         [HttpGet("api/usuario/{id}")]
-        public ActionResult<JsonResult> Get(int id)
+        public ActionResult<string> Get(int id)
         {
             var s = this.Request.Headers[GatewayController.SessionID];
 
@@ -33,7 +38,7 @@ namespace Api.Usuario.Controllers
         }
 
         [HttpPost("api/usuario")]
-        public ActionResult<JsonResult> Post([FromBody] UserInformation login)
+        public ActionResult<string> Post([FromBody] UserInformation login)
         {
             return Ok(new { });
         }

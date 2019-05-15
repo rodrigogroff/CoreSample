@@ -1,6 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using RestSharp;
 
 namespace Gateway.Controllers
@@ -12,13 +17,16 @@ namespace Gateway.Controllers
 
         public readonly LocalNetwork network;
 
+        public bool IsOk = false;
+        public string contentServiceResponse = "";
+
         public GatewayController(IOptions<LocalNetwork> network)
         {
             this.network = network.Value;
         }
 
         [NonAction]
-        public Method ConvertMethod(string methodStr)
+        public Method ConvertMethod( string methodStr)
         {
             switch (methodStr)
             {
@@ -36,16 +44,43 @@ namespace Gateway.Controllers
         }
 
         [NonAction]
-        public ActionResult<JsonResult> ExecutarServico(RestClient client, RestRequest request)
+        public ActionResult<string> ExecutarServico(RestClient client, RestRequest request)
         {
+            IsOk = false;
+
             var response = client.Execute(request);
 
             switch (response.StatusCode)
             {
                 default:
-                case HttpStatusCode.BadRequest: return BadRequest(response.Content);
-                case HttpStatusCode.OK: return Ok(response.Content);
+                case HttpStatusCode.BadRequest:
+                    return BadRequest(response.Content);
+
+                case HttpStatusCode.OK:
+                    IsOk = true;
+                    contentServiceResponse = response.Content;
+                    return Ok(response.Content);
             }
-        }        
+        }
+        
+        [NonAction]
+        public string GeraToken(string loginName)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(network.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                        new Claim(ClaimTypes.Name, loginName)
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

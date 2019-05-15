@@ -1,30 +1,43 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RestSharp;
+using Newtonsoft.Json;
 
 namespace Gateway.Controllers
 {
-    public class LoginController : GatewayController
+    [Authorize]
+    public class UsuarioController : GatewayController
     {
-        public LoginController(IOptions<LocalNetwork> network) : base (network) { }
+        public UsuarioController(IOptions<LocalNetwork> network) : base (network) { }
 
+        [AllowAnonymous]
         [HttpPost("api/usuario/autenticar")]
-        public ActionResult<JsonResult> Post([FromBody] LoginInformation obj)
+        public ActionResult<string> Post([FromBody] LoginInformation obj)
         {
-            var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
+            var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
 
             request.AddJsonBody(obj);
 
-            return ExecutarServico(client, request);
-        }
+            var resp = ExecutarServico(client, request);
 
-        // GET api/values/5
+            if (this.IsOk)
+            {
+                var auth = JsonConvert.DeserializeObject<LoginAuthentication>(this.contentServiceResponse);
+
+                auth.Token = GeraToken(obj.Login);
+
+                return Ok(auth);
+            }
+
+            return resp;
+        }
+        
         [HttpGet("api/usuario/{id}")]
-        public ActionResult<JsonResult> Get(int id)
+        public ActionResult<string> Get(int id)
         {
-            var client = new RestClient(network.GetHost(LocalNetworkTypes.usuario));
+            var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
 
             ObterDadosSessao(ref request);

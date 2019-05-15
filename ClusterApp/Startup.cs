@@ -1,38 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Gateway
 {
-    public static class LocalNetworkTypes
+    public enum LocalNetworkTypes
     {
-        public const string usuario = "usuario";
-        public const string empresa = "empresa";
-        public const string lojista = "lojista";
+        Usuario = 0,
+        Empresa = 1,
+        Lojista = 2,
     }
 
     public class LocalNetwork
     {
+        public string Secret { get; set; }
         public List<string> usuarios { get; set; }
         public List<string> empresas { get; set; }
         public List<string> lojistas { get; set; }
 
         int idx_usuario = 0, idx_empresas = 0, idx_lojistas = 0;
 
-        public string GetHost (string _type)
+        public string GetHost (LocalNetworkTypes _type)
         {
             List<string> lst = null;
             int idx = 0;
 
             switch (_type)
             {
-                case LocalNetworkTypes.usuario: lst = usuarios; idx = idx_usuario; break;
-                case LocalNetworkTypes.empresa: lst = empresas; idx = idx_empresas; break;
-                case LocalNetworkTypes.lojista: lst = lojistas; idx = idx_lojistas; break;
+                case LocalNetworkTypes.Usuario: lst = usuarios; idx = idx_usuario; break;
+                case LocalNetworkTypes.Empresa: lst = empresas; idx = idx_empresas; break;
+                case LocalNetworkTypes.Lojista: lst = lojistas; idx = idx_lojistas; break;
             }
             
             return ResolveHost(lst, ref idx);
@@ -67,8 +71,30 @@ namespace Gateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.Configure<LocalNetwork>(Configuration.GetSection("localNetwork"));
+
+            // configure jwt authentication
+
+            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("localNetwork").Get<LocalNetwork>().Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +102,14 @@ namespace Gateway
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

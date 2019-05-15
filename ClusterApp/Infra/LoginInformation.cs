@@ -10,7 +10,7 @@ namespace Gateway.Controllers
 
     public class LoginAuthentication
     {
-        public string SessionID;
+        public string Token;
         public string Nome;
     }
 
