@@ -72,7 +72,8 @@ namespace Gateway.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                        new Claim(ClaimTypes.Name, loginName)
+                        new Claim(ClaimTypes.Name, loginName),
+                        new Claim("custom", "value")
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
