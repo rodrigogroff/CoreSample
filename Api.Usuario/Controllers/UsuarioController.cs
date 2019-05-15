@@ -1,13 +1,7 @@
 ﻿using Api.Usuario.Domain;
 using Api.Usuario.Json;
-using Gateway;
 using Gateway.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
 
 namespace Api.Usuario.Controllers
 {
