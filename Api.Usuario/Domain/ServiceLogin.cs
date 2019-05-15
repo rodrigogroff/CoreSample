@@ -9,9 +9,6 @@ namespace Api.Usuario.Domain
         public bool Autenticar(LoginInformation login)
         {
             return true;
-
-            //error = "Método não implementado";
-            //return null;
         }
     }
 }
