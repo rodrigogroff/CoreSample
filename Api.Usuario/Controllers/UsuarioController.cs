@@ -1,8 +1,13 @@
 ﻿using Api.Usuario.Domain;
 using Api.Usuario.Json;
+using Gateway;
 using Gateway.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Text;
 
 namespace Api.Usuario.Controllers
 {
@@ -12,29 +17,35 @@ namespace Api.Usuario.Controllers
         [HttpPost("api/usuario/autenticar")]
         public ActionResult<string> Post([FromBody] LoginInformation login)
         {
-            var usuarioAutenticado = new ServiceLogin().Autenticar(login);
+            var serviceLogin = new ServiceLogin();
+
+            var usuarioAutenticado = serviceLogin.Autenticar(login);
 
             if (!usuarioAutenticado)
-                return BadRequest(new ServiceError
-                {
-                    Mensagem = "feio!!",
-                    Dados = "123",
-                    DebugInfo = "..."
-                });
+                return BadRequest(serviceLogin.Error);
 
-            return Ok(new LoginAuthentication
-            {
-                Nome = login.Login + " OK",
-                Token = "dsfdsfsdgfdgffd"
-            }); 
+            return Ok(serviceLogin.Auth); 
+        }
+
+        protected string GetName()
+        {
+            var handler = new JwtSecurityTokenHandler();
+            string authHeader = Request.Headers["Authorization"];
+            authHeader = authHeader.Replace("Bearer ", "");
+            var jsonToken = handler.ReadToken(authHeader);
+            var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
+
+            var id = tokenS.Claims.First(claim => claim.Type == "unique_name")?.Value;
+
+            return id; 
         }
 
         [HttpGet("api/usuario/{id}")]
         public ActionResult<string> Get(int id)
         {
-            var s = this.Request.Headers[GatewayController.SessionID];
+            var name = GetName();
 
-            return Ok(new { usuario = "Nome" + id  + " - " + s });
+            return Ok(new { usuario = ">> " + id  + " => " + name });
         }
 
         [HttpPost("api/usuario")]

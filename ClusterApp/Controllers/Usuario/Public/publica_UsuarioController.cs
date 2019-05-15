@@ -6,11 +6,8 @@ using Newtonsoft.Json;
 
 namespace Gateway.Controllers
 {
-    [Authorize]
-    public class UsuarioController : GatewayController
+    public partial class UsuarioController : GatewayController
     {
-        public UsuarioController(IOptions<LocalNetwork> network) : base (network) { }
-
         [AllowAnonymous]
         [HttpPost("api/usuario/autenticar")]
         public ActionResult<string> Post([FromBody] LoginInformation obj)
@@ -33,25 +30,5 @@ namespace Gateway.Controllers
 
             return resp;
         }
-        
-        [HttpGet("api/usuario/{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
-            var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
-
-            ObterDadosSessao(ref request);
-
-            return ExecutarServico(client, request);
-        }
-
-        /*
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-        */
     }
 }

@@ -13,7 +13,7 @@ namespace Gateway.Controllers
     [ApiController]
     public class GatewayController : ControllerBase
     {
-        public const string SessionID = "SessionID";
+        public const string Authorization = "Authorization";
 
         public readonly LocalNetwork network;
 
@@ -40,7 +40,7 @@ namespace Gateway.Controllers
         [NonAction]
         public void ObterDadosSessao(ref RestRequest request)
         {
-            request.AddHeader(SessionID, this.Request.Headers[SessionID]);
+            request.AddHeader(Authorization, this.Request.Headers[Authorization]);
         }
 
         [NonAction]
@@ -67,7 +67,7 @@ namespace Gateway.Controllers
         public string GeraToken(string loginName)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(network.Secret);
+            var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

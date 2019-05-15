@@ -20,7 +20,7 @@ namespace Gateway
 
     public class LocalNetwork
     {
-        public string Secret { get; set; }
+        public const string Secret = "ciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NTc5Mjk4ODcsImV4cCI6MTU1fhdsjhfeuyrejhdfj73333";
         public List<string> usuarios { get; set; }
         public List<string> empresas { get; set; }
         public List<string> lojistas { get; set; }
@@ -77,7 +77,7 @@ namespace Gateway
 
             // configure jwt authentication
 
-            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("localNetwork").Get<LocalNetwork>().Secret);
+            var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
