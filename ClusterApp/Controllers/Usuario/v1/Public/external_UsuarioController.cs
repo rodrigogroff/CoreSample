@@ -8,7 +8,7 @@ namespace Gateway.Controllers
     public partial class UsuarioController : GatewayController
     {
         [AllowAnonymous]
-        [HttpPost("api/usuario/autenticar")]
+        [HttpPost("api/v1/usuario/autenticar")]
         public ActionResult<string> Post([FromBody] LoginInformation obj)
         {
             var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
@@ -20,7 +20,7 @@ namespace Gateway.Controllers
 
             if (this.IsOk)
             {
-                var auth = JsonConvert.DeserializeObject<LoginAuthentication>(this.contentServiceResponse);
+                var auth = JsonConvert.DeserializeObject<UsuarioAutenticado>(this.contentServiceResponse);
 
                 auth.Token = GeraToken(obj.Login);
 

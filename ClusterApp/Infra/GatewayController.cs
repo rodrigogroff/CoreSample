@@ -38,7 +38,7 @@ namespace Gateway.Controllers
         }
 
         [NonAction]
-        public void ObterDadosSessao(ref RestRequest request)
+        public void CopyAuthentication(ref RestRequest request)
         {
             request.AddHeader(Authorization, this.Request.Headers[Authorization]);
         }

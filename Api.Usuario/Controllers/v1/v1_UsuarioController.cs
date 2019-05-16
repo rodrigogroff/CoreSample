@@ -8,10 +8,10 @@ namespace Api.Usuario.Controllers
     [ApiController]
     public class UsuarioController : BaseController
     {
-        [HttpPost("api/usuario/autenticar")]
+        [HttpPost("api/v1/usuario/autenticar")]
         public ActionResult<string> Post([FromBody] LoginInformation login)
         {
-            var serviceLogin = new ServiceLogin();
+            var serviceLogin = new ServiceLoginV1();
 
             var usuarioAutenticado = serviceLogin.Autenticar(login);
 
@@ -21,15 +21,15 @@ namespace Api.Usuario.Controllers
             return Ok(serviceLogin.Auth); 
         }
 
-        [HttpGet("api/usuario/{id}")]
+        [HttpGet("api/v1/usuario/{id}")]
         public ActionResult<string> Get(int id)
         {
-            var name = GetName();
+            var ua = ObtemUsuarioAutenticado();
 
-            return Ok(new { usuario = ">> " + id  + " => " + name });
+            return Ok(ua);
         }
 
-        [HttpPost("api/usuario")]
+        [HttpPost("api/v1/usuario")]
         public ActionResult<string> Post([FromBody] UserInformation login)
         {
             return Ok(new { });
