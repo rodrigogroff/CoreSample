@@ -7,18 +7,27 @@ namespace Api.Usuario.Controllers
 {
     [ApiController]
     public class UsuarioController : BaseController
-    {
+    {   
         [HttpPost("api/v1/usuario/autenticar")]
-        public ActionResult<string> Post([FromBody] LoginInformation login)
+        public ActionResult<string> Autenticar([FromBody] LoginInformation login)
         {
-            var serviceLogin = new ServiceLoginV1();
+            var service = new ServiceLoginV1();
 
-            var usuarioAutenticado = serviceLogin.Autenticar(login);
+            if (!service.Autenticar(login))
+                return BadRequest(service.Error);
 
-            if (!usuarioAutenticado)
-                return BadRequest(serviceLogin.Error);
+            return Ok(service.UsuarioLogado); 
+        }
 
-            return Ok(serviceLogin.Auth); 
+        [HttpPost("api/v1/usuario/criarconta")]
+        public ActionResult<string> CriarConta([FromBody] DadosNovaConta novoUsuario)
+        {
+            var service = new CriarContaV1();
+
+            if (!service.CriarConta(novoUsuario))
+                return BadRequest(service.Error);
+
+            return Ok();
         }
 
         [HttpGet("api/v1/usuario/{id}")]

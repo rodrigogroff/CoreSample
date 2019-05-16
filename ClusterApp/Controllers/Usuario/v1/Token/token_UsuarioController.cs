@@ -11,7 +11,7 @@ namespace Gateway.Controllers
             var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
 
-            CopyAuthentication(ref request);
+            GetAuthentication(ref request);
 
             return ExecutarServico(client, request);
         }

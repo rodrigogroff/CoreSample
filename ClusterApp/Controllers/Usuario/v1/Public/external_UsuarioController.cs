@@ -9,7 +9,7 @@ namespace Gateway.Controllers
     {
         [AllowAnonymous]
         [HttpPost("api/v1/usuario/autenticar")]
-        public ActionResult<string> Post([FromBody] LoginInformation obj)
+        public ActionResult<string> Autenticar([FromBody] LoginInformation obj)
         {
             var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
             var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
@@ -28,6 +28,18 @@ namespace Gateway.Controllers
             }
 
             return resp;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("api/v1/usuario/criarconta")]
+        public ActionResult<string> CriarConta([FromBody] DadosNovaConta obj)
+        {
+            var client = new RestClient(network.GetHost(LocalNetworkTypes.Usuario));
+            var request = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
+
+            request.AddJsonBody(obj);
+
+            return ExecutarServico(client, request);
         }
     }
 }
