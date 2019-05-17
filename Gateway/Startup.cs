@@ -22,7 +22,13 @@ namespace Gateway
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.Configure<LocalNetwork>(Configuration.GetSection("localNetwork"));
+#if DEBUG
+            services.Configure<LocalNetwork>(Configuration.GetSection("localNetworkDev"));
+#endif
+
+#if RELEASE
+            services.Configure<LocalNetwork>(Configuration.GetSection("localNetworkProduction"));
+#endif
 
             var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);
             services.AddAuthentication(x =>
