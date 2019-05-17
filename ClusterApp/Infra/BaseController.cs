@@ -9,8 +9,7 @@ namespace Gateway.Controllers
         protected UsuarioAutenticado ObtemUsuarioAutenticado()
         {
             var handler = new JwtSecurityTokenHandler();
-            string authHeader = Request.Headers["Authorization"];
-            authHeader = authHeader.Replace("Bearer ", "");
+            string authHeader = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var jsonToken = handler.ReadToken(authHeader);
             var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
 

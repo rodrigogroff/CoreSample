@@ -13,16 +13,26 @@ namespace Gateway.Controllers
     [ApiController]
     public class GatewayController : ControllerBase
     {
-        public const string Authorization = "Authorization";
-
-        public readonly LocalNetwork network;
+        public const string AuthorizationTag = "Authorization";
+        public string contentServiceResponse = "";
 
         public bool IsOk = false;
-        public string contentServiceResponse = "";
+
+        public readonly LocalNetwork network;
+        public RestClient serviceClient;
+        public RestRequest serviceRequest;
+        public LocalNetworkTypes myNetworkType;
 
         public GatewayController(IOptions<LocalNetwork> network)
         {
             this.network = network.Value;
+        }
+
+        [NonAction]
+        public void SetupNetwork()
+        {
+            serviceClient = new RestClient(network.GetHost(myNetworkType));
+            serviceRequest = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
         }
 
         [NonAction]
@@ -40,11 +50,11 @@ namespace Gateway.Controllers
         [NonAction]
         public void GetAuthentication(ref RestRequest request)
         {
-            request.AddHeader(Authorization, this.Request.Headers[Authorization]);
+            request.AddHeader(AuthorizationTag, this.Request.Headers[AuthorizationTag]);
         }
 
         [NonAction]
-        public ActionResult<string> ExecutarServico(RestClient client, RestRequest request)
+        public ActionResult<string> ExecuteRemoteService(RestClient client, RestRequest request)
         {
             IsOk = false;
 

@@ -38,8 +38,8 @@ namespace Api.Usuario.Controllers
             return Ok(ua);
         }
 
-        [HttpPost("api/v1/usuario")]
-        public ActionResult<string> Post([FromBody] UserInformation login)
+        [HttpPost("api/v1/usuario/atualizarconta")]
+        public ActionResult<string> AtualizarDados([FromBody] UserInformation login)
         {
             return Ok(new { });
         }
