@@ -1,6 +1,6 @@
 ﻿using Gateway.Controllers;
 
-namespace Api.Usuario.Domain
+namespace Api.User.Domain
 {
     public class AuthenticateV1
     {
