@@ -2,9 +2,9 @@
 
 namespace Gateway.Controllers
 {
-    public partial class UsuarioController : GatewayController
+    public partial class UserController : GatewayController
     {
-        [HttpGet("api/v1/usuario/{id}")]
+        [HttpGet("api/v1/user/{id}")]
         public ActionResult<string> Get(int id)
         {
             SetupNetwork();

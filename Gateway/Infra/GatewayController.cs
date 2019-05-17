@@ -74,7 +74,7 @@ namespace Gateway.Controllers
         }
         
         [NonAction]
-        public string GeraToken(string loginName)
+        public string ComposeTokenForSession(string loginName)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);

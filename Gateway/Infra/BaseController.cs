@@ -6,19 +6,19 @@ namespace Gateway.Controllers
 {    
     public class BaseController : ControllerBase
     {
-        protected UsuarioAutenticado ObtemUsuarioAutenticado()
+        protected AuthenticatedUser GetCurrentAuthenticatedUser()
         {
             var handler = new JwtSecurityTokenHandler();
-            string authHeader = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var authHeader = Request.Headers[GatewayController.AuthorizationTag].ToString().Replace("Bearer ", "");
             var jsonToken = handler.ReadToken(authHeader);
             var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
 
-            return new UsuarioAutenticado
+            return new AuthenticatedUser
             {
                 Id = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value,
-                Celular = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Celular")?.Value,
+                Phone = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Phone")?.Value,
                 Email = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Email")?.Value,
-                Nome = tokenS.Claims.FirstOrDefault(claim => claim.Type == "unique_name")?.Value,                
+                Name = tokenS.Claims.FirstOrDefault(claim => claim.Type == "unique_name")?.Value,                
             };
         }
     }

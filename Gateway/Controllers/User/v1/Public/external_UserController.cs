@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 
 namespace Gateway.Controllers
 {
-    public partial class UsuarioController : GatewayController
+    public partial class UserController : GatewayController
     {
         [AllowAnonymous]
-        [HttpPost("api/v1/usuario/criarconta")]
-        public ActionResult<string> CriarConta([FromBody] DadosNovaConta obj)
+        [HttpPost("api/v1/user/createAccount")]
+        public ActionResult<string> createAccount([FromBody] NewUserData obj)
         {
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
@@ -16,8 +16,8 @@ namespace Gateway.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("api/v1/usuario/autenticar")]
-        public ActionResult<string> Autenticar([FromBody] LoginInformation obj)
+        [HttpPost("api/v1/user/authenticate")]
+        public ActionResult<string> authenticate([FromBody] LoginInformation obj)
         {
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
@@ -27,8 +27,8 @@ namespace Gateway.Controllers
             if (!this.IsOk)
                 return resp;
 
-            var auth = JsonConvert.DeserializeObject<UsuarioAutenticado>(this.contentServiceResponse);
-            auth.Token = GeraToken(obj.Login);
+            var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(this.contentServiceResponse);
+            auth.Token = ComposeTokenForSession(obj.Login);
             return Ok(auth);
         }        
     }

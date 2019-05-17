@@ -1,12 +1,12 @@
 ﻿
 namespace Gateway.Controllers
 { 
-    public class UsuarioAutenticado
+    public class AuthenticatedUser
     {
-        public string Nome;
+        public string Name;
         public string Id;
         public string Email;
-        public string Celular;
+        public string Phone;
 
         // devolvido no login
         public string Token;
