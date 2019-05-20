@@ -1,5 +1,5 @@
 ﻿
-namespace Api.Usuario.Json
+namespace Api.User.Json
 {
     public class UserInformation
     {
