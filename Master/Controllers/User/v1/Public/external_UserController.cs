@@ -34,6 +34,8 @@ namespace Gateway.Controllers
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
 
+            // custom code!
+
             var resp = ExecuteRemoteService(serviceClient, serviceRequest);
 
             if (!this.IsOk)
