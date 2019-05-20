@@ -22,6 +22,8 @@ namespace Gateway
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.Configure<Features>(Configuration.GetSection("features"));
+
 #if DEBUG
             services.Configure<LocalNetwork>(Configuration.GetSection("localNetworkDev"));
 #endif

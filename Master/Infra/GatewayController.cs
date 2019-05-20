@@ -18,14 +18,17 @@ namespace Gateway.Controllers
 
         public bool IsOk = false;
 
-        public readonly LocalNetwork network;
+        public LocalNetwork network;
         public RestClient serviceClient;
         public RestRequest serviceRequest;
+        public Features features;
+
         public LocalNetworkTypes myNetworkType;
 
-        public GatewayController(IOptions<LocalNetwork> network)
+        public GatewayController(IOptions<Features> _feature, IOptions<LocalNetwork> _network)
         {
-            this.network = network.Value;
+            this.features = _feature.Value;
+            this.network = _network.Value;
         }
 
         [NonAction]

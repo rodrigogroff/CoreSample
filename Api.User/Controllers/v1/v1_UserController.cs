@@ -9,24 +9,15 @@ namespace Api.User.Controllers
 {
     [ApiController]
     public class UsuarioController : BaseController
-    {
-        public Features features;
-        
-        public UsuarioController(IOptions<Features> feature, IConfiguration configuration)
-        {
-            this.features = feature.Value;
+    {   
+        public UsuarioController(IConfiguration configuration)
+        {        
             this._config = configuration;
         }
 
         [HttpPost("api/v1/user/createAccount")]
         public ActionResult<string> createAccount([FromBody] NewUserData newUser)
         {
-            if (!features.CreateAccount.Execute)
-                return BadRequest(new ServiceError
-                {
-                    Message = features.CreateAccount.ErrorMessage
-                });
-
             try
             {
                 using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
@@ -52,12 +43,6 @@ namespace Api.User.Controllers
         [HttpPost("api/v1/user/authenticate")]
         public ActionResult<string> authenticate([FromBody] LoginInformation login)
         {
-            if (!features.Authenticate.Execute)
-                return BadRequest(new ServiceError
-                {
-                    Message = features.CreateAccount.ErrorMessage
-                });
-
             var service = new AuthenticateV1();
 
             if (!service.authenticate(login))

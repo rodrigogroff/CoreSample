@@ -37,7 +37,9 @@ namespace Api.User.Domain
                 Password = "123456",
             };
             
-            string sql = @"INSERT INTO User (Name,Email,Phone,Password) VALUES (@Name,@Email,@Phone,@Password); SELECT CAST(SCOPE_IDENTITY() as bigint)";
+            string sql = @"INSERT INTO [User] (Name,Email,Phone,Password) VALUES 
+                          (@Name,@Email,@Phone,@Password); 
+                          SELECT CAST(SCOPE_IDENTITY() as bigint)";
 
             user.Id = db.Query<long>(sql, new { user.Name, user.Email, user.Phone, user.Password }).Single();
             

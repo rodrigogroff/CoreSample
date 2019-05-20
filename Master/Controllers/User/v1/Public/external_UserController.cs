@@ -10,6 +10,12 @@ namespace Gateway.Controllers
         [HttpPost("api/v1/user/createAccount")]
         public ActionResult<string> createAccount([FromBody] NewUserData obj)
         {
+            if (!this.features.CreateAccount.Execute)
+                return BadRequest(new ServiceError
+                {
+                    Message = this.features.CreateAccount.ErrorMessage
+                });
+
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
@@ -19,6 +25,12 @@ namespace Gateway.Controllers
         [HttpPost("api/v1/user/authenticate")]
         public ActionResult<string> authenticate([FromBody] LoginInformation obj)
         {
+            if (!this.features.Authenticate.Execute)
+                return BadRequest(new ServiceError
+                {
+                    Message = this.features.Authenticate.ErrorMessage
+                });
+
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
 
