@@ -20,6 +20,8 @@ namespace Api.User.Controllers
         [HttpPost("api/v1/user/createAccount")]
         public ActionResult<string> CreateAccount([FromBody] NewUserData newUser)
         {
+            #region - code - 
+
             try
             {
                 using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
@@ -36,11 +38,14 @@ namespace Api.User.Controllers
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
+
+            #endregion
         }
 
         [HttpPost("api/v1/user/authenticate")]
         public ActionResult<string> Authenticate([FromBody] LoginInformation login)
         {
+            #region - code - 
             try
             {
                 var service = new AuthenticateV1(repository);
@@ -54,14 +59,24 @@ namespace Api.User.Controllers
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
+            #endregion
         }
 
         [HttpGet("api/v1/user/{id}")]
         public ActionResult<string> Get(int id)
         {
-            var ua = GetCurrentAuthenticatedUser();
+            #region - code - 
+            try
+            {
+                var ua = GetCurrentAuthenticatedUser();
 
-            return Ok(ua);
+                return Ok(ua);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+            #endregion
         }
     }
 }
