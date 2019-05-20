@@ -7,13 +7,14 @@ namespace Gateway.Controllers
 {    
     public class BaseController : ControllerBase
     {
-        public IConfiguration _config;
+        public IConfiguration configuration;
+        public const string _defaultError = "Oops. Something happened";
 
         [NonAction]
         public string GetDBConnectionString()
         {
 #if DEBUG
-            return _config.GetConnectionString("Dev");
+            return configuration.GetConnectionString("Dev");
 #endif
 
 #if RELEASE

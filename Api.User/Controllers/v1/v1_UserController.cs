@@ -2,7 +2,6 @@
 using Gateway.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 
 namespace Api.User.Controllers
@@ -10,9 +9,9 @@ namespace Api.User.Controllers
     [ApiController]
     public class UsuarioController : BaseController
     {   
-        public UsuarioController(IConfiguration configuration)
+        public UsuarioController(IConfiguration _configuration)
         {        
-            this._config = configuration;
+            this.configuration = _configuration;
         }
 
         [HttpPost("api/v1/user/createAccount")]
@@ -32,23 +31,26 @@ namespace Api.User.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(new ServiceError
-                {
-                    DebugInfo = ex.ToString(),
-                    Message = "Ops. Something happened.",                    
-                });
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError, });
             }
         }
 
         [HttpPost("api/v1/user/authenticate")]
         public ActionResult<string> authenticate([FromBody] LoginInformation login)
         {
-            var service = new AuthenticateV1();
+            try
+            {
+                var service = new AuthenticateV1();
 
-            if (!service.authenticate(login))
-                return BadRequest(service.Error);
+                if (!service.authenticate(login))
+                    return BadRequest(service.Error);
 
-            return Ok(service.loggedUser); 
+                return Ok(service.loggedUser);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError, });
+            }
         }
 
         [HttpGet("api/v1/user/{id}")]
