@@ -1,11 +1,27 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Gateway.Controllers
 {    
     public class BaseController : ControllerBase
     {
+        public IConfiguration _config;
+
+        [NonAction]
+        public string GetDBConnectionString()
+        {
+#if DEBUG
+            return _config.GetConnectionString("Dev");
+#endif
+
+#if RELEASE
+            return _config.GetConnectionString("Production");
+#endif
+        }
+
+        [NonAction]
         protected AuthenticatedUser GetCurrentAuthenticatedUser()
         {
             var handler = new JwtSecurityTokenHandler();

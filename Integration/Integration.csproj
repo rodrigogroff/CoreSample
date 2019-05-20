@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Api.User\Api.User.csproj" />
-    <ProjectReference Include="..\Gateway\Gateway.csproj" />
+    <ProjectReference Include="..\Master\Master.csproj" />
   </ItemGroup>
 
 </Project>

@@ -34,7 +34,9 @@ namespace Integration.Gateway
         [TestMethod]
         public void GetUser()
         {
-            string bearer = GetBearer("x", "123");
+            string login = "x";
+
+            string bearer = GetBearer(login, "123");
 
             var client = new RestClient(Gateway);
             var request = new RestRequest("api/v1/user/3", Method.GET);
@@ -49,7 +51,7 @@ namespace Integration.Gateway
 
             var user = JsonConvert.DeserializeObject<AuthenticatedUser>(Cleanup(response.Content));
 
-            if (user.Name != "x")
+            if (user.Name != login)
                 Assert.Fail("GetUser nok [2]");
         }
     }

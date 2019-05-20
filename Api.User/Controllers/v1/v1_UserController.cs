@@ -1,7 +1,9 @@
 ﻿using Api.User.Domain;
 using Gateway.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Data.SqlClient;
 
 namespace Api.User.Controllers
 {
@@ -9,10 +11,11 @@ namespace Api.User.Controllers
     public class UsuarioController : BaseController
     {
         public Features features;
-
-        public UsuarioController(IOptions<Features> feature)
+        
+        public UsuarioController(IOptions<Features> feature, IConfiguration configuration)
         {
             this.features = feature.Value;
+            this._config = configuration;
         }
 
         [HttpPost("api/v1/user/createAccount")]
@@ -24,12 +27,26 @@ namespace Api.User.Controllers
                     Message = features.CreateAccount.ErrorMessage
                 });
 
-            var service = new CreateAccountV1();
+            try
+            {
+                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new CreateAccountV1();
 
-            if (!service.CreateAccount(newUser))
-                return BadRequest(service.Error);
+                    if (!service.CreateAccount(newUser, db))
+                        return BadRequest(service.Error);
 
-            return Ok();
+                    return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError
+                {
+                    DebugInfo = ex.ToString(),
+                    Message = "Ops. Something happened.",                    
+                });
+            }
         }
 
         [HttpPost("api/v1/user/authenticate")]
@@ -56,13 +73,5 @@ namespace Api.User.Controllers
 
             return Ok(ua);
         }
-
-        /*
-        [HttpPost("api/v1/usuario/atualizarconta")]
-        public ActionResult<string> AtualizarDados([FromBody] UserInformation login)
-        {
-            return Ok(new { });
-        }
-        */
     }
 }
