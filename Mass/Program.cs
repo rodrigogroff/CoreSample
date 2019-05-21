@@ -62,35 +62,38 @@ namespace Mass
                 }
             }
 
-            using (var db = new SqlConnection("Data Source=WIN-VC8RCO6KBEK\\SQLEXPRESS;Initial Catalog=VortigoServicePlatform;Integrated Security=SSPI;"))
+            var strCon = "Data Source=DESKTOP-6JMR2NF;Initial Catalog=VortigoServicePlatform;Integrated Security=SSPI;";
+
+            using (var db = new SqlConnection(strCon))
             {
                 db.Query("truncate table [Client]");
                 db.Query("truncate table [Admin]");
                 db.Query("truncate table [User]");
             }
 
-            for (int i = 1; i <= 1000; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                using (var db = new SqlConnection("Data Source=WIN-VC8RCO6KBEK\\SQLEXPRESS;Initial Catalog=VortigoServicePlatform;Integrated Security=SSPI;"))
+                using (var db = new SqlConnection(strCon))
                 {
                     db.Query("insert into [Client] (Name) values (@Name)", new { Name = "Client" + i });
                 }
             }
 
-            for (int i = 1; i <= 1000; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                using (var db = new SqlConnection("Data Source=WIN-VC8RCO6KBEK\\SQLEXPRESS;Initial Catalog=VortigoServicePlatform;Integrated Security=SSPI;"))
+                using (var db = new SqlConnection(strCon))
                 {
                     db.Query("insert into [Admin] (Name,Email,Password,ClientID) values (@Name,@Email,@Password,@ClientID)", 
                         new { Name = GetNome(ref lstPrimeirosNomes, ref lstSobrenomes), Email = "dba@client"+ i + ".com", Password = "123456", ClientID = i });
 
                     StringBuilder sb = new StringBuilder();
 
-                    for (int j = 1; j <= 100000; j++)
+                    for (int j = 1; j <= 1000; j++)
                     {
-                        sb.AppendLine("insert into [User] (Name,Email,Password,ClientID) values ('" + GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client" + i + ".com', '123456', " + i + ");");
+                        sb.AppendLine ( "insert into [User] (Name,Email,Password,ClientID) values ('" + 
+                                        GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client" + i + ".com', '123456', " + i + ");");
 
-                        if (j % 1000 == 0)
+                        if (j % 100 == 0)
                         {
                             Console.WriteLine(i + "."+ j);
                             db.Query(sb.ToString());
