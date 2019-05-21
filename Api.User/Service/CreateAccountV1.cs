@@ -6,7 +6,7 @@ namespace Api.User.Service
 {
     public class CreateAccountV1
     {
-        public ServiceError Error;
+        public ServiceError Error = new ServiceError();
         public IUserRepository repository;        
 
         public CreateAccountV1 (IUserRepository _repository)
@@ -27,13 +27,29 @@ namespace Api.User.Service
                 Error.Message = "Email is empty!";
                 return false;
             }
+            else
+            {
+                if (!newUser.Email.Contains("@"))
+                {
+                    Error.Message = "Email is invalid!";
+                    return false;
+                }
+                else
+                {
+                    if (!newUser.Email.Split('@')[1].Contains("."))
+                    {
+                        Error.Message = "Email is invalid!";
+                        return false;
+                    }
+                }
+            }
 
             if (string.IsNullOrEmpty(newUser.Password))
             {
                 Error.Message = "Password is empty!";
                 return false;
             }
-
+            
             if (newUser.Password.Length < 6)
             {
                 Error.Message = "Password must be 6 characters at least";
