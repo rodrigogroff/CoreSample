@@ -5,15 +5,15 @@ namespace Master
 {
     public enum LocalNetworkTypes
     {
-        User = 0,
+        Config = 0,
     }
 
     public class LocalNetwork
     {
         public const string Secret = "ciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NTc5Mjk4ODcsImV4cCI6MTU1fhdsjhfeuyrejhdfj73333";
-        public List<string> UserHosts { get; set; }
+        public List<string> ConfigurationHosts { get; set; }
 
-        int idx_user = 0;
+        int idx_config = 0;
 
         public string GetHost(LocalNetworkTypes _type)
         {
@@ -24,7 +24,7 @@ namespace Master
 
                 switch (_type)
                 {
-                    case LocalNetworkTypes.User: lst = UserHosts; idx = idx_user; break;
+                    case LocalNetworkTypes.Config: lst = ConfigurationHosts; idx = idx_config; break;
                 }
 
                 return ResolveHost(lst, ref idx);
@@ -43,7 +43,7 @@ namespace Master
                 if (++idx >= max)
                     idx = 0;
 
-                return UserHosts[idx];
+                return ConfigurationHosts[idx];
             }
         }
     }

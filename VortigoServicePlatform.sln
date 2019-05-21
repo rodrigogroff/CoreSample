@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{421A9E52-8D4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2FC2848E-1E03-48FD-8AE4-F6D6FCB60381}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.User", "Api.User\Api.User.csproj", "{1345D2D9-BFA0-4BCB-A7FA-B97A99761B3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Api.Configuration\Configuration.csproj", "{1345D2D9-BFA0-4BCB-A7FA-B97A99761B3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{846CCDD5-EE75-41D0-9E38-D306CFC0D761}"
 EndProject
@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QA", "QA", "{5128F532-DA1C-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mass", "Mass\Mass.csproj", "{F26B752C-E2D9-42AD-8B06-D8DAFEE5E0EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{AEA89F59-8567-45B2-A0B9-23D20E67A5A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{AEA89F59-8567-45B2-A0B9-23D20E67A5A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

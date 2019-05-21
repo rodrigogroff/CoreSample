@@ -10,7 +10,7 @@ namespace Master.Controllers
                                 IOptions<LocalNetwork> _network) :                             
                                 base (_feature, _network)
         {
-            myNetworkType = LocalNetworkTypes.User;
+            myNetworkType = LocalNetworkTypes.Config;
         }
     }
 }
