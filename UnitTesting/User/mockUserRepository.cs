@@ -6,15 +6,19 @@ namespace UnitTesting
 {
     public class mockUserRepositoryUserExists : IUserRepository
     {
-        public long AddUser(SqlConnection db, NewUserData user)  { return 1; }
+        public bool ClientExists(SqlConnection db, long clientID) { return false; }
 
-        public bool UserExists(SqlConnection db, string name) { return true; }
+        public long AddUser(SqlConnection db, NewUserData user)  { return 1; }
+        
+        public bool UserExists(SqlConnection db, string email, long clientID) { return true; }
     }
 
     public class mockUserRepositoryUserNotExists : IUserRepository
     {
+        public bool ClientExists(SqlConnection db, long clientID) { return true; }
+
         public long AddUser(SqlConnection db, NewUserData user) { return 1; }
 
-        public bool UserExists(SqlConnection db, string name) { return false; }
+        public bool UserExists(SqlConnection db, string email, long clientID) { return false; }
     }
 }

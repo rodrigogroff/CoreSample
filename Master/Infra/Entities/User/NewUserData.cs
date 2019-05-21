@@ -7,6 +7,6 @@ namespace Master.Controllers
         public string Email;
         public string Phone;
         public string Password;
-        public long ClientID;
+        public long? ClientID;
     }
 }

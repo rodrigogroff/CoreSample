@@ -138,10 +138,77 @@ namespace UnitTesting
             {
                 Name = "xxx",
                 Email = "x@c.com",
-                Password = "123456"
+                Password = "123456",
+                ClientID = 1
             }))
             {
                 Assert.Fail("CreateAccount // Existing user cannot create same account");
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public void UT_User_CreateAccount_ClientFail_1()
+        {
+            #region - code - 
+
+            var repo = new mockUserRepositoryUserExists();
+            var createAccMock = new CreateAccountV1(repo);
+
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            {
+                Name = "xxx",
+                Email = "x@c.com",
+                Password = "123456",
+                ClientID = null
+            }))
+            {
+                Assert.Fail("CreateAccount // Client invalid passed [1]");
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public void UT_User_CreateAccount_ClientFail_2()
+        {
+            #region - code - 
+
+            var repo = new mockUserRepositoryUserExists();
+            var createAccMock = new CreateAccountV1(repo);
+
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            {
+                Name = "xxx",
+                Email = "x@c.com",
+                Password = "123456",
+                ClientID = 0
+            }))
+            {
+                Assert.Fail("CreateAccount // Client invalid passed [2]");
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public void UT_User_CreateAccount_ClientFail_3()
+        {
+            #region - code - 
+
+            var repo = new mockUserRepositoryUserExists();
+            var createAccMock = new CreateAccountV1(repo);
+
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            {
+                Name = "xxx",
+                Email = "x@c.com",
+                Password = "123456",
+                ClientID = 9999
+            }))
+            {
+                Assert.Fail("CreateAccount // Client invalid passed [3]");
             }
 
             #endregion
@@ -159,7 +226,8 @@ namespace UnitTesting
             {
                 Name = "xxx",
                 Email = "x@c.com",
-                Password = "123456"
+                Password = "123456",
+                ClientID = 1
             }))
             {
                 Assert.Fail("CreateAccount // Not existing user should create account");
