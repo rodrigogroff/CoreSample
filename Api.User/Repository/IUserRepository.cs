@@ -1,4 +1,4 @@
-﻿using Gateway.Controllers;
+﻿using Master.Controllers;
 using System.Data.SqlClient;
 
 namespace Api.User.Repository

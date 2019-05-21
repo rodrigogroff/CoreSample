@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace Gateway.Controllers
+namespace Master.Controllers
 {    
     public class BaseController : ControllerBase
     {
@@ -26,7 +26,7 @@ namespace Gateway.Controllers
         protected AuthenticatedUser GetCurrentAuthenticatedUser()
         {
             var handler = new JwtSecurityTokenHandler();
-            var authHeader = Request.Headers[GatewayController.AuthorizationTag].ToString().Replace("Bearer ", "");
+            var authHeader = Request.Headers[MasterController.AuthorizationTag].ToString().Replace("Bearer ", "");
             var jsonToken = handler.ReadToken(authHeader);
             var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
 

@@ -1,6 +1,6 @@
 ﻿using Api.User.Repository;
 using Api.User.Service;
-using Gateway.Controllers;
+using Master.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;

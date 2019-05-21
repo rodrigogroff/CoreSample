@@ -1,4 +1,4 @@
-﻿using Gateway.Controllers;
+﻿using Master.Controllers;
 using System.Data.SqlClient;
 using Api.User.Repository;
 

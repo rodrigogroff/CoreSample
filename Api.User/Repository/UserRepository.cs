@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Gateway.Controllers;
+using Master.Controllers;
 using System.Data.SqlClient;
 using System.Linq;
 

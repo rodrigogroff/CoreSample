@@ -1,5 +1,5 @@
 ﻿
-namespace Gateway.Controllers
+namespace Master.Controllers
 {
     public class NewUserData
     {

@@ -8,10 +8,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RestSharp;
 
-namespace Gateway.Controllers
+namespace Master.Controllers
 {
     [ApiController]
-    public class GatewayController : ControllerBase
+    public class MasterController : ControllerBase
     {
         public const string AuthorizationTag = "Authorization";
         public string contentServiceResponse = "";
@@ -25,7 +25,7 @@ namespace Gateway.Controllers
 
         public LocalNetworkTypes myNetworkType;
 
-        public GatewayController(IOptions<Features> _feature, IOptions<LocalNetwork> _network)
+        public MasterController(IOptions<Features> _feature, IOptions<LocalNetwork> _network)
         {
             this.features = _feature.Value;
             this.network = _network.Value;

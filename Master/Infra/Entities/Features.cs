@@ -1,5 +1,5 @@
 ﻿
-namespace Gateway
+namespace Master
 {
     public class FeatureState
     {

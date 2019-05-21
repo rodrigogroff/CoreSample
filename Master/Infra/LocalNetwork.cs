@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Gateway
+namespace Master
 {
     public enum LocalNetworkTypes
     {

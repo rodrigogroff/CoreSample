@@ -1,26 +1,57 @@
-using Gateway.Controllers;
+using Master.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
 
 namespace Integration
 {
     [TestClass]
     public class BaseTest
     {
-        public string Gateway = "http://localhost:18523";
+        public string master = "http://localhost:18523";
 
-        public string GetBearer(string login, string pass)
+        public string CreateIntegrationUser()
         {
+            var dtStamp = DateTime.Now.ToString("ddMMyyyyHHmmss");
+            var _email = dtStamp + "_z@z.com";
+
+            #region - create user - 
+            {
+                var client = new RestClient(master);
+                var request = new RestRequest("api/v1/user/createAccount", Method.POST);
+
+                request.AddJsonBody(new NewUserData
+                {
+                    Email = _email,
+                    Name = dtStamp + "_integration",
+                    Password = "123456",
+                    Phone = "",
+                });
+
+                IRestResponse response = client.Execute(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                    Assert.Fail("createAccount nok 1");
+            }
+            #endregion
+
+            return _email;
+        }
+
+        public string CreateAndAuthorize(ref string email)
+        {
+            email = CreateIntegrationUser();
+
             #region - code - 
 
-            var client = new RestClient(Gateway);
+            var client = new RestClient(master);
             var request = new RestRequest("api/v1/user/authenticate", Method.POST);
 
             request.AddJsonBody(new LoginInformation
             {
-                Login = login,
-                Passwd = pass
+                Login = email,
+                Passwd = "123456"
             });
 
             IRestResponse response = client.Execute(request);
@@ -37,7 +68,6 @@ namespace Integration
 
             #endregion
         }
-
 
         public string Cleanup(string src)
         {

@@ -13,31 +13,12 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "",                
             }))
             {
                 Assert.Fail("CreateAccount // Name empty accepted");
-            }
-
-            #endregion
-        }
-
-        [Test]
-        public void UT_User_CreateAccount_Name_OK()
-        {
-            #region - code - 
-
-            var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
-
-            if (!createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
-            {
-                Name = "test",
-            }))
-            {
-                Assert.Fail("CreateAccount // Name Ok failed");
             }
 
             #endregion
@@ -51,7 +32,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = ""
@@ -71,7 +52,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "fddd"
@@ -91,33 +72,13 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "fddd@fdsd"
             }))
             {
                 Assert.Fail("CreateAccount // Email invalid 3 accepted");
-            }
-
-            #endregion
-        }
-
-        [Test]
-        public void UT_User_CreateAccount_Email_OK()
-        {
-            #region - code - 
-
-            var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
-
-            if (!createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
-            {
-                Name = "xxx",
-                Email = "test@test.com"
-            }))
-            {
-                Assert.Fail("CreateAccount // Email OK failed");
             }
 
             #endregion
@@ -131,7 +92,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -152,7 +113,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -166,27 +127,6 @@ namespace UnitTesting
         }
 
         [Test]
-        public void UT_User_CreateAccount_Password_OK()
-        {
-            #region - code - 
-
-            var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
-
-            if (!createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
-            {
-                Name = "xxx",
-                Email = "x@c.com",
-                Password = "12345"
-            }))
-            {
-                Assert.Fail("CreateAccount // Password OK failed");
-            }
-
-            #endregion
-        }
-
-        [Test]
         public void UT_User_CreateAccount_UserExist()
         {
             #region - code - 
@@ -194,7 +134,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -208,14 +148,14 @@ namespace UnitTesting
         }
 
         [Test]
-        public void UT_User_CreateAccount_UserNotExist()
+        public void UT_User_CreateAccount_OK()
         {
             #region - code - 
 
             var repo = new mockUserRepositoryUserNotExists();
             var createAccMock = new CreateAccountV1(repo);
 
-            if (!createAccMock.CreateAccount(null, new Gateway.Controllers.NewUserData
+            if (!createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",

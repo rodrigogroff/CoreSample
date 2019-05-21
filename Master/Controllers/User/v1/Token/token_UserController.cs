@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Gateway.Controllers
+namespace Master.Controllers
 {
-    public partial class UserController : GatewayController
+    public partial class UserController : MasterController
     {
         [HttpGet("api/v1/user/{id}")]
         public ActionResult<string> Get(int id)

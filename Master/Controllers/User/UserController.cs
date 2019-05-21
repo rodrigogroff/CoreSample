@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace Gateway.Controllers
+namespace Master.Controllers
 {
     [Authorize]
-    public partial class UserController : GatewayController
+    public partial class UserController : MasterController
     {     
         public UserController ( IOptions<Features> _feature,
                                 IOptions<LocalNetwork> _network) :                             

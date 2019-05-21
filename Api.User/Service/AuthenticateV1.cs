@@ -1,5 +1,5 @@
 ﻿using Api.User.Repository;
-using Gateway.Controllers;
+using Master.Controllers;
 
 namespace Api.User.Service
 {

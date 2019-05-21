@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Gateway.Controllers
+namespace Master.Controllers
 {
-    public partial class UserController : GatewayController
+    public partial class UserController : MasterController
     {
         [AllowAnonymous]
         [HttpPost("api/v1/user/createAccount")]
