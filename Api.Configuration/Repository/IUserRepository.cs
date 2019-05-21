@@ -5,8 +5,8 @@ namespace Api.User.Repository
 {
     public interface IUserRepository
     {
-        bool ClientExists(SqlConnection db, long clientID);
-        bool UserExists(SqlConnection db, string name, long clientID);
+        bool ClientExists(SqlConnection db, string clientGuid);
+        bool UserExists(SqlConnection db, string name, string clientGuid);
         long AddUser(SqlConnection db, NewUserData user);
     }
 }

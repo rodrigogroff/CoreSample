@@ -139,7 +139,7 @@ namespace UnitTesting
                 Name = "xxx",
                 Email = "x@c.com",
                 Password = "123456",
-                ClientID = 1
+                ClientGUID = ""
             }))
             {
                 Assert.Fail("CreateAccount // Existing user cannot create same account");
@@ -161,7 +161,7 @@ namespace UnitTesting
                 Name = "xxx",
                 Email = "x@c.com",
                 Password = "123456",
-                ClientID = null
+                ClientGUID = null
             }))
             {
                 Assert.Fail("CreateAccount // Client invalid passed [1]");
@@ -183,32 +183,10 @@ namespace UnitTesting
                 Name = "xxx",
                 Email = "x@c.com",
                 Password = "123456",
-                ClientID = 0
+                ClientGUID = "xxxx"
             }))
             {
                 Assert.Fail("CreateAccount // Client invalid passed [2]");
-            }
-
-            #endregion
-        }
-
-        [Test]
-        public void UT_User_CreateAccount_ClientFail_3()
-        {
-            #region - code - 
-
-            var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
-
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
-            {
-                Name = "xxx",
-                Email = "x@c.com",
-                Password = "123456",
-                ClientID = 9999
-            }))
-            {
-                Assert.Fail("CreateAccount // Client invalid passed [3]");
             }
 
             #endregion
@@ -227,7 +205,7 @@ namespace UnitTesting
                 Name = "xxx",
                 Email = "x@c.com",
                 Password = "123456",
-                ClientID = 1
+                ClientGUID = "123456"
             }))
             {
                 Assert.Fail("CreateAccount // Not existing user should create account");

@@ -1,0 +1,27 @@
+
+--------------------------------------------------------------------------------
+Name								Public	Status	Featured	Latest change
+--------------------------------------------------------------------------------
+api/v1/user/createAccount			y		OK		y			ClientID,ClientGuid
+api/v1/user/authenticate			y		OK		y			ClientID,ClientGuid
+api/v1/client/create				y		PLAN	n
+api/v1/admin/createAccount			y		PLAN	y
+api/v1/admin/authenticate			y		PLAN	y
+api/v1/admin/createCategory			n		PLAN	y
+api/v1/admin/editCategory			n		PLAN	n
+api/v1/admin/categories				n		PLAN	n
+api/v1/admin/category				n		PLAN	n
+api/v1/admin/createSubCategory		n		PLAN	y
+api/v1/admin/editSubCategory		n		PLAN	n
+api/v1/admin/subcategories			n		PLAN	n
+api/v1/admin/subcategory			n		PLAN	n
+api/v1/admin/products				n		PLAN	n
+api/v1/admin/product				n		PLAN	n
+api/v1/admin/createProduct			n		PLAN	y
+api/v1/admin/editProduct			n		PLAN	n
+api/v1/portal/clients				y		PLAN	n
+api/v1/portal/menu					y		PLAN	n
+api/v1/portal/categories			y		PLAN	n
+api/v1/portal/subcategories			y		PLAN	n
+api/v1/portal/products				y		PLAN	n
+api/v1/portal/product				y		PLAN	n

@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{421A9E52-8D48-47F1-A1DD-CD2F650A9161}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2FC2848E-1E03-48FD-8AE4-F6D6FCB60381}"
+	ProjectSection(SolutionItems) = preProject
+		endpoints.txt = endpoints.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "Api.Configuration\Configuration.csproj", "{1345D2D9-BFA0-4BCB-A7FA-B97A99761B3A}"
 EndProject

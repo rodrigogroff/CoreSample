@@ -15,6 +15,11 @@ BEGIN
     ALTER TABLE [Client] ADD [Name] [varchar](500) NULL
 END
 
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Client]') AND name = 'Guid')
+BEGIN
+    ALTER TABLE [Client] ADD [Guid] [varchar](99) NULL
+END
+
 ------------------------------------------------
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[Admin]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)

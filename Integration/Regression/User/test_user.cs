@@ -11,29 +11,32 @@ namespace Integration
         [TestMethod]
         public void Authenticate()
         {
-            var email = CreateIntegrationUser();
+            #region - code - 
 
-            #region - authenticate -
+            string email = "", clientGuid = "";
+
+            CreateIntegrationUser(ref email, ref clientGuid);
+
+            var client = new RestClient(master);
+            var request = new RestRequest("api/v1/user/authenticate", Method.POST);
+
+            request.AddJsonBody(new LoginInformation
             {
-                var client = new RestClient(master);
-                var request = new RestRequest("api/v1/user/authenticate", Method.POST);
+                Login = email,
+                Passwd = "123456",
+                ClientGuid = ""                    
+            });
 
-                request.AddJsonBody(new LoginInformation
-                {
-                    Login = email,
-                    Passwd = "123456"
-                });
+            IRestResponse response = client.Execute(request);
 
-                IRestResponse response = client.Execute(request);
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                Assert.Fail("login nok");
 
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                    Assert.Fail("login nok");
+            var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(response.Content);
 
-                var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(response.Content);
-
-                if (string.IsNullOrEmpty(auth.Token))
-                    Assert.Fail("auth.Token null");
-            }
+            if (string.IsNullOrEmpty(auth.Token))
+                Assert.Fail("auth.Token null");
+            
             #endregion
         }
 

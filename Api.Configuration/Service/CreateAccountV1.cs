@@ -56,19 +56,19 @@ namespace Api.User.Service
                 return false;
             }
 
-            if (newUser.ClientID == 0 || newUser.ClientID == null)
+            if (string.IsNullOrEmpty(newUser.ClientGUID))
             {
                 Error.Message = "ClientID must be valid";
                 return false;
             }
 
-            if (!repository.ClientExists(db, (long)newUser.ClientID))
+            if (!repository.ClientExists(db, newUser.ClientGUID))
             {
                 Error.Message = "Client is invalid";
                 return false;
             }
 
-            if (repository.UserExists (db, newUser.Email, (long) newUser.ClientID))
+            if (repository.UserExists (db, newUser.Email, newUser.ClientGUID))
             {
                 Error.Message = "User already registered";
                 return false;

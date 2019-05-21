@@ -75,7 +75,7 @@ namespace Mass
             {
                 using (var db = new SqlConnection(strCon))
                 {
-                    db.Query("insert into [Client] (Name) values (@Name)", new { Name = "Client" + i });
+                    db.Query("insert into [Client] (Name,Guid) values (@Name,@guid)", new { Name = "Client" + i, guid = Guid.NewGuid().ToString() });
                 }
             }
 
