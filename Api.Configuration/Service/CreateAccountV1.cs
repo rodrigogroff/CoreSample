@@ -6,7 +6,7 @@ namespace Api.User.Service
 {
     public class CreateAccountV1
     {
-        public ServiceError Error = new ServiceError();
+        public ServiceError Error;
         public IUserRepository repository;        
 
         public CreateAccountV1 (IUserRepository _repository)
@@ -18,27 +18,27 @@ namespace Api.User.Service
         {
             if (string.IsNullOrEmpty(newUser.Name))
             {
-                Error.Message = "Name is empty!";
+                Error = new ServiceError { Message = "Name is empty!" };
                 return false;
             }
 
             if (string.IsNullOrEmpty(newUser.Email))
             {
-                Error.Message = "Email is empty!";
+                Error = new ServiceError { Message = "Email is empty!" };
                 return false;
             }
             else
             {
                 if (!newUser.Email.Contains("@"))
                 {
-                    Error.Message = "Email is invalid!";
+                    Error = new ServiceError { Message = "Email is invalid!" };
                     return false;
                 }
                 else
                 {
                     if (!newUser.Email.Split('@')[1].Contains("."))
                     {
-                        Error.Message = "Email is invalid!";
+                        Error = new ServiceError { Message = "Email is invalid!" };
                         return false;
                     }
                 }
@@ -46,31 +46,31 @@ namespace Api.User.Service
 
             if (string.IsNullOrEmpty(newUser.Password))
             {
-                Error.Message = "Password is empty!";
+                Error = new ServiceError { Message = "Password is empty!" };
                 return false;
             }
             
             if (newUser.Password.Length < 6)
             {
-                Error.Message = "Password must be 6 characters at least";
+                Error = new ServiceError { Message = "Password must be 6 characters at least" };
                 return false;
             }
 
             if (string.IsNullOrEmpty(newUser.ClientGUID))
             {
-                Error.Message = "ClientID must be valid";
+                Error = new ServiceError { Message = "ClientID must be valid" };
                 return false;
             }
 
             if (!repository.ClientExists(db, newUser.ClientGUID))
             {
-                Error.Message = "Client is invalid";
+                Error = new ServiceError { Message = "Client is invalid" };
                 return false;
             }
 
             if (repository.UserExists (db, newUser.Email, newUser.ClientGUID))
             {
-                Error.Message = "User already registered";
+                Error = new ServiceError { Message = "User already registered" };
                 return false;
             }
 

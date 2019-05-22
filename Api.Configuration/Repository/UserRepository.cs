@@ -46,5 +46,19 @@ namespace Api.User.Repository
 
             return db.Query<long>(sql, new { user.Name, user.Email, user.Phone, user.Password, ClientID = (long)clientId }).Single();
         }
+
+        public bool UserLogin(SqlConnection db, string email, string password, string clientGuid, ref Database.User user_db)
+        {
+            user_db = db.QueryFirstOrDefault<Database.User>
+                ("select * from [User] (nolock) where Email=@email and Password=@password and " +
+                 "ClientID in ( select Id from [Client] (nolock) where Guid = @clientGuid )", new
+                 {
+                     email,
+                     password,
+                     clientGuid
+                 });
+
+            return user_db != null;
+        }
     }
 }

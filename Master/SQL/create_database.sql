@@ -98,6 +98,34 @@ END
 
 ------------------------------------------------
 
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[UserLogin]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[UserLogin] ( [Id] [bigint] IDENTITY(1,1) NOT NULL );
+END
+
+ALTER TABLE [dbo].[UserLogin] ADD CONSTRAINT [PK_UserLogin] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[UserLogin]') AND name = 'UserID')
+BEGIN
+    ALTER TABLE [UserLogin] ADD [UserID] bigint NULL
+END
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[UserLogin]') AND name = 'ClientID')
+BEGIN
+    ALTER TABLE [UserLogin] ADD [ClientID] bigint NULL
+END
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[UserLogin]') AND name = 'DateLogin')
+BEGIN
+    ALTER TABLE [UserLogin] ADD [DateLogin] datetime NULL
+END
+
+------------------------------------------------
+
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[ProductCategory]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
 BEGIN
 CREATE TABLE [dbo].[ProductCategory] ( [Id] [bigint] IDENTITY(1,1) NOT NULL );

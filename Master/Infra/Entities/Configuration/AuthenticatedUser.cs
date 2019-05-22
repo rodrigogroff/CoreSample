@@ -3,8 +3,10 @@ namespace Master.Controllers
 { 
     public class AuthenticatedUser
     {
-        public string Name;
-        public string Id;
+        public long Id;
+        public long ClientID;
+
+        public string Name;        
         public string Email;
         public string Phone;
 

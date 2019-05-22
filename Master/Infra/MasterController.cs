@@ -77,7 +77,7 @@ namespace Master.Controllers
         }
         
         [NonAction]
-        public string ComposeTokenForSession(string loginName)
+        public string ComposeTokenForSession(AuthenticatedUser au)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);
@@ -85,8 +85,11 @@ namespace Master.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                        new Claim(ClaimTypes.Name, loginName),
-                        new Claim("custom", "value")
+                    new Claim("Id", au.Id.ToString()),
+                    new Claim("ClientID", au.ClientID.ToString()),
+                    new Claim("Phone", au.Phone),
+                    new Claim("Email", au.Phone),
+                    new Claim("Name", au.Phone),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

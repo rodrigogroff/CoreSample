@@ -33,17 +33,19 @@ namespace Master.Controllers
 
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
-
-            // custom code!
-
+            
             var resp = ExecuteRemoteService(serviceClient, serviceRequest);
 
             if (!this.IsOk)
                 return resp;
 
             var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(this.contentServiceResponse);
-            auth.Token = ComposeTokenForSession(obj.Login);
-            return Ok(auth);
+            var Token = ComposeTokenForSession(auth);
+
+            return Ok(new 
+            {
+                Token
+            });
         }        
     }
 }

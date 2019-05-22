@@ -3,6 +3,7 @@ using Api.User.Service;
 using Master.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.Data.SqlClient;
 
 namespace Api.User.Controllers
@@ -20,8 +21,6 @@ namespace Api.User.Controllers
         [HttpPost("api/v1/user/createAccount")]
         public ActionResult<string> CreateAccount([FromBody] NewUserData newUser)
         {
-            #region - code - 
-
             try
             {
                 using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
@@ -38,45 +37,43 @@ namespace Api.User.Controllers
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
-
-            #endregion
         }
 
         [HttpPost("api/v1/user/authenticate")]
         public ActionResult<string> Authenticate([FromBody] LoginInformation login)
         {
-            #region - code - 
             try
             {
-                var service = new AuthenticateV1(repository);
+                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AuthenticateV1(repository);
 
-                if (!service.authenticate(login))
-                    return BadRequest(service.Error);
+                    if (!service.authenticate(db, login))
+                        return BadRequest(service.Error);
 
-                return Ok(service.loggedUser);
+                    return Ok(service.loggedUser);
+                }
             }
             catch (System.Exception ex)
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
-            #endregion
         }
 
-        [HttpGet("api/v1/user/{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("api/v1/user/comments")]
+        public ActionResult<string> Comments()
         {
-            #region - code - 
             try
             {
-                var ua = GetCurrentAuthenticatedUser();
-
-                return Ok(ua);
+                var service = new UserActionsV1(repository);
+                var au = GetCurrentAuthenticatedUser();
+                var resp = service.Comments(au);
+                return Ok(JsonConvert.SerializeObject(resp));
             }
             catch (System.Exception ex)
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
-            #endregion
         }
     }
 }

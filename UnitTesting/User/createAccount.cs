@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace UnitTesting
 {    
-    public class UserUT
+    public class UserUT_createAccount
     {
         [Test]
         public void UT_User_CreateAccount_NameInvalid()
