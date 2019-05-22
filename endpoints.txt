@@ -4,7 +4,7 @@ Api					Name								Public	Status		Featured
 ------------------------------------------------------------------------------------------------------------------
 Configuration		api/v1/user/createAccount			y		OK			y			
 Configuration		api/v1/user/authenticate			y		OK			y			
-Configuration		api/v1/user/comments				n		DEV/TU						-- falta criar os produtos
+Configuration		api/v1/user/comments				n		OK			n	
 Configuration		api/v1/user/favorites				n		PLAN		n
 
 Configuration		api/v1/client/create				y		PLAN		n

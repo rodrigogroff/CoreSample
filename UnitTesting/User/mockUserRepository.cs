@@ -18,7 +18,15 @@ namespace UnitTesting
 
         public List<ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
         {
-            throw new System.NotImplementedException();
+            total = 1;
+
+            return new List<ProductComment>
+            {
+                new ProductComment
+                {
+                    Comment = "oi"
+                }
+            };
         }
     }
 
