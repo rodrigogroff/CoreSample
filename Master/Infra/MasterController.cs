@@ -57,27 +57,7 @@ namespace Master.Controllers
         }
 
         [NonAction]
-        public ActionResult<string> ExecuteRemoteService(RestClient client, RestRequest request)
-        {
-            IsOk = false;
-
-            var response = client.Execute(request);
-
-            switch (response.StatusCode)
-            {
-                default:
-                case HttpStatusCode.BadRequest:
-                    return BadRequest(response.Content);
-
-                case HttpStatusCode.OK:
-                    IsOk = true;
-                    contentServiceResponse = response.Content;
-                    return Ok(response.Content);
-            }
-        }
-        
-        [NonAction]
-        public string ComposeTokenForSession(AuthenticatedUser au)
+        public string ComposeTokenForSession(AuthenticatedUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(LocalNetwork.Secret);
@@ -85,11 +65,11 @@ namespace Master.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("Id", au.Id.ToString()),
-                    new Claim("ClientID", au.ClientID.ToString()),
-                    new Claim("Phone", au.Phone),
-                    new Claim("Email", au.Phone),
-                    new Claim("Name", au.Phone),
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("ClientID", user.ClientID.ToString()),
+                    new Claim("Phone", user.Phone),
+                    new Claim("Email", user.Phone),
+                    new Claim("Name", user.Phone),
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -99,5 +79,32 @@ namespace Master.Controllers
 
             return tokenHandler.WriteToken(token);
         }
+
+        [NonAction]
+        public ActionResult<string> ExecuteRemoteService(RestClient client, RestRequest request)
+        {
+            IsOk = false;
+
+            var response = client.Execute(request);
+            var strResp = Cleanup(response.Content);
+
+            switch (response.StatusCode)
+            {
+                default:
+                case HttpStatusCode.BadRequest:
+                    return BadRequest(strResp);
+
+                case HttpStatusCode.OK:
+                    IsOk = true;
+                    contentServiceResponse = response.Content;
+                    return Ok(strResp);
+            }
+        }
+
+        [NonAction]
+        public string Cleanup(string src)
+        {
+            return src.Replace("\\\"", "\"").TrimStart('\"').TrimEnd('\"');
+        }        
     }
 }
