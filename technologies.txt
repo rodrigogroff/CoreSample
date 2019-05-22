@@ -1,0 +1,30 @@
+
+-----------------------
+Web Server
+-----------------------
+	Asp.NET Core 2.2
+	Master (LoadBalancer, dispatcher)
+	Cache (performance)
+	Api (scalability)
+	JWT Authentication
+
+-----------------------
+User Interface
+-----------------------
+	Portal (react)
+	Mobile (react-native)
+
+-----------------------
+QA
+-----------------------
+	Unit testing
+	Full regression tests
+	Api Test (Insomnia environment)
+	Robot testing (selenium)
+	
+-----------------------
+Demonstration
+-----------------------
+	Mass setup (fake data)
+	Bots (simulate user interaction)
+

@@ -6,7 +6,7 @@ using RestSharp;
 namespace Integration
 {
     [TestClass]
-    public class UserAPI : BaseTest
+    public partial class Configuration : BaseTest
     {
         [TestMethod]
         public void Authenticate()
