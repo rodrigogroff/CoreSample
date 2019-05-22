@@ -1,6 +1,7 @@
 ﻿using Api.User.DTO;
 using Api.User.Repository;
 using Master.Controllers;
+using System.Data.SqlClient;
 
 namespace Api.User.Service
 {
@@ -15,9 +16,9 @@ namespace Api.User.Service
             repository = _repository;
         }
 
-        public DTO_UserComments Comments(AuthenticatedUser au)
+        public DTO_UserComments Comments(SqlConnection db, AuthenticatedUser au)
         {
-            return null;
+            return new DTO_UserComments();
         }
 
         public bool SaveComment(UserActionComment comment)

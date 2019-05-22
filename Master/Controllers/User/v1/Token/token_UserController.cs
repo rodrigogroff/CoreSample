@@ -4,8 +4,8 @@ namespace Master.Controllers
 {
     public partial class UserController : MasterController
     {
-        [HttpGet("api/v1/user/{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("api/v1/user/comments")]
+        public ActionResult<string> Comments()
         {
             SetupNetwork();
             GetAuthentication(ref serviceRequest);

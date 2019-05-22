@@ -1,4 +1,5 @@
 using Api.User.Service;
+using Master.Controllers;
 using NUnit.Framework;
 
 namespace UnitTesting
@@ -8,102 +9,56 @@ namespace UnitTesting
         [Test]
         public void UT_User_Authenticate_LoginInvalid()
         {
-            #region - code - 
-
             var repo = new mockUserRepositoryUserExists();
             var service = new AuthenticateV1(repo);
+            var ua = new AuthenticatedUser();
 
-            if (service.authenticate(null, new Master.Controllers.LoginInformation 
-            {
-                Login = ""
-            }))
-            {
+            if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "" }, ref ua))
                 Assert.Fail("Authenticate // Login empty accepted");
-            }
-
-            #endregion
         }
 
         [Test]
         public void UT_User_Authenticate_PasswordInvalid()
         {
-            #region - code - 
-
             var repo = new mockUserRepositoryUserExists();
             var service = new AuthenticateV1(repo);
+            var ua = new AuthenticatedUser();
 
-            if (service.authenticate(null, new Master.Controllers.LoginInformation
-            {
-                Login = "test@test.com",
-                Passwd = ""
-            }))
-            {
+            if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "" }, ref ua))
                 Assert.Fail("Authenticate // Password empty accepted");
-            }
-
-            #endregion
         }
 
         [Test]
         public void UT_User_Authenticate_PasswordInvalid_2()
         {
-            #region - code - 
-
             var repo = new mockUserRepositoryUserExists();
             var service = new AuthenticateV1(repo);
+            var ua = new AuthenticatedUser();
 
-            if (service.authenticate(null, new Master.Controllers.LoginInformation
-            {
-                Login = "test@test.com",
-                Passwd = "123"
-            }))
-            {
+            if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "123" }, ref ua))
                 Assert.Fail("Authenticate // Password invalid passed");
-            }
-
-            #endregion
         }
 
         [Test]
         public void UT_User_Authenticate_ClientInvalid()
         {
-            #region - code - 
-
             var repo = new mockUserRepositoryUserExists();
             var service = new AuthenticateV1(repo);
+            var ua = new AuthenticatedUser();
 
-            if (service.authenticate(null, new Master.Controllers.LoginInformation
-            {
-                Login = "test@test.com",
-                Passwd = "123456",
-                ClientGuid = ""
-            }))
-            {
+            if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "123456", ClientGuid = "" }, ref ua))
                 Assert.Fail("Authenticate // ClientGuid invalid passed");
-            }
-
-            #endregion
         }
 
         [Test]
         public void UT_User_Authenticate_OK()
         {
-            #region - code - 
-
             var repo = new mockUserRepositoryUserExists();
             var service = new AuthenticateV1(repo);
+            var ua = new AuthenticatedUser();
 
-            if (!service.authenticate(null, new Master.Controllers.LoginInformation
-            {
-                Login = "test@test.com",
-                Passwd = "123456",
-                ClientGuid = GetValidClientGuid()
-            }))
-            {
+            if (!service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "123456", ClientGuid = GetValidClientGuid() }, ref ua))
                 Assert.Fail("Authenticate // Failed!");
-            }
-
-            #endregion
         }
     }
 }

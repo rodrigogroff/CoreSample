@@ -1,34 +1,34 @@
 
-------------------------------------------------------------------------------------
-Api					Name								Public	Status	Featured	
-------------------------------------------------------------------------------------
-Configuration		api/v1/user/createAccount			y		OK		y			
-Configuration		api/v1/user/authenticate			y		OK		y			
-Configuration		api/v1/user/comments				n		PLAN	n
-Configuration		api/v1/user/favorites				n		PLAN	n
+------------------------------------------------------------------------------------------------------------------
+Api					Name								Public	Status		Featured	
+------------------------------------------------------------------------------------------------------------------
+Configuration		api/v1/user/createAccount			y		OK			y			
+Configuration		api/v1/user/authenticate			y		OK			y			
+Configuration		api/v1/user/comments				n		DEV/TU						-- falta criar os produtos
+Configuration		api/v1/user/favorites				n		PLAN		n
 
-Configuration		api/v1/client/create				y		PLAN	n
+Configuration		api/v1/client/create				y		PLAN		n
 
-Configuration		api/v1/admin/createAccount			y		PLAN	y
-Configuration		api/v1/admin/authenticate			y		PLAN	y
-Configuration		api/v1/admin/createCategory			n		PLAN	y
-Configuration		api/v1/admin/editCategory			n		PLAN	n
-Configuration		api/v1/admin/categories				n		PLAN	n
-Configuration		api/v1/admin/category				n		PLAN	n
-Configuration		api/v1/admin/createSubCategory		n		PLAN	y
-Configuration		api/v1/admin/editSubCategory		n		PLAN	n
-Configuration		api/v1/admin/subcategories			n		PLAN	n
-Configuration		api/v1/admin/subcategory			n		PLAN	n
-Configuration		api/v1/admin/products				n		PLAN	n
-Configuration		api/v1/admin/product				n		PLAN	n
-Configuration		api/v1/admin/createProduct			n		PLAN	y
-Configuration		api/v1/admin/editProduct			n		PLAN	n
-
-Portal				api/v1/portal/clients				y		PLAN	n
-Portal				api/v1/portal/menu					y		PLAN	n
-Portal				api/v1/portal/categories			y		PLAN	n
-Portal				api/v1/portal/subcategories			y		PLAN	n
-Portal				api/v1/portal/products				y		PLAN	n
-Portal				api/v1/portal/product				y		PLAN	n
-Portal				api/v1/portal/productComment		n		PLAN	n
-Portal				api/v1/portal/productFavorited		n		PLAN	n
+Configuration		api/v1/admin/createAccount			y		PLAN		y
+Configuration		api/v1/admin/authenticate			y		PLAN		y
+Configuration		api/v1/admin/createCategory			n		PLAN		y
+Configuration		api/v1/admin/editCategory			n		PLAN		n
+Configuration		api/v1/admin/categories				n		PLAN		n
+Configuration		api/v1/admin/category				n		PLAN		n
+Configuration		api/v1/admin/createSubCategory		n		PLAN		y
+Configuration		api/v1/admin/editSubCategory		n		PLAN		n
+Configuration		api/v1/admin/subcategories			n		PLAN		n
+Configuration		api/v1/admin/subcategory			n		PLAN		n
+Configuration		api/v1/admin/products				n		PLAN		n
+Configuration		api/v1/admin/product				n		PLAN		n
+Configuration		api/v1/admin/createProduct			n		PLAN		y
+Configuration		api/v1/admin/editProduct			n		PLAN		n
+	
+Portal				api/v1/portal/clients				y		PLAN		n
+Portal				api/v1/portal/menu					y		PLAN		n
+Portal				api/v1/portal/categories			y		PLAN		n
+Portal				api/v1/portal/subcategories			y		PLAN		n
+Portal				api/v1/portal/products				y		PLAN		n
+Portal				api/v1/portal/product				y		PLAN		n
+Portal				api/v1/portal/productComment		n		PLAN		n
+Portal				api/v1/portal/productFavorited		n		PLAN		n

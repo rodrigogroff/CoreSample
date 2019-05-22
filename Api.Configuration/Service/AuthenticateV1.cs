@@ -6,8 +6,7 @@ namespace Api.User.Service
 {
     public class AuthenticateV1
     {
-        public ServiceError Error;
-        public AuthenticatedUser loggedUser;
+        public ServiceError Error;        
         public IUserRepository repository;
 
         public AuthenticateV1(IUserRepository _repository)
@@ -15,7 +14,7 @@ namespace Api.User.Service
             repository = _repository;
         }
 
-        public bool authenticate(SqlConnection db, LoginInformation login)
+        public bool authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
         {
             if (string.IsNullOrEmpty(login.ClientGuid))
             {

@@ -47,11 +47,12 @@ namespace Api.User.Controllers
                 using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new AuthenticateV1(repository);
+                    var ua = new AuthenticatedUser();
 
-                    if (!service.authenticate(db, login))
+                    if (!service.authenticate(db, login, ref ua))
                         return BadRequest(service.Error);
 
-                    return Ok(service.loggedUser);
+                    return Ok(ua);
                 }
             }
             catch (System.Exception ex)
@@ -65,10 +66,12 @@ namespace Api.User.Controllers
         {
             try
             {
-                var service = new UserActionsV1(repository);
-                var au = GetCurrentAuthenticatedUser();
-                var resp = service.Comments(au);
-                return Ok(JsonConvert.SerializeObject(resp));
+                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new UserActionsV1(repository);
+                    var resp = service.Comments(db, GetCurrentAuthenticatedUser());
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
             }
             catch (System.Exception ex)
             {
