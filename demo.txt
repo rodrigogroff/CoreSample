@@ -5,19 +5,21 @@ Prototype: E-Commerce
 
 1) Simulate a full technology demonstration, including:
 	- Asp.net Core 2.2
-	- API scalability	
+	- API scalability (load balancer)	
 	- API security (token)
+	- API Feature On/Off
 	- Backend performance (cache)
 	- Multiple UI (web, mobile)
 
-2) Backend work environment demo
+2) Backend development demo:
 	- Master [1] -> Api [n]
 	- Server / Unit Testing
 	- Server / Regression Testing
 	- Server / Mass setup
 	- Server / Api testing (insomnia)
 
-3) Frontend work environment demo
+3) Frontend development demo:
 	- React (portal)
 	- React native (mobile)
-	- Selenium Bot validation
+	- Selenium for web testing (navigation)
+	

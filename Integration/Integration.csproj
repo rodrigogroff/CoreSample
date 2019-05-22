@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Api.Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
     <ProjectReference Include="..\Master\Master.csproj" />
   </ItemGroup>
 

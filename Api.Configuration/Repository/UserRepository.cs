@@ -10,11 +10,7 @@ namespace Api.User.Repository
     {
         public bool ClientExists(SqlConnection db, string client_guid)
         {
-            return db.QueryFirstOrDefault<long>
-                ("select Id from [Client] (nolock) where Guid=@Client", new
-                {
-                    Client = client_guid
-                }) > 0;
+            return db.QueryFirstOrDefault<long> ("select Id from [Client] (nolock) where Guid=@Client", new { Client = client_guid }) > 0;
         }
 
         public bool UserExists(SqlConnection db, string email, string client_guid)
@@ -29,11 +25,7 @@ namespace Api.User.Repository
 
         public long AddUser(SqlConnection db, NewUserData user)
         {
-            var clientId =  db.QueryFirstOrDefault<long?>
-                            ("select Id from [Client] (nolock) where Guid=@Client", new
-                            {
-                                Client = user.ClientGUID
-                            });
+            var clientId =  db.QueryFirstOrDefault<long?> ("select Id from [Client] (nolock) where Guid=@Client", new { Client = user.ClientGUID });
 
             if (clientId == null)
                 throw (new Exception("Invalid Client Credential"));
@@ -50,13 +42,13 @@ namespace Api.User.Repository
         public bool UserLogin(SqlConnection db, string email, string password, string clientGuid, ref Database.User user_db)
         {
             user_db = db.QueryFirstOrDefault<Database.User>
-                ("select * from [User] (nolock) where Email=@email and Password=@password and " +
-                 "ClientID in ( select Id from [Client] (nolock) where Guid = @clientGuid )", new
-                 {
-                     email,
-                     password,
-                     clientGuid
-                 });
+                        ("select * from [User] (nolock) where Email=@email and Password=@password and " +
+                        "ClientID in ( select Id from [Client] (nolock) where Guid = @clientGuid )", new
+                        {
+                            email,
+                            password,
+                            clientGuid
+                        });
 
             return user_db != null;
         }

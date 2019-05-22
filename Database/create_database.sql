@@ -251,6 +251,10 @@ BEGIN
     ALTER TABLE [ProductComment] ADD [Comment] [varchar](500) NULL
 END
 
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductComment]') AND name = 'DateAdded')
+BEGIN
+    ALTER TABLE [ProductComment] ADD [DateAdded] datetime NULL
+END
 ------------------------------------------------
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[ProductFavorited]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)

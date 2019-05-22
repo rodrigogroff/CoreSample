@@ -70,6 +70,7 @@ namespace Api.User.Controllers
                 {
                     var service = new UserActionsV1(repository);
                     var resp = service.Comments(db, GetCurrentAuthenticatedUser());
+
                     return Ok(JsonConvert.SerializeObject(resp));
                 }
             }
