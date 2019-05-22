@@ -23,7 +23,7 @@ namespace Api.User.Controllers
         {
             try
             {
-                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new CreateAccountV1(repository);
 
@@ -44,7 +44,7 @@ namespace Api.User.Controllers
         {
             try
             {
-                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new AuthenticateV1(repository);
                     var ua = new AuthenticatedUser();
@@ -62,14 +62,14 @@ namespace Api.User.Controllers
         }
 
         [HttpGet("api/v1/user/comments")]
-        public ActionResult<string> Comments()
+        public ActionResult<string> Comments(int skip, int take)
         {
             try
             {
-                using (SqlConnection db = new SqlConnection(GetDBConnectionString()))
+                using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new UserActionsV1(repository);
-                    var resp = service.Comments(db, GetCurrentAuthenticatedUser());
+                    var resp = service.Comments(db, GetCurrentAuthenticatedUser(), skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));
                 }

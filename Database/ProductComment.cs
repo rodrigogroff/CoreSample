@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Database
 {
     public class ProductComment
@@ -9,6 +11,8 @@ namespace Database
 
         public long? UserID { get; set; }
 
-        public string Comment { get; set; }        
+        public string Comment { get; set; }
+
+        public DateTime? DateAdded { get; set; }
     }
 }

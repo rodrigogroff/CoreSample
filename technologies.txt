@@ -8,7 +8,7 @@ Web Server
 	Api (scalability)
 	JWT Authentication
 	Feature On/off
-	Api versioning
+	Api versioning (v1/v2)
 
 -----------------------
 User Interface

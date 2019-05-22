@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using Database;
 using Master.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -51,6 +53,15 @@ namespace Api.User.Repository
                         });
 
             return user_db != null;
+        }
+
+        public List<ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
+        {
+            total = db.Query<int>("select count(*) from [ProductComment] where UserID = @userId", new { userId }).Single();
+
+            return db.Query<ProductComment>("select * from [ProductComment] where UserID = @userId " +
+                                            "order by DateAdded desc offset " +  skip + " rows fetch next " + take + " rows only", 
+                                            new { userId }).ToList();
         }
     }
 }

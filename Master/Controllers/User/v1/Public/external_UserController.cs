@@ -42,10 +42,7 @@ namespace Master.Controllers
             var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(this.contentServiceResponse);
             var Token = ComposeTokenForSession(auth);
 
-            return Ok(new 
-            {
-                Token
-            });
+            return Ok(new { Token });
         }        
     }
 }

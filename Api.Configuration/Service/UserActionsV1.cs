@@ -15,11 +15,28 @@ namespace Api.User.Service
             repository = _repository;
         }
 
-        public DTO_UserComments Comments(SqlConnection db, AuthenticatedUser au)
+        public DTO_UserComments Comments(SqlConnection db, AuthenticatedUser au, int skip, int take)
         {
-            
+            var retComments = new DTO_UserComments();
 
-            return new DTO_UserComments();
+            var lst = repository.UserComments(db, au.Id, skip, take, ref retComments.total);
+
+            if (lst != null && lst.Count > 0)
+            {
+                foreach (var item in lst)
+                {
+                    retComments.list.Add(new DTO_UserCommentInformation
+                    {
+                        Comment = item.Comment,
+                        Date = item.DateAdded,
+                        ProductName = "x",
+                        ProductCategory = "y",
+                        ProductId = 1
+                    });
+                }
+            }
+
+            return retComments;
         }
 
         public bool SaveComment(UserActionComment comment)
