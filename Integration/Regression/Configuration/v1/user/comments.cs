@@ -8,31 +8,21 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void Authenticate()
+        public void Comments()
         {
-            string email = "", clientGuid = "";
-
-            CreateIntegrationUser(ref email, ref clientGuid);
+            string email = "", client_guid = "";
+            string bearer = CreateAndAuthorize(ref email, ref client_guid);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/authenticate", Method.POST);
+            var request = new RestRequest("api/v1/user/comments", Method.GET);
 
-            request.AddJsonBody(new LoginInformation
-            {
-                Login = email,
-                Passwd = "123456",                
-                ClientGuid = clientGuid
-            });
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", "Bearer " + bearer);
 
             IRestResponse response = client.Execute(request);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                Assert.Fail("login nok");
-
-            var auth = JsonConvert.DeserializeObject<AuthenticatedUser>(response.Content);
-
-            if (string.IsNullOrEmpty(auth.Token))
-                Assert.Fail("auth.Token null");
+                Assert.Fail("GetUser nok [1]");
         }
 
         /*

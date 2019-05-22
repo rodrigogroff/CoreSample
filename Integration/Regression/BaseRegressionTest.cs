@@ -5,9 +5,16 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace Integration
 {
+    [TestClass]
+    public partial class Configuration : BaseTest
+    {
+
+    }
+
     [TestClass]
     public class BaseTest
     {
@@ -18,7 +25,11 @@ namespace Integration
         {
             #region - code - 
 
-            var dtStamp = DateTime.Now.ToString("ddMMyyyyHHmmss");
+            var r = new Random();
+
+            Thread.Sleep(1);
+            
+            var dtStamp = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + r.Next(1, 9999);
 
             email = dtStamp + "_z@z.com";
             
