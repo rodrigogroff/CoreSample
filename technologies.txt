@@ -7,6 +7,8 @@ Web Server
 	Cache (performance)
 	Api (scalability)
 	JWT Authentication
+	Feature On/off
+	Api versioning
 
 -----------------------
 User Interface
