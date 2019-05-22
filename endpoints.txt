@@ -25,3 +25,5 @@ Portal				api/v1/portal/categories			y		PLAN	n
 Portal				api/v1/portal/subcategories			y		PLAN	n
 Portal				api/v1/portal/products				y		PLAN	n
 Portal				api/v1/portal/product				y		PLAN	n
+Portal				api/v1/portal/productComment		n		PLAN	n
+Portal				api/v1/portal/productFavorited		n		PLAN	n
