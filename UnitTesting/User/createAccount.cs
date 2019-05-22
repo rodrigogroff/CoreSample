@@ -11,9 +11,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "",                
             }))
@@ -30,9 +30,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = ""
@@ -50,9 +50,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "fddd"
@@ -70,9 +70,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "fddd@fdsd"
@@ -90,9 +90,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -111,9 +111,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -132,9 +132,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -154,9 +154,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -176,9 +176,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",
@@ -198,9 +198,9 @@ namespace UnitTesting
             #region - code - 
 
             var repo = new mockUserRepositoryUserNotExists();
-            var createAccMock = new CreateAccountV1(repo);
+            var service = new CreateAccountV1(repo);
 
-            if (!createAccMock.CreateAccount(null, new Master.Controllers.NewUserData
+            if (!service.CreateAccount(null, new Master.Controllers.NewUserData
             {
                 Name = "xxx",
                 Email = "x@c.com",

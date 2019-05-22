@@ -11,8 +11,6 @@ namespace Integration
         [TestMethod]
         public void Authenticate()
         {
-            #region - code - 
-
             string email = "", clientGuid = "";
 
             CreateIntegrationUser(ref email, ref clientGuid);
@@ -23,8 +21,8 @@ namespace Integration
             request.AddJsonBody(new LoginInformation
             {
                 Login = email,
-                Passwd = "123456",
-                ClientGuid = ""                    
+                Passwd = "123456",                
+                ClientGuid = clientGuid
             });
 
             IRestResponse response = client.Execute(request);
@@ -36,8 +34,6 @@ namespace Integration
 
             if (string.IsNullOrEmpty(auth.Token))
                 Assert.Fail("auth.Token null");
-            
-            #endregion
         }
 
         /*
