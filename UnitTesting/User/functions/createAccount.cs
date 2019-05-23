@@ -1,4 +1,5 @@
 using Api.Configuration.Service;
+using Entities.Api.Configuration;
 using NUnit.Framework;
 
 namespace UnitTesting
@@ -11,7 +12,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "" }))
                 Assert.Fail("CreateAccount // Name empty accepted");
         }
 
@@ -21,7 +22,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "" }))
                 Assert.Fail("CreateAccount // Email invalid 1 accepted");
         }
 
@@ -31,7 +32,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "fddd" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "fddd" }))
                 Assert.Fail("CreateAccount // Email invalid 2 accepted");
         }
 
@@ -41,7 +42,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "fddd@fdsd" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "fddd@fdsd" }))
                 Assert.Fail("CreateAccount // Email invalid 3 accepted");
         }
 
@@ -51,7 +52,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "" }))
                 Assert.Fail("CreateAccount // cannot be empty");
         }
 
@@ -61,7 +62,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "12345" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "12345" }))
                 Assert.Fail("CreateAccount // cannot be empty");
         }
 
@@ -71,7 +72,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
+            if (service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
                 Assert.Fail("CreateAccount // Existing user cannot create same account");
         }
 
@@ -81,7 +82,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserNotExists();
             var service = new UserCreateAccountV1(repo);
 
-            if (!service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
+            if (!service.CreateAccount(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
                 Assert.Fail("CreateAccount // Not existing user should create account");
         }
     }

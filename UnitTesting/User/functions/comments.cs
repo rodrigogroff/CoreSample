@@ -1,4 +1,5 @@
 using Api.Configuration.Service;
+using Entities.Api.Configuration;
 using NUnit.Framework;
 
 namespace UnitTesting
@@ -11,7 +12,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCommentsV1(repo);
 
-            var dto = service.Comments(null, new Master.Controllers.AuthenticatedUser(), 0, 1);
+            var dto = service.Comments(null, new AuthenticatedUser(), 0, 1);
 
             if (dto.total != 1)
                 Assert.Fail("dto.total");

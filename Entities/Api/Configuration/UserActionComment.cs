@@ -1,5 +1,5 @@
 ﻿
-namespace Master.Controllers
+namespace Entities.Api.Configuration
 {
     public class UserActionComment
     {

@@ -1,5 +1,7 @@
 ﻿using Api.Configuration.Repository;
 using Api.Configuration.Service;
+using Entities.Api;
+using Entities.Api.Configuration;
 using Master.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

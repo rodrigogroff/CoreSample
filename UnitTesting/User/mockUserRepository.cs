@@ -1,6 +1,5 @@
-﻿using Database;
-using Api.Configuration.Repository;
-using Master.Controllers;
+﻿using Api.Configuration.Repository;
+using Entities.Api.Configuration;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -12,15 +11,15 @@ namespace UnitTesting
         
         public bool UserExists(SqlConnection db, string email ) { return true; }
 
-        public bool UserLogin(SqlConnection db, string email, string password, ref User user) { return true; }
+        public bool UserLogin(SqlConnection db, string email, string password, ref Entities.Database.User user) { return true; }
 
-        public List<ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
+        public List<Entities.Database.ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
         {
             total = 1;
 
-            return new List<ProductComment>
+            return new List<Entities.Database.ProductComment>
             {
-                new ProductComment
+                new Entities.Database.ProductComment
                 {
                     Comment = "oi"
                 }
@@ -34,9 +33,9 @@ namespace UnitTesting
 
         public bool UserExists(SqlConnection db, string email ) { return false; }
 
-        public bool UserLogin(SqlConnection db, string email, string password, ref User user) { return false; }
+        public bool UserLogin(SqlConnection db, string email, string password, ref Entities.Database.User user) { return false; }
 
-        public List<ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
+        public List<Entities.Database.ProductComment> UserComments(SqlConnection db, long userId, int skip, int take, ref int total)
         {
             throw new System.NotImplementedException();
         }

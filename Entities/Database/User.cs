@@ -1,5 +1,5 @@
 ﻿
-namespace Database
+namespace Entities.Database
 {
     public class User
     {
