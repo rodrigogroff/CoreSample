@@ -7,8 +7,6 @@ Configuration		api/v1/user/authenticate			y		OK			y
 Configuration		api/v1/user/comments				n		OK			n	
 Configuration		api/v1/user/favorites				n		PLAN		n
 
-Configuration		api/v1/client/create				y		PLAN		n
-
 Configuration		api/v1/admin/createAccount			y		PLAN		y
 Configuration		api/v1/admin/authenticate			y		PLAN		y
 Configuration		api/v1/admin/createCategory			n		PLAN		y

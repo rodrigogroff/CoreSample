@@ -66,42 +66,31 @@ namespace Mass
 
             using (var db = new SqlConnection(strCon))
             {
-                db.Query("truncate table [Client]");
                 db.Query("truncate table [Admin]");
                 db.Query("truncate table [User]");
             }
 
-            for (int i = 1; i <= 100; i++)
+            using (var db = new SqlConnection(strCon))
             {
-                using (var db = new SqlConnection(strCon))
+                db.Query("insert into [Admin] (Name,Email,Password) values (@Name,@Email,@Password)", 
+                    new { Name = GetNome(ref lstPrimeirosNomes, ref lstSobrenomes), Email = "dba@client.com", Password = "123456" });
+
+                StringBuilder sb = new StringBuilder();
+
+                for (int j = 1; j <= 100; j++)
                 {
-                    db.Query("insert into [Client] (Name,Guid) values (@Name,@guid)", new { Name = "Client" + i, guid = Guid.NewGuid().ToString() });
-                }
-            }
+                    sb.AppendLine ( "insert into [User] (Name,Email,Password) values ('" + 
+                                    GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client.com', '123456');");
 
-            for (int i = 1; i <= 100; i++)
-            {
-                using (var db = new SqlConnection(strCon))
-                {
-                    db.Query("insert into [Admin] (Name,Email,Password) values (@Name,@Email,@Password)", 
-                        new { Name = GetNome(ref lstPrimeirosNomes, ref lstSobrenomes), Email = "dba@client"+ i + ".com", Password = "123456" });
-
-                    StringBuilder sb = new StringBuilder();
-
-                    for (int j = 1; j <= 1000; j++)
+                    if (j % 100 == 0)
                     {
-                        sb.AppendLine ( "insert into [User] (Name,Email,Password) values ('" + 
-                                        GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client" + i + ".com', '123456');");
-
-                        if (j % 100 == 0)
-                        {
-                            Console.WriteLine(i + "."+ j);
-                            db.Query(sb.ToString());
-                            sb.Clear();
-                        }                        
-                    }
+                        Console.WriteLine(j);
+                        db.Query(sb.ToString());
+                        sb.Clear();
+                    }                        
                 }
             }
+            
         }
     }
 }
