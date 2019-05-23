@@ -31,6 +31,16 @@ namespace UnitTesting
         {
             return 1;
         }
+
+        public bool CategoryExists(SqlConnection db, long id)
+        {
+            return true;
+        }
+
+        public void CategoryEdit(SqlConnection db, NewCategoryData obj)
+        {
+            
+        }        
     }
 
     public class mockAdminRepositoryUserNotExists : IAdminRepository
@@ -58,6 +68,21 @@ namespace UnitTesting
         public long CategoryAdd(SqlConnection db, NewCategoryData obj)
         {
             return 1;
+        }
+
+        public bool CategoryExists(SqlConnection db, string name, long id)
+        {
+            return false;
+        }
+
+        public bool CategoryExists(SqlConnection db, long id)
+        {
+            return false;
+        }
+
+        public void CategoryEdit(SqlConnection db, NewCategoryData obj)
+        {
+            
         }
     }
 }

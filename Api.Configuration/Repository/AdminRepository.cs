@@ -48,6 +48,15 @@ namespace Api.Configuration.Repository
                 }) > 0;
         }
 
+        public bool CategoryExists(SqlConnection db, long id)
+        {
+            return db.QueryFirstOrDefault<long>
+                ("select Id from [ProductCategory] (nolock) where Id=@id", new
+                {
+                    id
+                }) > 0;
+        }
+
         public long CategoryAdd(SqlConnection db, NewCategoryData obj)
         {
             string sql = @"INSERT INTO [ProductCategory] 
@@ -57,6 +66,11 @@ namespace Api.Configuration.Repository
                           SELECT CAST(SCOPE_IDENTITY() as bigint)";
 
             return db.Query<long>(sql, new { obj.Name }).Single();
+        }
+
+        public void CategoryEdit(SqlConnection db, NewCategoryData obj)
+        {
+            db.Query(@"update [ProductCategory] set Name=@Name where Id=@Id", new { obj.Name, obj.Id });
         }
     }
 }

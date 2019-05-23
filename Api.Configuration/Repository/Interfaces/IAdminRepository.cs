@@ -10,6 +10,9 @@ namespace Api.Configuration.Repository
         long AdminAdd(SqlConnection db, NewUserData user);
         
         bool CategoryExists(SqlConnection db, string name);
+
+        bool CategoryExists(SqlConnection db, long id);
         long CategoryAdd(SqlConnection db, NewCategoryData obj);
+        void CategoryEdit(SqlConnection db, NewCategoryData obj);
     }
 }

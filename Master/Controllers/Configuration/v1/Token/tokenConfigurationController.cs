@@ -31,5 +31,13 @@ namespace Api.Master.Controllers
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpPost("api/v1/admin/editCategory")]
+        public ActionResult<string> AdminEditCategory([FromBody] NewCategoryData obj)
+        {
+            SetupNetwork();
+            serviceRequest.AddJsonBody(obj);
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

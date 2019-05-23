@@ -24,7 +24,6 @@ namespace Integration
             #region - code - 
 
             var r = new Random();
-
             Thread.Sleep(1);
 
             var dtStamp = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + r.Next(1, 9999);
@@ -54,7 +53,7 @@ namespace Integration
         {
             #region - code - 
 
-            CreateIntegrationUser(ref email);
+            CreateIntegrationAdmin(ref email);
 
             var client = new RestClient(master);
             var request = new RestRequest("api/v1/admin/authenticate", Method.POST);

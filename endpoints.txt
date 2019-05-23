@@ -9,9 +9,9 @@ Configuration		api/v1/user/favorites				n		PLAN		n
 
 Configuration		api/v1/admin/createAccount			y		OK			n
 Configuration		api/v1/admin/authenticate			y		OK			n
-Configuration		api/v1/admin/createCategory			n		DEV			y
-Configuration		api/v1/admin/editCategory			n		PLAN		n
-Configuration		api/v1/admin/categories				n		PLAN		n
+Configuration		api/v1/admin/createCategory			n		OK			y
+Configuration		api/v1/admin/editCategory			n		OK			n
+Configuration		api/v1/admin/categories				n		DEV			n
 Configuration		api/v1/admin/category				n		PLAN		n
 Configuration		api/v1/admin/createSubCategory		n		PLAN		y
 Configuration		api/v1/admin/editSubCategory		n		PLAN		n
