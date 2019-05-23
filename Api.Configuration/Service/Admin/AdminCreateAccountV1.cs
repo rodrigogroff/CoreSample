@@ -63,7 +63,7 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            repository.AddAdmin(db, newUser);
+            repository.AdminAdd(db, newUser);
 
             return true;
         }

@@ -63,7 +63,7 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            repository.AddUser(db, newUser);
+            repository.UserAdd(db, newUser);
 
             return true;
         }

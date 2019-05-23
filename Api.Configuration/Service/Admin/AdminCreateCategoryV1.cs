@@ -29,7 +29,7 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            repository.AddCategory(db, obj);
+            repository.CategoryAdd(db, obj);
             
             return true;
         }

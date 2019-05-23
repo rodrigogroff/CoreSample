@@ -16,7 +16,7 @@ namespace Api.Configuration.Repository
                 }) > 0;
         }
 
-        public long AddAdmin(SqlConnection db, NewUserData user)
+        public long AdminAdd(SqlConnection db, NewUserData user)
         {
             string sql = @"INSERT INTO [Admin] 
                           (Name,Email,Phone,Password) 
@@ -48,7 +48,7 @@ namespace Api.Configuration.Repository
                 }) > 0;
         }
 
-        public long AddCategory(SqlConnection db, NewCategoryData obj)
+        public long CategoryAdd(SqlConnection db, NewCategoryData obj)
         {
             string sql = @"INSERT INTO [ProductCategory] 
                           (Name) 

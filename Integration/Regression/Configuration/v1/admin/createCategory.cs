@@ -1,3 +1,4 @@
+using Entities.Api.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
@@ -6,20 +7,26 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void UserComments()
+        public void AdminCreateCategory()
         {
             string email = "";
-            string bearer = CreateAndAuthorizeUser(ref email);
+
+            var bearer = CreateAndAuthorizeAdmin(ref email);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/comments?skip=0&take=1", Method.GET);
+            var request = new RestRequest("api/v1/admin/createcategory", Method.POST);
 
             request.AddHeader("Authorization", "Bearer " + bearer);
+
+            request.AddJsonBody(new NewCategoryData
+            {
+                Name = "categ test"                
+            });
 
             IRestResponse response = client.Execute(request);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                Assert.Fail("comments nok [1]");
+                Assert.Fail("login nok");
         }
     }
 }

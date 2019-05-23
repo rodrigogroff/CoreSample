@@ -7,7 +7,7 @@ namespace UnitTesting
 {
     public class mockUserRepositoryUserExists : IUserRepository
     {
-        public long AddUser(SqlConnection db, NewUserData user)
+        public long UserAdd(SqlConnection db, NewUserData user)
         {
             return 1;
         }
@@ -37,7 +37,7 @@ namespace UnitTesting
 
     public class mockUserRepositoryUserNotExists : IUserRepository
     {
-        public long AddUser(SqlConnection db, NewUserData user)
+        public long UserAdd(SqlConnection db, NewUserData user)
         {
             return 1;
         }

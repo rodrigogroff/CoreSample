@@ -17,7 +17,7 @@ namespace Api.Configuration.Repository
                 }) > 0;
         }
 
-        public long AddUser(SqlConnection db, NewUserData user)
+        public long UserAdd(SqlConnection db, NewUserData user)
         {
             string sql = @"INSERT INTO [User] 
                           (Name,Email,Phone,Password) 
