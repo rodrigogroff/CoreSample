@@ -1,10 +1,8 @@
-using Dapper;
 using Master.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Data.SqlClient;
 using System.Threading;
 
 namespace Integration
@@ -32,15 +30,6 @@ namespace Integration
             var dtStamp = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + r.Next(1, 9999);
 
             email = dtStamp + "_z@z.com";
-            
-            using (var db = new SqlConnection(strCon))
-            {
-                clientGuid = db.QueryFirstOrDefault<string>
-                                ("select Guid from [Client] (nolock) where Id=@Client", new
-                                {
-                                    Client = 1
-                                });
-            }
             
             var client = new RestClient(master);
             var request = new RestRequest("api/v1/user/createAccount", Method.POST);
@@ -74,7 +63,6 @@ namespace Integration
             {
                 Login = email,
                 Passwd = "123456",
-                ClientGuid = clientGuid
             });
 
             IRestResponse response = client.Execute(request);

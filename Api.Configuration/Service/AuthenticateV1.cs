@@ -16,12 +16,6 @@ namespace Api.User.Service
 
         public bool authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
         {
-            if (string.IsNullOrEmpty(login.ClientGuid))
-            {
-                Error = new ServiceError { Message = "Invalid Client" };
-                return false;
-            }
-
             if (string.IsNullOrEmpty(login.Login))
             {
                 Error = new ServiceError { Message = "Invalid login" };

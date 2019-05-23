@@ -5,6 +5,5 @@ namespace Master.Controllers
     {
         public string Login;
         public string Passwd;
-        public string ClientGuid;
     }
 }

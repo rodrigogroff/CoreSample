@@ -21,7 +21,6 @@ namespace Integration
             {
                 Login = email,
                 Passwd = "123456",                
-                ClientGuid = clientGuid
             });
 
             IRestResponse response = client.Execute(request);
@@ -34,31 +33,5 @@ namespace Integration
             if (string.IsNullOrEmpty(auth.Token))
                 Assert.Fail("auth.Token null");
         }
-
-        /*
-        [TestMethod]
-        public void GetUser()
-        {
-            string email = "";
-            string bearer = CreateAndAuthorize(ref email);
-
-            var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/3", Method.GET);
-
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + bearer);
-
-            IRestResponse response = client.Execute(request);
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                Assert.Fail("GetUser nok [1]");
-
-            
-            var user = JsonConvert.DeserializeObject<AuthenticatedUser>(Cleanup(response.Content));
-
-            if (user.Name != login)
-                Assert.Fail("GetUser nok [2]");
-                
-        }*/
     }
 }

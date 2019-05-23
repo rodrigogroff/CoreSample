@@ -1,6 +1,4 @@
-using Master.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using RestSharp;
 
 namespace Integration
