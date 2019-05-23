@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Api.User.Repository
+namespace Api.Configuration.Repository
 {
     public class UserRepository : IUserRepository
     {        

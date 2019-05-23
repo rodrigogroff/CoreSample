@@ -1,5 +1,5 @@
 ﻿
-namespace Api.User.DTO
+namespace Api.Configuration.DTO
 {
     public class DTO_UserInformation
     {

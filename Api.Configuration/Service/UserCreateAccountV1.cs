@@ -1,15 +1,15 @@
 ﻿using Master.Controllers;
 using System.Data.SqlClient;
-using Api.User.Repository;
+using Api.Configuration.Repository;
 
-namespace Api.User.Service
+namespace Api.Configuration.Service
 {
-    public class CreateAccountV1
+    public class UserCreateAccountV1
     {
         public ServiceError Error;
         public IUserRepository repository;        
 
-        public CreateAccountV1 (IUserRepository _repository)
+        public UserCreateAccountV1 (IUserRepository _repository)
         {
             repository = _repository;
         }

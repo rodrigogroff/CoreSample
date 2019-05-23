@@ -1,16 +1,16 @@
-﻿using Api.User.DTO;
-using Api.User.Repository;
+﻿using Api.Configuration.DTO;
+using Api.Configuration.Repository;
 using Master.Controllers;
 using System.Data.SqlClient;
 
-namespace Api.User.Service
+namespace Api.Configuration.Service
 {
-    public class UserActionsV1
+    public class UserCommentsV1
     {
         public ServiceError Error;
         public IUserRepository repository;
 
-        public UserActionsV1(IUserRepository _repository)
+        public UserCommentsV1(IUserRepository _repository)
         {
             repository = _repository;
         }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Api.User.DTO
+namespace Api.Configuration.DTO
 {
     public class DTO_UserComments
     {

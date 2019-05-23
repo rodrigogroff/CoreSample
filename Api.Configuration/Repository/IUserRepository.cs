@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace Api.User.Repository
+namespace Api.Configuration.Repository
 {
     public interface IUserRepository
     {        

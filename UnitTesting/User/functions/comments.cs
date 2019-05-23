@@ -1,4 +1,4 @@
-using Api.User.Service;
+using Api.Configuration.Service;
 using NUnit.Framework;
 
 namespace UnitTesting
@@ -9,7 +9,7 @@ namespace UnitTesting
         public void UT_User_Comments()
         {
             var repo = new mockUserRepositoryUserExists();
-            var service = new UserActionsV1(repo);
+            var service = new UserCommentsV1(repo);
 
             var dto = service.Comments(null, new Master.Controllers.AuthenticatedUser(), 0, 1);
 

@@ -1,15 +1,15 @@
-﻿using Api.User.Repository;
+﻿using Api.Configuration.Repository;
 using Master.Controllers;
 using System.Data.SqlClient;
 
-namespace Api.User.Service
+namespace Api.Configuration.Service
 {
-    public class AuthenticateV1
+    public class UserAuthenticateV1
     {
         public ServiceError Error;        
         public IUserRepository repository;
 
-        public AuthenticateV1(IUserRepository _repository)
+        public UserAuthenticateV1(IUserRepository _repository)
         {
             repository = _repository;
         }

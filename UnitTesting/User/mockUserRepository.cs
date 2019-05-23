@@ -1,5 +1,5 @@
-﻿using Api.User.Repository;
-using Database;
+﻿using Database;
+using Api.Configuration.Repository;
 using Master.Controllers;
 using System.Collections.Generic;
 using System.Data.SqlClient;

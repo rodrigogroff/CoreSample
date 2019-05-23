@@ -1,25 +1,4 @@
 ﻿
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[Client]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
-BEGIN
-CREATE TABLE [dbo].[Client] ( [Id] [bigint] IDENTITY(1,1) NOT NULL );
-END
-
-ALTER TABLE [dbo].[Client] ADD CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
-
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Client]') AND name = 'Name')
-BEGIN
-    ALTER TABLE [Client] ADD [Name] [varchar](500) NULL
-END
-
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Client]') AND name = 'Guid')
-BEGIN
-    ALTER TABLE [Client] ADD [Guid] [varchar](99) NULL
-END
-
 ------------------------------------------------
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[Admin]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)

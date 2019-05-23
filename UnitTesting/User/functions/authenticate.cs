@@ -1,4 +1,4 @@
-using Api.User.Service;
+using Api.Configuration.Service;
 using Master.Controllers;
 using NUnit.Framework;
 
@@ -10,7 +10,7 @@ namespace UnitTesting
         public void UT_User_Authenticate_LoginInvalid()
         {
             var repo = new mockUserRepositoryUserExists();
-            var service = new AuthenticateV1(repo);
+            var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
             if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "" }, ref ua))
@@ -21,7 +21,7 @@ namespace UnitTesting
         public void UT_User_Authenticate_PasswordInvalid()
         {
             var repo = new mockUserRepositoryUserExists();
-            var service = new AuthenticateV1(repo);
+            var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
             if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "" }, ref ua))
@@ -32,7 +32,7 @@ namespace UnitTesting
         public void UT_User_Authenticate_PasswordInvalid_2()
         {
             var repo = new mockUserRepositoryUserExists();
-            var service = new AuthenticateV1(repo);
+            var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
             if (service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "123" }, ref ua))
@@ -43,7 +43,7 @@ namespace UnitTesting
         public void UT_User_Authenticate_OK()
         {
             var repo = new mockUserRepositoryUserExists();
-            var service = new AuthenticateV1(repo);
+            var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
             if (!service.authenticate(null, new Master.Controllers.LoginInformation { Login = "test@test.com", Passwd = "123456" }, ref ua))
