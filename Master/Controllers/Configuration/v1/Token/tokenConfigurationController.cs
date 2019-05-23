@@ -39,5 +39,17 @@ namespace Api.Master.Controllers
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpGet("api/v1/admin/categories")]
+        public ActionResult<string> AdminCategories(int skip, int take)
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("skip", skip);
+            serviceRequest.AddParameter("take", take);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

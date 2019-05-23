@@ -1,4 +1,5 @@
 ﻿using Entities.Api.Configuration;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Api.Configuration.Repository
@@ -10,9 +11,9 @@ namespace Api.Configuration.Repository
         long AdminAdd(SqlConnection db, NewUserData user);
         
         bool CategoryExists(SqlConnection db, string name);
-
         bool CategoryExists(SqlConnection db, long id);
         long CategoryAdd(SqlConnection db, NewCategoryData obj);
         void CategoryEdit(SqlConnection db, NewCategoryData obj);
+        List<Entities.Database.ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total);
     }
 }

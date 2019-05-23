@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Entities.Api.Configuration;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -71,6 +72,15 @@ namespace Api.Configuration.Repository
         public void CategoryEdit(SqlConnection db, NewCategoryData obj)
         {
             db.Query(@"update [ProductCategory] set Name=@Name where Id=@Id", new { obj.Name, obj.Id });
+        }
+
+        public List<Entities.Database.ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
+        {
+            total = db.Query<int>("select count(*) from [ProductCategory]").Single();
+
+            return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] order by Name desc " +
+                                                               "offset " + skip + " rows fetch next " + take + " rows only" ).
+                                                               ToList();
         }
     }
 }

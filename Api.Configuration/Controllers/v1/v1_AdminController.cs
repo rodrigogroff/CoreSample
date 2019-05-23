@@ -5,6 +5,7 @@ using Entities.Api;
 using Entities.Api.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.Data.SqlClient;
 
 namespace Api.Configuration.Controllers
@@ -96,6 +97,25 @@ namespace Api.Configuration.Controllers
                         return BadRequest(service.Error);
 
                     return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpGet("api/v1/admin/categories")]
+        public ActionResult<string> AdminCategories(int skip, int take)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminCategoriesV1(repository);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), skip, take);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
                 }
             }
             catch (System.Exception ex)
