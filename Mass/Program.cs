@@ -83,15 +83,15 @@ namespace Mass
             {
                 using (var db = new SqlConnection(strCon))
                 {
-                    db.Query("insert into [Admin] (Name,Email,Password,ClientID) values (@Name,@Email,@Password,@ClientID)", 
-                        new { Name = GetNome(ref lstPrimeirosNomes, ref lstSobrenomes), Email = "dba@client"+ i + ".com", Password = "123456", ClientID = i });
+                    db.Query("insert into [Admin] (Name,Email,Password) values (@Name,@Email,@Password)", 
+                        new { Name = GetNome(ref lstPrimeirosNomes, ref lstSobrenomes), Email = "dba@client"+ i + ".com", Password = "123456" });
 
                     StringBuilder sb = new StringBuilder();
 
                     for (int j = 1; j <= 1000; j++)
                     {
-                        sb.AppendLine ( "insert into [User] (Name,Email,Password,ClientID) values ('" + 
-                                        GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client" + i + ".com', '123456', " + i + ");");
+                        sb.AppendLine ( "insert into [User] (Name,Email,Password) values ('" + 
+                                        GetNome(ref lstPrimeirosNomes, ref lstSobrenomes) + "', 'user" + j + "@client" + i + ".com', '123456');");
 
                         if (j % 100 == 0)
                         {

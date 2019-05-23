@@ -40,15 +40,9 @@ namespace Api.User.Service
                 return false;
             }
 
-            if (!repository.ClientExists(db, login.ClientGuid))
-            {
-                Error = new ServiceError { Message = "Invalid Client" };
-                return false;
-            }
-
             var db_user = new Database.User();
 
-            if (!repository.UserLogin(db, login.Login, login.Passwd, login.ClientGuid, ref db_user))
+            if (!repository.UserLogin(db, login.Login, login.Passwd, ref db_user))
             {
                 Error = new ServiceError { Message = "Invalid User Credentials" };
                 return false;
@@ -57,7 +51,6 @@ namespace Api.User.Service
             loggedUser = new AuthenticatedUser
             {
                 Id = db_user.Id,
-                ClientID = db_user.ClientID,
                 Name = db_user.Name,
                 Email = db_user.Email,                
                 Phone = db_user.Phone,

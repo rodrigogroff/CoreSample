@@ -53,11 +53,6 @@ BEGIN
     ALTER TABLE [Admin] ADD [Password] [varchar](500) NULL
 END
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Admin]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [Admin] ADD [ClientID] bigint NULL
-END
-
 ------------------------------------------------
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[User]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -91,10 +86,6 @@ BEGIN
     ALTER TABLE [User] ADD [Password] [varchar](500) NULL
 END
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[User]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [User] ADD [ClientID] bigint NULL
-END
 
 ------------------------------------------------
 
@@ -114,10 +105,6 @@ BEGIN
     ALTER TABLE [UserLogin] ADD [UserID] bigint NULL
 END
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[UserLogin]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [UserLogin] ADD [ClientID] bigint NULL
-END
 
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[UserLogin]') AND name = 'DateLogin')
 BEGIN
@@ -137,10 +124,6 @@ ALTER TABLE [dbo].[ProductCategory] ADD CONSTRAINT [PK_ProductCategory] PRIMARY 
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductCategory]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [ProductCategory] ADD [ClientID] bigint NULL
-END
 
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductCategory]') AND name = 'Name')
 BEGIN
@@ -160,10 +143,6 @@ ALTER TABLE [dbo].[ProductSubCategory] ADD CONSTRAINT [PK_ProductSubCategory] PR
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductSubCategory]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [ProductSubCategory] ADD [ClientID] bigint NULL
-END
 
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductSubCategory]') AND name = 'ProductCategoryID')
 BEGIN
@@ -188,10 +167,6 @@ ALTER TABLE [dbo].[Product] ADD CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'ClientID')
-BEGIN
-    ALTER TABLE [Product] ADD [ClientID] bigint NULL
-END
 
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'ProductCategoryID')
 BEGIN

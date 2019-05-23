@@ -51,7 +51,6 @@ namespace Integration
                 Name = dtStamp + "_integration",
                 Password = "123456",
                 Phone = "",
-                ClientGUID = clientGuid
             });
 
             IRestResponse response = client.Execute(request);

@@ -56,19 +56,7 @@ namespace Api.User.Service
                 return false;
             }
 
-            if (string.IsNullOrEmpty(newUser.ClientGUID))
-            {
-                Error = new ServiceError { Message = "ClientID must be valid" };
-                return false;
-            }
-
-            if (!repository.ClientExists(db, newUser.ClientGUID))
-            {
-                Error = new ServiceError { Message = "Client is invalid" };
-                return false;
-            }
-
-            if (repository.UserExists (db, newUser.Email, newUser.ClientGUID))
+            if (repository.UserExists (db, newUser.Email))
             {
                 Error = new ServiceError { Message = "User already registered" };
                 return false;

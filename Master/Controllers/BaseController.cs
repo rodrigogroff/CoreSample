@@ -34,7 +34,6 @@ namespace Master.Controllers
             return new AuthenticatedUser
             {
                 Id = Convert.ToInt64(tokenS.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value),
-                ClientID = Convert.ToInt64(tokenS.Claims.FirstOrDefault(claim => claim.Type == "ClientID")?.Value),
                 Phone = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Phone")?.Value,
                 Email = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Email")?.Value,
                 Name = tokenS.Claims.FirstOrDefault(claim => claim.Type == "Name")?.Value,

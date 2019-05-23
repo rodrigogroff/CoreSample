@@ -66,7 +66,6 @@ namespace Master.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("Id", user.Id.ToString()),
-                    new Claim("ClientID", user.ClientID.ToString()),
                     new Claim("Phone", user.Phone),
                     new Claim("Email", user.Phone),
                     new Claim("Name", user.Phone),

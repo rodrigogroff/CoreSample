@@ -14,7 +14,7 @@ namespace Integration
             string bearer = CreateAndAuthorize(ref email, ref client_guid);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/comments", Method.GET);
+            var request = new RestRequest("api/v1/user/comments?skip=0&take=1", Method.GET);
 
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", "Bearer " + bearer);
@@ -22,33 +22,7 @@ namespace Integration
             IRestResponse response = client.Execute(request);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                Assert.Fail("GetUser nok [1]");
+                Assert.Fail("comments nok [1]");
         }
-
-        /*
-        [TestMethod]
-        public void GetUser()
-        {
-            string email = "";
-            string bearer = CreateAndAuthorize(ref email);
-
-            var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/3", Method.GET);
-
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + bearer);
-
-            IRestResponse response = client.Execute(request);
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                Assert.Fail("GetUser nok [1]");
-
-            
-            var user = JsonConvert.DeserializeObject<AuthenticatedUser>(Cleanup(response.Content));
-
-            if (user.Name != login)
-                Assert.Fail("GetUser nok [2]");
-                
-        }*/
     }
 }

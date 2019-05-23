@@ -71,28 +71,8 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new CreateAccountV1(repo);
 
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456", ClientGUID = "" }))
+            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
                 Assert.Fail("CreateAccount // Existing user cannot create same account");
-        }
-
-        [Test]
-        public void UT_User_CreateAccount_ClientFail_1()
-        {
-            var repo = new mockUserRepositoryUserExists();
-            var service = new CreateAccountV1(repo);
-
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456", ClientGUID = null }))
-                Assert.Fail("CreateAccount // Client invalid passed [1]");
-        }
-
-        [Test]
-        public void UT_User_CreateAccount_ClientFail_2()
-        {
-            var repo = new mockUserRepositoryUserExists();
-            var service = new CreateAccountV1(repo);
-
-            if (service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456", ClientGUID = "xxxx" }))
-                Assert.Fail("CreateAccount // Client invalid passed [2]");
         }
 
         [Test]
@@ -101,7 +81,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserNotExists();
             var service = new CreateAccountV1(repo);
 
-            if (!service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456", ClientGUID = "123456" }))
+            if (!service.CreateAccount(null, new Master.Controllers.NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
                 Assert.Fail("CreateAccount // Not existing user should create account");
         }
     }
