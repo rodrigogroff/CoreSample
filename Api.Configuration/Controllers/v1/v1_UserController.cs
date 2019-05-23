@@ -29,7 +29,7 @@ namespace Api.Configuration
                 {
                     var service = new UserCreateAccountV1(repository);
 
-                    if (!service.CreateAccount(db, newUser))
+                    if (!service.Exec(db, newUser))
                         return BadRequest(service.Error);
 
                     return Ok();
@@ -51,7 +51,7 @@ namespace Api.Configuration
                     var service = new UserAuthenticateV1(repository);
                     var ua = new AuthenticatedUser();
 
-                    if (!service.Authenticate(db, login, ref ua))
+                    if (!service.Exec(db, login, ref ua))
                         return BadRequest(service.Error);
 
                     return Ok(ua);
@@ -71,7 +71,7 @@ namespace Api.Configuration
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new UserCommentsV1(repository);
-                    var resp = service.Comments(db, GetCurrentAuthenticatedUser(), skip, take);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));
                 }

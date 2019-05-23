@@ -15,7 +15,7 @@ namespace Api.Configuration.Service
             repository = _repository;
         }
 
-        public bool CreateAccount(SqlConnection db, NewUserData newUser)
+        public bool Exec(SqlConnection db, NewUserData newUser)
         {
             if (string.IsNullOrEmpty(newUser.Name))
             {

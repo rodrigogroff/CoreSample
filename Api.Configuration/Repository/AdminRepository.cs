@@ -38,5 +38,25 @@ namespace Api.Configuration.Repository
 
             return user_db != null;
         }
+
+        public bool CategoryExists(SqlConnection db, string name)
+        {
+            return db.QueryFirstOrDefault<long>
+                ("select Id from [ProductCategory] (nolock) where Name=@NewName", new
+                {
+                    NewName = name
+                }) > 0;
+        }
+
+        public long AddCategory(SqlConnection db, NewCategoryData obj)
+        {
+            string sql = @"INSERT INTO [ProductCategory] 
+                          (Name) 
+                          VALUES 
+                          (@Name); 
+                          SELECT CAST(SCOPE_IDENTITY() as bigint)";
+
+            return db.Query<long>(sql, new { obj.Name }).Single();
+        }
     }
 }

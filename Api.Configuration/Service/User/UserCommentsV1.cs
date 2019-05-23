@@ -15,7 +15,7 @@ namespace Api.Configuration.Service
             repository = _repository;
         }
 
-        public UserComments Comments(SqlConnection db, AuthenticatedUser au, int skip, int take)
+        public UserComments Exec(SqlConnection db, AuthenticatedUser au, int skip, int take)
         {
             var retComments = new UserComments();
 

@@ -28,7 +28,7 @@ namespace Api.Configuration.Controllers
                 {
                     var service = new AdminCreateAccountV1(repository);
 
-                    if (!service.CreateAccount(db, newUser))
+                    if (!service.Exec(db, newUser))
                         return BadRequest(service.Error);
 
                     return Ok();
@@ -50,10 +50,31 @@ namespace Api.Configuration.Controllers
                     var service = new AdminAuthenticateV1(repository);
                     var ua = new AuthenticatedUser();
 
-                    if (!service.Authenticate(db, login, ref ua))
+                    if (!service.Exec(db, login, ref ua))
                         return BadRequest(service.Error);
 
                     return Ok(ua);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpPost("api/v1/admin/createCategory")]
+        public ActionResult<string> CreateCategory([FromBody] NewCategoryData obj)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminCreateCategoryV1(repository);
+
+                    if (!service.Exec(db, obj))
+                        return BadRequest(service.Error);
+
+                    return Ok();
                 }
             }
             catch (System.Exception ex)

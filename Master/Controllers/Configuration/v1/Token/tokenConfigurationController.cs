@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Api;
+using Entities.Api.Configuration;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Master.Controllers
 {
@@ -13,6 +15,20 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
+
+        [HttpPost("api/v1/admin/createCategory")]
+        public ActionResult<string> AdminCreateCategory([FromBody] NewCategoryData obj)
+        {
+            if (!this.features.CreateCategory.Execute)
+                return BadRequest(new ServiceError
+                {
+                    Message = this.features.CreateAccount.ErrorMessage
+                });
+
+            SetupNetwork();
+            serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
     }

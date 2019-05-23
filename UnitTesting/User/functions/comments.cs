@@ -12,7 +12,7 @@ namespace UnitTesting
             var repo = new mockUserRepositoryUserExists();
             var service = new UserCommentsV1(repo);
 
-            var dto = service.Comments(null, new AuthenticatedUser(), 0, 1);
+            var dto = service.Exec(null, new AuthenticatedUser(), 0, 1);
 
             if (dto.total != 1)
                 Assert.Fail("dto.total");

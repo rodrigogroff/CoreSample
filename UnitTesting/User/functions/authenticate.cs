@@ -13,7 +13,7 @@ namespace UnitTesting
             var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
-            if (service.Authenticate(null, new LoginInformation { Login = "" }, ref ua))
+            if (service.Exec(null, new LoginInformation { Login = "" }, ref ua))
                 Assert.Fail("Authenticate // Login empty accepted");
         }
 
@@ -24,7 +24,7 @@ namespace UnitTesting
             var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
-            if (service.Authenticate(null, new LoginInformation { Login = "test@test.com", Passwd = "" }, ref ua))
+            if (service.Exec(null, new LoginInformation { Login = "test@test.com", Passwd = "" }, ref ua))
                 Assert.Fail("Authenticate // Password empty accepted");
         }
 
@@ -35,7 +35,7 @@ namespace UnitTesting
             var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
-            if (service.Authenticate(null, new LoginInformation { Login = "test@test.com", Passwd = "123" }, ref ua))
+            if (service.Exec(null, new LoginInformation { Login = "test@test.com", Passwd = "123" }, ref ua))
                 Assert.Fail("Authenticate // Password invalid passed");
         }
         
@@ -46,7 +46,7 @@ namespace UnitTesting
             var service = new UserAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
-            if (!service.Authenticate(null, new LoginInformation { Login = "test@test.com", Passwd = "123456" }, ref ua))
+            if (!service.Exec(null, new LoginInformation { Login = "test@test.com", Passwd = "123456" }, ref ua))
                 Assert.Fail("Authenticate // Failed!");
         }
     }
