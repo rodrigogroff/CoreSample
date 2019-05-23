@@ -1,8 +1,8 @@
 ﻿using Api.Configuration.Repository;
 using Api.Configuration.Service;
+using Api.Master.Controllers;
 using Entities.Api;
 using Entities.Api.Configuration;
-using Master.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
@@ -12,7 +12,7 @@ namespace Api.Configuration.Controllers
     [ApiController]
     public class AdminV1Controller : BaseController
     {
-        public UserRepository repository = new UserRepository();
+        public AdminRepository repository = new AdminRepository();
 
         public AdminV1Controller(IConfiguration _configuration)
         {        
@@ -26,7 +26,7 @@ namespace Api.Configuration.Controllers
             {
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
-                    var service = new UserCreateAccountV1(repository);
+                    var service = new AdminCreateAccountV1(repository);
 
                     if (!service.CreateAccount(db, newUser))
                         return BadRequest(service.Error);
@@ -47,10 +47,10 @@ namespace Api.Configuration.Controllers
             {
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
-                    var service = new UserAuthenticateV1(repository);
+                    var service = new AdminAuthenticateV1(repository);
                     var ua = new AuthenticatedUser();
 
-                    if (!service.authenticate(db, login, ref ua))
+                    if (!service.Authenticate(db, login, ref ua))
                         return BadRequest(service.Error);
 
                     return Ok(ua);

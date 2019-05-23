@@ -1,7 +1,6 @@
 ﻿using Api.Configuration.Repository;
 using Entities.Api;
 using Entities.Api.Configuration;
-using Master.Controllers;
 using System.Data.SqlClient;
 
 namespace Api.Configuration.Service
@@ -9,14 +8,14 @@ namespace Api.Configuration.Service
     public class AdminAuthenticateV1
     {
         public ServiceError Error;        
-        public IUserRepository repository;
+        public IAdminRepository repository;
 
-        public AdminAuthenticateV1(IUserRepository _repository)
+        public AdminAuthenticateV1(IAdminRepository _repository)
         {
             repository = _repository;
         }
 
-        public bool authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
+        public bool Authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
         {
             if (string.IsNullOrEmpty(login.Login))
             {
@@ -38,7 +37,7 @@ namespace Api.Configuration.Service
 
             var db_user = new Entities.Database.User();
 
-            if (!repository.UserLogin(db, login.Login, login.Passwd, ref db_user))
+            if (!repository.AdminLogin(db, login.Login, login.Passwd, ref db_user))
             {
                 Error = new ServiceError { Message = "Invalid User Credentials" };
                 return false;

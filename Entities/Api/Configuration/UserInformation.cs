@@ -1,5 +1,5 @@
 ﻿
-namespace Api.Configuration.DTO
+namespace Entities.Api.Configuration
 {
     public class DTO_UserInformation
     {

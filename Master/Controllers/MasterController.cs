@@ -4,12 +4,13 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using Entities.Api.Configuration;
+using Master;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RestSharp;
 
-namespace Master.Controllers
+namespace Api.Master.Controllers
 {
     [ApiController]
     public class MasterController : ControllerBase

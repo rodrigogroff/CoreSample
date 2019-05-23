@@ -5,7 +5,7 @@ using Entities.Api.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace Master.Controllers
+namespace Api.Master.Controllers
 {    
     public class BaseController : ControllerBase
     {

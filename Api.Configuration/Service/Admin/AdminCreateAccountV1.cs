@@ -1,17 +1,16 @@
-﻿using Master.Controllers;
-using System.Data.SqlClient;
-using Api.Configuration.Repository;
+﻿using Api.Configuration.Repository;
 using Entities.Api.Configuration;
 using Entities.Api;
+using System.Data.SqlClient;
 
 namespace Api.Configuration.Service
 {
     public class AdminCreateAccountV1
     {
         public ServiceError Error;
-        public IUserRepository repository;        
+        public IAdminRepository repository;        
 
-        public AdminCreateAccountV1 (IUserRepository _repository)
+        public AdminCreateAccountV1 (IAdminRepository _repository)
         {
             repository = _repository;
         }
@@ -58,13 +57,13 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            if (repository.UserExists (db, newUser.Email))
+            if (repository.AdminExists (db, newUser.Email))
             {
                 Error = new ServiceError { Message = "User already registered" };
                 return false;
             }
 
-            repository.AddUser(db, newUser);
+            repository.AddAdmin(db, newUser);
 
             return true;
         }

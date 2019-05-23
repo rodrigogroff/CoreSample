@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Master.Controllers
+namespace Api.Master.Controllers
 {
-    public partial class UserController : MasterController
+    public partial class ConfigurationController : MasterController
     {
         [HttpGet("api/v1/user/comments")]
-        public ActionResult<string> Comments(int skip, int take)
+        public ActionResult<string> UserComments(int skip, int take)
         {
             SetupNetwork();
             GetAuthentication(ref serviceRequest);

@@ -1,5 +1,5 @@
 using Entities.Api.Configuration;
-using Master.Controllers;
+using Api.Master.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;

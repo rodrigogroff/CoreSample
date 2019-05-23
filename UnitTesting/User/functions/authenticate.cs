@@ -1,6 +1,5 @@
 using Api.Configuration.Service;
 using Entities.Api.Configuration;
-using Master.Controllers;
 using NUnit.Framework;
 
 namespace UnitTesting

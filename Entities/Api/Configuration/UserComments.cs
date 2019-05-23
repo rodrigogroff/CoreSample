@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace Api.Configuration.DTO
+namespace Entities.Api.Configuration
 {
-    public class DTO_UserComments
+    public class UserComments
     {
         public int total;
-        public List<DTO_UserCommentInformation> list = new List<DTO_UserCommentInformation>();
+        public List<UserCommentInformation> list = new List<UserCommentInformation>();
     }
 
-    public class DTO_UserCommentInformation
+    public class UserCommentInformation
     {
         public string Comment;
         public long ProductId;
