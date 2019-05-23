@@ -15,7 +15,7 @@ namespace Api.Configuration.Service
             repository = _repository;
         }
 
-        public bool authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
+        public bool Authenticate(SqlConnection db, LoginInformation login, ref AuthenticatedUser loggedUser)
         {
             if (string.IsNullOrEmpty(login.Login))
             {

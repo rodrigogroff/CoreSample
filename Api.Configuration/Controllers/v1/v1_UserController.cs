@@ -51,7 +51,7 @@ namespace Api.Configuration
                     var service = new UserAuthenticateV1(repository);
                     var ua = new AuthenticatedUser();
 
-                    if (!service.authenticate(db, login, ref ua))
+                    if (!service.Authenticate(db, login, ref ua))
                         return BadRequest(service.Error);
 
                     return Ok(ua);

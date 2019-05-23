@@ -8,14 +8,14 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void UserAuthenticate()
+        public void AdminAuthenticate()
         {
             string email = "";
 
-            CreateIntegrationUser(ref email);
+            CreateIntegrationAdmin(ref email);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/authenticate", Method.POST);
+            var request = new RestRequest("api/v1/admin/authenticate", Method.POST);
 
             request.AddJsonBody(new LoginInformation
             {

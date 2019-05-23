@@ -5,11 +5,11 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void UserCreateAccount()
+        public void AdminCreateAccount()
         {
             string email = "";
 
-            CreateIntegrationUser(ref email);
+            CreateIntegrationAdmin(ref email);
         }
     }
 }

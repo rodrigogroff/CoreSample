@@ -6,10 +6,10 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void Comments()
+        public void UserComments()
         {
-            string email = "", client_guid = "";
-            string bearer = CreateAndAuthorize(ref email, ref client_guid);
+            string email = "";
+            string bearer = CreateAndAuthorizeUser(ref email);
 
             var client = new RestClient(master);
             var request = new RestRequest("api/v1/user/comments?skip=0&take=1", Method.GET);
