@@ -29,6 +29,10 @@ namespace Api.Master.Controllers
         {
             var handler = new JwtSecurityTokenHandler();
             var authHeader = Request.Headers[MasterController.AuthorizationTag].ToString().Replace("Bearer ", "");
+
+            if (string.IsNullOrEmpty(authHeader))
+                return null;
+
             var jsonToken = handler.ReadToken(authHeader);
             var tokenS = handler.ReadToken(authHeader) as JwtSecurityToken;
 

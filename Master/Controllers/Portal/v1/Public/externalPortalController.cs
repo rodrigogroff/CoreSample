@@ -9,7 +9,7 @@ namespace Api.Master.Controllers
     {
         [AllowAnonymous]
         [HttpGet("api/v1/portal/categories")]
-        public ActionResult<string> PublicPortalCategories(int skip, int take)
+        public ActionResult<string> PortalCategories(int skip, int take)
         {
             SetupNetwork();
             GetAuthentication(ref serviceRequest);
