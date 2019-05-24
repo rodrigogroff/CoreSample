@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Api.Configuration.Repository
+namespace Api.Portal.Repository
 {
     public class PortalRepository : IPortalRepository
     {        

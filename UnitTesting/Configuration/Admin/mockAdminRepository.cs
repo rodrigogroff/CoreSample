@@ -45,7 +45,15 @@ namespace UnitTesting
 
         public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
         {
-            throw new System.NotImplementedException();
+            total = 1;
+            return new List<ProductCategory>
+            {
+                new ProductCategory
+                {
+                    Id  = 1,
+                    Name = "teste"
+                }
+            };
         }
     }
 
@@ -93,7 +101,14 @@ namespace UnitTesting
 
         public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
         {
-            throw new System.NotImplementedException();
+            return new List<ProductCategory>
+            {
+                new ProductCategory
+                {
+                    Id  = 1,
+                    Name = "rodrigo"
+                }
+            };
         }
     }
 }

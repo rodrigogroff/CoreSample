@@ -14,6 +14,12 @@ namespace Integration
     }
 
     [TestClass]
+    public partial class Portal : BaseTest
+    {
+
+    }
+
+    [TestClass]
     public class BaseTest
     {
         public string master = "http://localhost:18523";

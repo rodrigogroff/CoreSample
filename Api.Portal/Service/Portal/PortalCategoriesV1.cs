@@ -1,9 +1,9 @@
-﻿using Api.Configuration.Repository;
+﻿using Api.Portal.Repository;
 using Entities.Api.Configuration;
 using Entities.Api;
 using System.Data.SqlClient;
 
-namespace Api.Configuration.Service
+namespace Api.Portal.Service
 {
     public class PortalCategoriesV1
     {

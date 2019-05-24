@@ -11,8 +11,8 @@ Configuration		api/v1/admin/createAccount			y		OK			n
 Configuration		api/v1/admin/authenticate			y		OK			n
 Configuration		api/v1/admin/createCategory			n		OK			y
 Configuration		api/v1/admin/editCategory			n		OK			n
-Configuration		api/v1/admin/categories				n		DEV			n
-Configuration		api/v1/admin/category				n		PLAN		n
+Configuration		api/v1/admin/categories				n		OK			n
+Configuration		api/v1/admin/category				n		DEV			n		dev
 Configuration		api/v1/admin/createSubCategory		n		PLAN		y
 Configuration		api/v1/admin/editSubCategory		n		PLAN		n
 Configuration		api/v1/admin/subcategories			n		PLAN		n
@@ -22,10 +22,8 @@ Configuration		api/v1/admin/product				n		PLAN		n
 Configuration		api/v1/admin/createProduct			n		PLAN		y
 Configuration		api/v1/admin/editProduct			n		PLAN		n
 	
-Portal				api/v1/portal/categories			y		PLAN		n
-Portal				api/v1/portal/subcategories			y		PLAN		n
-Portal				api/v1/portal/clients				y		PLAN		n
-Portal				api/v1/portal/menu					y		PLAN		n
+Portal				api/v1/portal/categories			y		OK			n
+Portal				api/v1/portal/subcategories			y		DEV			n		dev
 Portal				api/v1/portal/products				y		PLAN		n
 Portal				api/v1/portal/product				y		PLAN		n
 Portal				api/v1/portal/productComment		n		PLAN		n

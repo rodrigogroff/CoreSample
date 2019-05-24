@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Api.Configuration
+namespace Api.Portal
 {
     public class Program
     {

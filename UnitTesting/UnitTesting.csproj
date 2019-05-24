@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Api.Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Api.Portal\Portal.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
     <ProjectReference Include="..\Master\Master.csproj" />
   </ItemGroup>
