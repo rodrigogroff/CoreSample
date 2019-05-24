@@ -5,6 +5,11 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 
+export const ApiLocation = {
+    api_host: 'http://localhost',
+    api_port: '18523'
+}
+
 export default class App extends Component {
   static displayName = App.name;
 

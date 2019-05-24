@@ -1,37 +1,39 @@
 import React, { Component } from 'react';
+import { ApiLocation } from '../shared/ApiLocation'
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
 
   constructor (props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { forecasts: [], loading: true };      
+    }
 
-    fetch('api/SampleData/WeatherForecasts')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ forecasts: data, loading: false });
-      });
-  }
+    componentDidMount() {
+        fetch(ApiLocation.api_host + ':' +
+            ApiLocation.api_port +
+            ApiLocation.api_portal +
+            'categories?skip=0&take=10')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ forecasts: data.list, loading: false });
+            });
+    }
 
   static renderForecastsTable (forecasts) {
     return (
       <table className='table table-striped'>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>ID</th>
+            <th>Name</th>
           </tr>
         </thead>
         <tbody>
           {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+            <tr key={forecast.Id}>
+              <td>{forecast.Id}</td>
+              <td>{forecast.Name}</td>
             </tr>
           )}
         </tbody>
