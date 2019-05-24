@@ -163,5 +163,24 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpGet("api/v1/admin/subcategories")]
+        public ActionResult<string> SubCategories(long categID, int skip, int take)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminSubCategoriesV1(repository);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), categID, skip, take);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }

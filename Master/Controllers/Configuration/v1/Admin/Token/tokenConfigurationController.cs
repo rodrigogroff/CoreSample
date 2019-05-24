@@ -54,8 +54,27 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/createSubCategory")]
         public ActionResult<string> Token_AdminCreateSubCategory([FromBody] NewSubCategoryData obj)
         {
+            if (!this.features.CreateSubCategory.Execute)
+                return BadRequest(new ServiceError
+                {
+                    Message = this.features.CreateAccount.ErrorMessage
+                });
+
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
+
+        [HttpGet("api/v1/admin/subcategories")]
+        public ActionResult<string> Token_AdminSubCategories(long categID, int skip, int take)
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("categID", categID);
+            serviceRequest.AddParameter("skip", skip);
+            serviceRequest.AddParameter("take", take);
+
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
     }

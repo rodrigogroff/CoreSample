@@ -45,8 +45,14 @@ namespace Api.Configuration.Repository
             total = db.Query<int>("select count(*) from [ProductComment] where UserID = @userId", new { userId }).Single();
 
             return db.Query<Entities.Database.ProductComment>("select * from [ProductComment] where UserID = @userId order by DateAdded desc " +
-                                                              "offset " +  skip + " rows fetch next " + take + " rows only", 
-                                                              new { userId }).ToList();
+                                                              "offset @skip rows fetch next @take rows only", 
+                                                              new
+                                                              {
+                                                                  userId,
+                                                                  skip,
+                                                                  take
+                                                              }).
+                                                              ToList();
         }
     }
 }

@@ -77,6 +77,19 @@ namespace UnitTesting
             return false;
         }
 
+        public List<ProductSubCategory> SubCategoryList(SqlConnection db, long categID, int skip, int take, ref int total)
+        {
+            total = 1;
+            return new List<ProductSubCategory>
+            {
+                new ProductSubCategory
+                {
+                    Id  = 1,
+                    Name = "teste"
+                }
+            };
+        }
+
         #endregion
     }
 
@@ -151,6 +164,11 @@ namespace UnitTesting
         }
 
         public bool SubCategoryExists(SqlConnection db, long pcID, string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<ProductSubCategory> SubCategoryList(SqlConnection db, long categID, int skip, int take, ref int total)
         {
             throw new System.NotImplementedException();
         }

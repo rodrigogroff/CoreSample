@@ -19,5 +19,19 @@ namespace Api.Master.Controllers
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [AllowAnonymous]
+        [HttpGet("api/v1/portal/subcategories")]
+        public ActionResult<string> PortalSubCategories(long categID, int skip, int take)
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("categID", categID);
+            serviceRequest.AddParameter("skip", skip);
+            serviceRequest.AddParameter("take", take);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }
