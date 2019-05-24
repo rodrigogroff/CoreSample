@@ -8,8 +8,7 @@ namespace Entities.Api.Configuration
         public string Name;        
         public string Email;
         public string Phone;
-
-        // devolvido no login
+                
         public string Token;
     }
 }
