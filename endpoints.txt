@@ -22,10 +22,10 @@ Configuration		api/v1/admin/product				n		PLAN		n
 Configuration		api/v1/admin/createProduct			n		PLAN		y
 Configuration		api/v1/admin/editProduct			n		PLAN		n
 	
-Portal				api/v1/portal/clients				y		PLAN		n
-Portal				api/v1/portal/menu					y		PLAN		n
 Portal				api/v1/portal/categories			y		PLAN		n
 Portal				api/v1/portal/subcategories			y		PLAN		n
+Portal				api/v1/portal/clients				y		PLAN		n
+Portal				api/v1/portal/menu					y		PLAN		n
 Portal				api/v1/portal/products				y		PLAN		n
 Portal				api/v1/portal/product				y		PLAN		n
 Portal				api/v1/portal/productComment		n		PLAN		n
