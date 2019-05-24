@@ -5,12 +5,12 @@ using System.Data.SqlClient;
 
 namespace Api.Configuration.Service
 {
-    public class AdminCategoriesV1
+    public class PortalCategoriesV1
     {
         public ServiceError Error;
-        public IAdminRepository repository;        
+        public IPortalRepository repository;        
 
-        public AdminCategoriesV1(IAdminRepository _repository)
+        public PortalCategoriesV1(IPortalRepository _repository)
         {
             repository = _repository;
         }
@@ -18,6 +18,11 @@ namespace Api.Configuration.Service
         public AdminCategories Exec(SqlConnection db, AuthenticatedUser au, int skip, int take)
         {
             var ret = new AdminCategories();
+
+            if (au != null)
+            {
+
+            }
 
             foreach (var item in repository.CategoryList(db, skip, take, ref ret.total))
             {

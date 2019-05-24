@@ -5,7 +5,8 @@ namespace Master
 {
     public enum LocalNetworkTypes
     {
-        Config = 0,
+        Config = 1,
+        Portal = 2,
     }
 
     public class LocalNetwork
@@ -14,7 +15,10 @@ namespace Master
 
         public List<string> ConfigurationHosts { get; set; }
 
+        public List<string> PortalHosts { get; set; }
+
         int idx_config = 0, count_config = 0;
+        int idx_portal = 0, count_portal = 0;
 
         public string GetHost(LocalNetworkTypes _type)
         {
@@ -25,11 +29,19 @@ namespace Master
 
                 switch (_type)
                 {
-                    case LocalNetworkTypes.Config:  lst = ConfigurationHosts;
-                                                    idx = idx_config;
-                                                    if (count_config == 0) count_config = lst.Count();
-                                                    count = count_config;
-                                                    break;
+                    case LocalNetworkTypes.Config:
+                        lst = ConfigurationHosts;
+                        idx = idx_config;
+                        if (count_config == 0) count_config = lst.Count();
+                        count = count_config;
+                        break;
+
+                    case LocalNetworkTypes.Portal:
+                        lst = PortalHosts;
+                        idx = idx_portal;
+                        if (count_portal == 0) count_portal = lst.Count();
+                        count = count_portal;
+                        break;
                 }
 
                 return ResolveHost(lst, ref idx, count);
