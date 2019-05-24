@@ -124,5 +124,19 @@ namespace Api.Configuration.Repository
                                                                     order by Name desc offset @skip rows fetch next @take rows only", new { categID, skip, take }).
                                                                ToList();
         }
+
+        public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
+        {
+            db.Query(@"update [ProductSubCategory] set Name=@Name where Id=@Id", new { obj.Name, obj.Id });
+        }
+
+        public bool SubCategoryExistsId(SqlConnection db, long id)
+        {
+            return db.QueryFirstOrDefault<long>
+               ("select Id from [ProductSubCategory] (nolock) where Id=@id", new
+               {
+                   id
+               }) > 0;
+        }
     }
 }

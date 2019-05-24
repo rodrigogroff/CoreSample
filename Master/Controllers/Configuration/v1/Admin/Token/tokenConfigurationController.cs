@@ -77,5 +77,13 @@ namespace Api.Master.Controllers
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpPost("api/v1/admin/editsubCategory")]
+        public ActionResult<string> Token_AdminEditSubCategory([FromBody] NewSubCategoryData obj)
+        {
+            SetupNetwork();
+            serviceRequest.AddJsonBody(obj);
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

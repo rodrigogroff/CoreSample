@@ -182,5 +182,26 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpPost("api/v1/admin/editsubCategory")]
+        public ActionResult<string> EditSubCategory([FromBody] NewSubCategoryData obj)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminEditSubCategoryV1(repository);
+
+                    if (!service.Exec(db, obj))
+                        return BadRequest(service.Error);
+
+                    return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }

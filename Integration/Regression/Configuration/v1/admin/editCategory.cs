@@ -9,7 +9,7 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void EditCreateCategory()
+        public void EditCategory()
         {
             string email = "";
 

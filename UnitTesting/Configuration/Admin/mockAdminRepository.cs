@@ -90,6 +90,16 @@ namespace UnitTesting
             };
         }
 
+        public bool SubCategoryExistsId(SqlConnection db, long id)
+        {
+            return true;
+        }
+
+        public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
+        {
+            
+        }
+
         #endregion
     }
 
@@ -171,6 +181,16 @@ namespace UnitTesting
         public List<ProductSubCategory> SubCategoryList(SqlConnection db, long categID, int skip, int take, ref int total)
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool SubCategoryExistsId(SqlConnection db, long id)
+        {
+            return true;
+        }
+
+        public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
+        {
+            
         }
 
         #endregion

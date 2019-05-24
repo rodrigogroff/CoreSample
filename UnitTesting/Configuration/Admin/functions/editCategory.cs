@@ -21,8 +21,8 @@ namespace UnitTesting
             var repo = new mockAdminRepositoryUserNotExists();
             var service = new AdminEditCategoryV1(repo);
 
-            if (service.Exec(null, new NewCategoryData { Name = "", Id = 1 }))
-                Assert.Fail("EditCategory // Name empty accepted");
+            if (service.Exec(null, new NewCategoryData { Name = "xxxx", Id = 9999999 }))
+                Assert.Fail("EditCategory // Id invalid");
         }
 
         [Test]
