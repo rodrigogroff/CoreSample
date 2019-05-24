@@ -13,7 +13,7 @@ Configuration		api/v1/admin/createCategory			n		OK			y
 Configuration		api/v1/admin/editCategory			n		OK			n
 Configuration		api/v1/admin/categories				n		OK			n
 Configuration		api/v1/admin/category				n		OK			n		
-Configuration		api/v1/admin/createSubCategory		n		DEV			y
+Configuration		api/v1/admin/createSubCategory		n		OK			y
 Configuration		api/v1/admin/editSubCategory		n		PLAN		n
 Configuration		api/v1/admin/subcategories			n		PLAN		n
 Configuration		api/v1/admin/subcategory			n		PLAN		n
@@ -23,7 +23,7 @@ Configuration		api/v1/admin/createProduct			n		PLAN		y
 Configuration		api/v1/admin/editProduct			n		PLAN		n
 	
 Portal				api/v1/portal/categories			y		OK			n
-Portal				api/v1/portal/subcategories			y		PLAN		n		
+Portal				api/v1/portal/subcategories			y		DEV			n		
 Portal				api/v1/portal/products				y		PLAN		n
 Portal				api/v1/portal/product				y		PLAN		n
 Portal				api/v1/portal/productComment		n		PLAN		n

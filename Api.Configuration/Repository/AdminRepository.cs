@@ -104,7 +104,7 @@ namespace Api.Configuration.Repository
             string sql = @"INSERT INTO [ProductSubCategory] 
                           (ProductCategoryID,Name) 
                           VALUES 
-                          (@CategoryID,@Name); 
+                          (@ProductCategoryID,@Name); 
                           SELECT CAST(SCOPE_IDENTITY() as bigint)";
 
             return db.Query<long>(sql, new
