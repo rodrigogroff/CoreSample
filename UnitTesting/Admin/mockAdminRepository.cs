@@ -1,6 +1,7 @@
 ﻿using Api.Configuration.Repository;
 using Entities.Api.Configuration;
 using Entities.Database;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace UnitTesting
@@ -40,7 +41,12 @@ namespace UnitTesting
         public void CategoryEdit(SqlConnection db, NewCategoryData obj)
         {
             
-        }        
+        }
+
+        public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class mockAdminRepositoryUserNotExists : IAdminRepository
@@ -83,6 +89,11 @@ namespace UnitTesting
         public void CategoryEdit(SqlConnection db, NewCategoryData obj)
         {
             
+        }
+
+        public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
