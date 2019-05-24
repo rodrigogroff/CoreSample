@@ -106,7 +106,7 @@ namespace Api.Configuration.Controllers
         }
 
         [HttpGet("api/v1/admin/categories")]
-        public ActionResult<string> AdminCategories(int skip, int take)
+        public ActionResult<string> Categories(int skip, int take)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace Api.Configuration.Controllers
         }
 
         [HttpGet("api/v1/admin/category/{id}")]
-        public ActionResult<string> AdminCategory(long id)
+        public ActionResult<string> Category(long id)
         {
             try
             {
@@ -135,6 +135,27 @@ namespace Api.Configuration.Controllers
                     var resp = service.Exec(db, GetCurrentAuthenticatedUser(), id);
 
                     return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpPost("api/v1/admin/createSubCategory")]
+        public ActionResult<string> CreateSubCategory([FromBody] NewSubCategoryData obj)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminCreateSubCategoryV1(repository);
+
+                    if (!service.Exec(db, obj))
+                        return BadRequest(service.Error);
+
+                    return Ok();
                 }
             }
             catch (System.Exception ex)

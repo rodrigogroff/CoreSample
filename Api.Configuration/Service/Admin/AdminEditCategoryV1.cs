@@ -23,7 +23,7 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            if (!repository.CategoryExists(db, obj.Id))
+            if (!repository.CategoryExistsId(db, obj.Id))
             {
                 Error = new ServiceError { Message = "Id invalid!" };
                 return false;

@@ -35,7 +35,7 @@ namespace UnitTesting
             return 1;
         }
 
-        public bool CategoryExists(SqlConnection db, long id)
+        public bool CategoryExistsId(SqlConnection db, long id)
         {
             return true;
         }
@@ -65,6 +65,16 @@ namespace UnitTesting
                 Id = 1,
                 Name = "test"
             };
+        }
+
+        public long SubCategoryAdd(SqlConnection db, NewSubCategoryData obj)
+        {
+            return 1;
+        }
+
+        public bool SubCategoryExists(SqlConnection db, long pcID, string name)
+        {
+            return false;
         }
 
         #endregion
@@ -104,7 +114,7 @@ namespace UnitTesting
             return false;
         }
 
-        public bool CategoryExists(SqlConnection db, long id)
+        public bool CategoryExistsId(SqlConnection db, long id)
         {
             return false;
         }
@@ -133,6 +143,16 @@ namespace UnitTesting
                 Id = 1,
                 Name = "test"
             };
+        }
+
+        public long SubCategoryAdd(SqlConnection db, NewSubCategoryData obj)
+        {
+            return 1;
+        }
+
+        public bool SubCategoryExists(SqlConnection db, long pcID, string name)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

@@ -19,27 +19,27 @@ namespace Api.Configuration.Service
         {
             if (string.IsNullOrEmpty(newUser.Name))
             {
-                Error = new ServiceError { Message = "Name is empty!" };
+                Error = new ServiceError { Message = "Name is empty" };
                 return false;
             }
 
             if (string.IsNullOrEmpty(newUser.Email))
             {
-                Error = new ServiceError { Message = "Email is empty!" };
+                Error = new ServiceError { Message = "Email is empty" };
                 return false;
             }
             else
             {
                 if (!newUser.Email.Contains("@"))
                 {
-                    Error = new ServiceError { Message = "Email is invalid!" };
+                    Error = new ServiceError { Message = "Email is invalid" };
                     return false;
                 }
                 else
                 {
                     if (!newUser.Email.Split('@')[1].Contains("."))
                     {
-                        Error = new ServiceError { Message = "Email is invalid!" };
+                        Error = new ServiceError { Message = "Email is invalid" };
                         return false;
                     }
                 }
@@ -47,7 +47,7 @@ namespace Api.Configuration.Service
 
             if (string.IsNullOrEmpty(newUser.Password))
             {
-                Error = new ServiceError { Message = "Password is empty!" };
+                Error = new ServiceError { Message = "Password is empty" };
                 return false;
             }
             

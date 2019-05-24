@@ -12,9 +12,9 @@ namespace Api.Configuration.Repository
         public bool AdminExists(SqlConnection db, string email)
         {
             return db.QueryFirstOrDefault<long>
-                ("select Id from [Admin] (nolock) where Email=@NewEmail", new
+                ("select Id from [Admin] (nolock) where Email=@email", new
                 {
-                    NewEmail = email                    
+                    email                    
                 }) > 0;
         }
 
@@ -44,13 +44,13 @@ namespace Api.Configuration.Repository
         public bool CategoryExists(SqlConnection db, string name)
         {
             return db.QueryFirstOrDefault<long>
-                ("select Id from [ProductCategory] (nolock) where Name=@NewName", new
+                ("select Id from [ProductCategory] (nolock) where Name=@name", new
                 {
-                    NewName = name
+                    name
                 }) > 0;
         }
 
-        public bool CategoryExists(SqlConnection db, long id)
+        public bool CategoryExistsId(SqlConnection db, long id)
         {
             return db.QueryFirstOrDefault<long>
                 ("select Id from [ProductCategory] (nolock) where Id=@id", new
@@ -88,5 +88,31 @@ namespace Api.Configuration.Repository
         {
             return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] where Id=@Id", new { Id }).FirstOrDefault();
         }
+
+        public bool SubCategoryExists(SqlConnection db, long pcID, string name)
+        {
+            return db.QueryFirstOrDefault<long>
+                ("select Id from [ProductSubCategory] (nolock) where Name=@name and ProductCategoryID=@pcID", new
+                {
+                    name,
+                    pcID
+                }) > 0;
+        }
+
+        public long SubCategoryAdd(SqlConnection db, NewSubCategoryData obj)
+        {
+            string sql = @"INSERT INTO [ProductSubCategory] 
+                          (ProductCategoryID,Name) 
+                          VALUES 
+                          (@CategoryID,@Name); 
+                          SELECT CAST(SCOPE_IDENTITY() as bigint)";
+
+            return db.Query<long>(sql, new
+            {
+                obj.ProductCategoryID,
+                obj.Name
+            }).
+            Single();
+        }        
     }
 }
