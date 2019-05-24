@@ -7,7 +7,7 @@ namespace Api.Master.Controllers
     public partial class ConfigurationController : MasterController
     {
         [HttpPost("api/v1/admin/createCategory")]
-        public ActionResult<string> AdminCreateCategory([FromBody] NewCategoryData obj)
+        public ActionResult<string> Token_AdminCreateCategory([FromBody] NewCategoryData obj)
         {
             if (!this.features.CreateCategory.Execute)
                 return BadRequest(new ServiceError
@@ -21,7 +21,7 @@ namespace Api.Master.Controllers
         }
 
         [HttpPost("api/v1/admin/editCategory")]
-        public ActionResult<string> AdminEditCategory([FromBody] NewCategoryData obj)
+        public ActionResult<string> Token_AdminEditCategory([FromBody] NewCategoryData obj)
         {
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
@@ -29,13 +29,24 @@ namespace Api.Master.Controllers
         }
 
         [HttpGet("api/v1/admin/categories")]
-        public ActionResult<string> AdminCategories(int skip, int take)
+        public ActionResult<string> Token_AdminCategories(int skip, int take)
         {
             SetupNetwork();
             GetAuthentication(ref serviceRequest);
 
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
+
+        [HttpGet("api/v1/admin/category/{id}")]
+        public ActionResult<string> Token_AdminCategory(long id)
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("id", id);
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }

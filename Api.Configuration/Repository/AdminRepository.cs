@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Entities.Api.Configuration;
+using Entities.Database;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -81,6 +82,11 @@ namespace Api.Configuration.Repository
             return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] order by Name desc " +
                                                                "offset " + skip + " rows fetch next " + take + " rows only" ).
                                                                ToList();
+        }
+
+        public ProductCategory CategoryById(SqlConnection db, long Id)
+        {
+            return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] where Id=@Id", new { Id }).FirstOrDefault();
         }
     }
 }

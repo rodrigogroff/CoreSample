@@ -15,5 +15,6 @@ namespace Api.Configuration.Repository
         long CategoryAdd(SqlConnection db, NewCategoryData obj);
         void CategoryEdit(SqlConnection db, NewCategoryData obj);
         List<Entities.Database.ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total);
+        Entities.Database.ProductCategory CategoryById(SqlConnection db, long Id);
     }
 }

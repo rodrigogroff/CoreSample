@@ -123,5 +123,24 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpGet("api/v1/admin/category/{id}")]
+        public ActionResult<string> AdminCategory(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminCategoryV1(repository);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), id);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }

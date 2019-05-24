@@ -5,7 +5,7 @@ namespace Api.Master.Controllers
     public partial class ConfigurationController : MasterController
     {
         [HttpGet("api/v1/user/comments")]
-        public ActionResult<string> UserComments(int skip, int take)
+        public ActionResult<string> Token_UserComments(int skip, int take)
         {
             SetupNetwork();
             GetAuthentication(ref serviceRequest);

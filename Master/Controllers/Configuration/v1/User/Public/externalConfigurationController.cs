@@ -10,7 +10,7 @@ namespace Api.Master.Controllers
     {
         [AllowAnonymous]
         [HttpPost("api/v1/user/createAccount")]
-        public ActionResult<string> UserCreateAccount([FromBody] NewUserData obj)
+        public ActionResult<string> Public_UserCreateAccount([FromBody] NewUserData obj)
         {
             if (!this.features.CreateAccount.Execute)
                 return BadRequest(new ServiceError
@@ -25,7 +25,7 @@ namespace Api.Master.Controllers
 
         [AllowAnonymous]
         [HttpPost("api/v1/user/authenticate")]
-        public ActionResult<string> UserAuthenticate([FromBody] LoginInformation obj)
+        public ActionResult<string> Public_UserAuthenticate([FromBody] LoginInformation obj)
         {
             if (!this.features.Authenticate.Execute)
                 return BadRequest(new ServiceError

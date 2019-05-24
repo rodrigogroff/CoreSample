@@ -3,12 +3,12 @@
 Web Server
 -----------------------
 	Asp.NET Core 2.2
-	Master (LoadBalancer, dispatcher)
-	Cache (performance)
-	Api (scalability)
 	JWT Authentication
 	Feature On/off
 	Api versioning (v1/v2)
+	Master (LoadBalancer, dispatcher)
+	Api (scalability)
+	Cache (performance)
 
 -----------------------
 User Interface
@@ -22,11 +22,10 @@ QA
 	Unit testing
 	Full regression tests
 	Api Test (Insomnia environment)
-	Robot testing (selenium)
-	
+
 -----------------------
-Demonstration
+Platform
 -----------------------
 	Mass setup (fake data)
-	Bots (simulate user interaction)
-
+	Crawler (rest sharp)
+	Robot testing (selenium)

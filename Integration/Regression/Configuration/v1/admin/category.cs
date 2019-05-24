@@ -6,14 +6,14 @@ namespace Integration
     public partial class Configuration : BaseTest
     {
         [TestMethod]
-        public void AdminCategories()
+        public void AdminCategory()
         {
             string email = "";
 
             var bearer = CreateAndAuthorizeAdmin(ref email);
            
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/admin/categories?skip=0&take=10", Method.GET);
+            var request = new RestRequest("api/v1/admin/category/1", Method.GET);
 
             request.AddHeader("Authorization", "Bearer " + bearer);
 

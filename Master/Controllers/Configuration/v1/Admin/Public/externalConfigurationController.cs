@@ -9,7 +9,7 @@ namespace Api.Master.Controllers
     {
         [AllowAnonymous]
         [HttpPost("api/v1/admin/createAccount")]
-        public ActionResult<string> AdminCreateAccount([FromBody] NewUserData obj)
+        public ActionResult<string> Public_AdminCreateAccount([FromBody] NewUserData obj)
         {
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);
@@ -18,7 +18,7 @@ namespace Api.Master.Controllers
 
         [AllowAnonymous]
         [HttpPost("api/v1/admin/authenticate")]
-        public ActionResult<string> AdminAuthenticate([FromBody] LoginInformation obj)
+        public ActionResult<string> Public_AdminAuthenticate([FromBody] LoginInformation obj)
         {
             SetupNetwork();
             serviceRequest.AddJsonBody(obj);

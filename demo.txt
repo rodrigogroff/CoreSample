@@ -6,10 +6,10 @@ Prototype: E-Commerce
 1) Simulate a full technology demonstration, including:
 	- Asp.net Core 2.2
 	- API scalability (load balancer)	
-	- API security (token)
+	- API security (token jwt)
 	- API Feature On/Off
-	- Backend performance (cache)
 	- Multiple UI (web, mobile)
+	- Backend performance (cache)
 
 2) Backend development demo:
 	- Master [1] -> Api [n]

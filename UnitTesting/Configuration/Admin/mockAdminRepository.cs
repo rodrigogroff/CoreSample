@@ -8,6 +8,8 @@ namespace UnitTesting
 {
     public class mockAdminRepositoryUserExists : IAdminRepository
     {
+        #region - mock methods - 
+
         public long AdminAdd(SqlConnection db, NewUserData user)
         {
             return 1;
@@ -55,10 +57,23 @@ namespace UnitTesting
                 }
             };
         }
+
+        public ProductCategory CategoryById(SqlConnection db, long Id)
+        {
+            return new ProductCategory
+            {
+                Id = 1,
+                Name = "test"
+            };
+        }
+
+        #endregion
     }
 
     public class mockAdminRepositoryUserNotExists : IAdminRepository
     {
+        #region - mock methods - 
+
         public long AdminAdd(SqlConnection db, NewUserData user)
         {
             return 1;
@@ -106,9 +121,20 @@ namespace UnitTesting
                 new ProductCategory
                 {
                     Id  = 1,
-                    Name = "rodrigo"
+                    Name = "test"
                 }
             };
         }
+
+        public ProductCategory CategoryById(SqlConnection db, long Id)
+        {
+            return new ProductCategory
+            {
+                Id = 1,
+                Name = "test"
+            };
+        }
+
+        #endregion
     }
 }
