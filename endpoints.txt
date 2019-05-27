@@ -15,12 +15,12 @@ Configuration		api/v1/admin/categories				n		OK			n
 Configuration		api/v1/admin/category				n		OK			n		
 Configuration		api/v1/admin/createSubCategory		n		OK			y
 Configuration		api/v1/admin/subcategories			n		OK			n
-Configuration		api/v1/admin/editSubCategory		n		tu			n
-Configuration		api/v1/admin/subcategory			n		PLAN		n
-Configuration		api/v1/admin/products				n		PLAN		n
-Configuration		api/v1/admin/product				n		PLAN		n
+Configuration		api/v1/admin/editSubCategory		n		OK			n
+Configuration		api/v1/admin/subcategory			n		DEV			n
 Configuration		api/v1/admin/createProduct			n		PLAN		y
 Configuration		api/v1/admin/editProduct			n		PLAN		n
+Configuration		api/v1/admin/product				n		PLAN		n
+Configuration		api/v1/admin/products				n		PLAN		n
 	
 Portal				api/v1/portal/categories			y		OK			n
 Portal				api/v1/portal/subcategories			y		OK			n		
@@ -28,3 +28,5 @@ Portal				api/v1/portal/products				y		PLAN		n
 Portal				api/v1/portal/product				y		PLAN		n
 Portal				api/v1/portal/productComment		n		PLAN		n
 Portal				api/v1/portal/productFavorited		n		PLAN		n
+
+[Master]			api/stats

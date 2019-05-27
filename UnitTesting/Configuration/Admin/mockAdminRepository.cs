@@ -100,6 +100,15 @@ namespace UnitTesting
             
         }
 
+        public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
+        {
+            return new ProductSubCategory
+            {
+                Id = Id,
+                Name = "test"
+            };
+        }
+
         #endregion
     }
 
@@ -191,6 +200,11 @@ namespace UnitTesting
         public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
         {
             
+        }
+
+        public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

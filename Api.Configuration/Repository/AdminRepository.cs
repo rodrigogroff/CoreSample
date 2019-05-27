@@ -29,9 +29,9 @@ namespace Api.Configuration.Repository
             return db.Query<long>(sql, new { user.Name, user.Email, user.Phone, user.Password }).Single();
         }
 
-        public bool AdminLogin(SqlConnection db, string email, string password, ref Entities.Database.User user_db)
+        public bool AdminLogin(SqlConnection db, string email, string password, ref User user_db)
         {
-            user_db = db.QueryFirstOrDefault<Entities.Database.User >
+            user_db = db.QueryFirstOrDefault<User >
                         ("select * from [Admin] (nolock) where Email=@email and Password=@password", new
                         {
                             email,
@@ -75,18 +75,18 @@ namespace Api.Configuration.Repository
             db.Query(@"update [ProductCategory] set Name=@Name where Id=@Id", new { obj.Name, obj.Id });
         }
 
-        public List<Entities.Database.ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
+        public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
         {
             total = db.Query<int>("select count(*) from [ProductCategory]").Single();
 
-            return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] order by Name desc " +
-                                                               "offset @skip rows fetch next @take rows only", new { skip, take } ).
-                                                               ToList();
+            return db.Query<ProductCategory>(@"select * from [ProductCategory] order by Name desc 
+                                               offset @skip rows fetch next @take rows only", new { skip, take } ).
+                                               ToList();
         }
 
         public ProductCategory CategoryById(SqlConnection db, long Id)
         {
-            return db.Query<Entities.Database.ProductCategory>("select * from [ProductCategory] where Id=@Id", new { Id }).FirstOrDefault();
+            return db.Query<ProductCategory>("select * from [ProductCategory] where Id=@Id", new { Id }).FirstOrDefault();
         }
 
         public bool SubCategoryExists(SqlConnection db, long pcID, string name)
@@ -119,10 +119,10 @@ namespace Api.Configuration.Repository
         {
             total = db.Query<int>("select count(*) from [ProductSubCategory] where ProductCategoryID=@categID", new { categID }).Single();
 
-            return db.Query<Entities.Database.ProductSubCategory>(@"select * from [ProductSubCategory] 
-                                                                    where ProductCategoryID=@categID      
-                                                                    order by Name desc offset @skip rows fetch next @take rows only", new { categID, skip, take }).
-                                                               ToList();
+            return db.Query<ProductSubCategory>(@"select * from [ProductSubCategory] 
+                                                  where ProductCategoryID=@categID      
+                                                  order by Name desc offset @skip rows fetch next @take rows only", new { categID, skip, take }).
+                                                  ToList();
         }
 
         public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
@@ -137,6 +137,11 @@ namespace Api.Configuration.Repository
                {
                    id
                }) > 0;
+        }
+
+        public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
+        {
+            return db.Query<ProductSubCategory>("select * from [ProductSubCategory] where Id=@Id", new { Id }).FirstOrDefault();
         }
     }
 }

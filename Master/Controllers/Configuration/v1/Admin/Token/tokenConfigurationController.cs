@@ -85,5 +85,16 @@ namespace Api.Master.Controllers
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpGet("api/v1/admin/subcategory/{id}")]
+        public ActionResult<string> Token_AdminSubCategory(long id) 
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("id", id);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }
