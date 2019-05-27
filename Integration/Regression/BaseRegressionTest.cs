@@ -19,11 +19,30 @@ namespace Integration
 
     }
 
+    public class CreateResp
+
+    {
+        public long Id { get; set; }
+    }
+
+
     [TestClass]
     public class BaseTest
     {
         public string master = "http://localhost:18523";
         public string strCon = "Data Source=DESKTOP-6JMR2NF;Initial Catalog=VortigoServicePlatform;Integrated Security=SSPI;";
+
+        public string Cleanup(string src)
+        {
+            return src.Replace("\\\"", "\"").TrimStart('\"').TrimEnd('\"');
+        }
+
+        public string GetRandomNumber(int min, int max)
+        {
+            var r = new Random();
+            Thread.Sleep(1);
+            return r.Next(min, max).ToString();
+        }
 
         public void CreateIntegrationAdmin(ref string email)
         {
@@ -144,11 +163,6 @@ namespace Integration
             return auth.Token;
 
             #endregion
-        }
-
-        public string Cleanup(string src)
-        {
-            return src.Replace("\\\"", "\"").TrimStart('\"').TrimEnd('\"');
         }
     }
 }

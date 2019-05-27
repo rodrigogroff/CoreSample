@@ -8,7 +8,9 @@ namespace Api.Configuration.Service
     public class AdminCreateSubCategoryV1
     {
         public ServiceError Error;
-        public IAdminRepository repository;        
+        public IAdminRepository repository;
+
+        public long IdCreated = 0;
 
         public AdminCreateSubCategoryV1(IAdminRepository _repository)
         {
@@ -41,7 +43,7 @@ namespace Api.Configuration.Service
                 return false;
             }
 
-            repository.SubCategoryAdd(db, obj);
+            IdCreated = repository.SubCategoryAdd(db, obj);
             
             return true;
         }

@@ -1,8 +1,8 @@
+using Dapper;
 using Entities.Api.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
-using System;
-using System.Threading;
+using System.Data.SqlClient;
 
 namespace Integration
 {
@@ -13,25 +13,41 @@ namespace Integration
         {
             string email = "";
 
+            string objCategName = "categ test " + GetRandomNumber(10000, 90000);
+            string objSubCategName = "sub categ test " + GetRandomNumber(10000, 90000);
+
             var bearer = CreateAndAuthorizeAdmin(ref email);
+            long categId = CreateProductCategory(bearer, objCategName);
+            long subcategid = CreateProductSubCategory(bearer, categId, objSubCategName);
 
+            var client = new RestClient(master);
+            var request = new RestRequest("api/v1/admin/editsubcategory", Method.POST);
+
+            request.AddHeader("Authorization", "Bearer " + bearer);
+
+            request.AddJsonBody(new NewSubCategoryData
             {
-                var client = new RestClient(master);
-                var request = new RestRequest("api/v1/admin/editsubcategory", Method.POST);
+                Id = subcategid,
+                Name = objSubCategName + " edited"
+            });
 
-                request.AddHeader("Authorization", "Bearer " + bearer);
+            IRestResponse response = client.Execute(request);
 
-                request.AddJsonBody(new NewSubCategoryData
-                {
-                    Id = 1,
-                    Name = "categ test"
-                });
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                Assert.Fail("editsubcategory nok");
 
-                IRestResponse response = client.Execute(request);
+            using (var db = new SqlConnection(strCon))
+            {
+                var ret = db.QueryFirstOrDefault<Entities.Database.ProductCategory>(
+                                "select * from ProductSubCategory where Id=" + subcategid +
+                                " and ProductCategoryID=" + categId);
 
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                    Assert.Fail("editcategory nok");
-            }
+                if (ret == null)
+                    Assert.Fail("editsubcategory nok 3");
+
+                if (!ret.Name.EndsWith ("edited"))
+                    Assert.Fail("editsubcategory nok 4");
+            }            
         }
     }
 }

@@ -75,7 +75,7 @@ namespace Api.Configuration.Controllers
                     if (!service.Exec(db, obj))
                         return BadRequest(service.Error);
 
-                    return Ok();
+                    return Ok(new { Id = service.IdCreated });
                 }
             }
             catch (System.Exception ex)
@@ -155,7 +155,7 @@ namespace Api.Configuration.Controllers
                     if (!service.Exec(db, obj))
                         return BadRequest(service.Error);
 
-                    return Ok();
+                    return Ok(new { Id = service.IdCreated });
                 }
             }
             catch (System.Exception ex)
