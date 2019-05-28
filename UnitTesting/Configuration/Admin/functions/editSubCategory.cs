@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_EditSubCategory_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditSubCategoryV1(repo);
 
             if (service.Exec(null, new NewSubCategoryData { Name = "", Id = 1 }))
@@ -18,7 +18,7 @@ namespace UnitTesting
 
         public void UT_Admin_EditSubCategory_IdInvalid()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditSubCategoryV1(repo);
 
             if (service.Exec(null, new NewSubCategoryData { Name = "xxx", Id = 1 }))
@@ -28,7 +28,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_EditSubCategory_OK()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditSubCategoryV1(repo);
 
             if (!service.Exec(null, new NewSubCategoryData { Name = "xxx", Id = 1 }))

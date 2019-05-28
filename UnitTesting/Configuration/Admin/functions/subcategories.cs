@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_subcategories()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminSubCategoriesV1(repo);
 
             var resp = service.Exec(null, new AuthenticatedUser(), 1, 0, 10);

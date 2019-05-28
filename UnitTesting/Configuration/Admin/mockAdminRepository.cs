@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace UnitTesting
 {
-    public class mockAdminRepositoryUserExists : IAdminRepository
+    public class mockAdminRepository : IAdminRepository
     {
         #region - mock methods - 
 
@@ -17,6 +17,9 @@ namespace UnitTesting
 
         public bool AdminExists(SqlConnection db, string email)
         {
+            if (email == "pass@test.com")
+                return false;
+
             return true;
         }
 
@@ -27,6 +30,9 @@ namespace UnitTesting
 
         public bool CategoryExists(SqlConnection db, string name)
         {
+            if (name == "pass")
+                return false;
+
             return true;
         }
 
@@ -151,130 +157,7 @@ namespace UnitTesting
             throw new System.NotImplementedException();
         }
 
-        #endregion
-    }
-
-    public class mockAdminRepositoryUserNotExists : IAdminRepository
-    {
-        #region - mock methods - 
-
-        public long AdminAdd(SqlConnection db, NewUserData user)
-        {
-            return 1;
-        }
-
-        public bool AdminExists(SqlConnection db, string email)
-        {
-            return false;
-        }
-
-        public bool AdminLogin(SqlConnection db, string email, string password, ref User user)
-        {
-            return false;
-        }
-
-        public bool CategoryExists(SqlConnection db, string name)
-        {
-            return false;
-        }
-
-        public long CategoryAdd(SqlConnection db, NewCategoryData obj)
-        {
-            return 1;
-        }
-
-        public bool CategoryExists(SqlConnection db, string name, long id)
-        {
-            return false;
-        }
-
-        public bool CategoryExistsId(SqlConnection db, long id)
-        {
-            return false;
-        }
-
-        public void CategoryEdit(SqlConnection db, NewCategoryData obj)
-        {
-            
-        }
-
-        public List<ProductCategory> CategoryList(SqlConnection db, int skip, int take, ref int total)
-        {
-            return new List<ProductCategory>
-            {
-                new ProductCategory
-                {
-                    Id  = 1,
-                    Name = "test"
-                }
-            };
-        }
-
-        public ProductCategory CategoryById(SqlConnection db, long Id)
-        {
-            return new ProductCategory
-            {
-                Id = 1,
-                Name = "test"
-            };
-        }
-
-        public long SubCategoryAdd(SqlConnection db, NewSubCategoryData obj)
-        {
-            return 1;
-        }
-
-        public bool SubCategoryExists(SqlConnection db, long pcID, string name)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<ProductSubCategory> SubCategoryList(SqlConnection db, long categID, int skip, int take, ref int total)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool SubCategoryExistsId(SqlConnection db, long id)
-        {
-            return true;
-        }
-
-        public void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj)
-        {
-            
-        }
-
-        public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool ProductExists(SqlConnection db, long pcID, long subID, string name)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public long ProductAdd(SqlConnection db, Product obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool ProductExistsId(SqlConnection db, long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ProductEdit(SqlConnection db, NewProductData obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Product ProductById(SqlConnection db, long Id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ProductEdit(SqlConnection db, Product obj)
+        public Admin AdminById(SqlConnection db, long Id)
         {
             throw new System.NotImplementedException();
         }

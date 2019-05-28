@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateSubCategory_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateSubCategoryV1(repo);
 
             if (service.Exec(null, new NewSubCategoryData { ProductCategoryID = 1, Name = "" }))
@@ -19,7 +19,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateCategory_CategoryInvalid()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateSubCategoryV1(repo);
 
             if (service.Exec(null, new NewSubCategoryData { ProductCategoryID = 0, Name = "xxx" }))
@@ -28,7 +28,7 @@ namespace UnitTesting
 
         public void UT_Admin_CreateCategory_CategoryNotExist()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateSubCategoryV1(repo);
 
             if (service.Exec(null, new NewSubCategoryData { ProductCategoryID = 1, Name = "xxx" }))
@@ -38,7 +38,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateCategory_OK()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateSubCategoryV1(repo);
 
             if (!service.Exec(null, new NewSubCategoryData { ProductCategoryID = 1, Name = "xxx" }))

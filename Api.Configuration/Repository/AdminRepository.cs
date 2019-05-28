@@ -195,5 +195,10 @@ namespace Api.Configuration.Repository
                 obj.Id
             });
         }
+
+        public Admin AdminById(SqlConnection db, long Id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

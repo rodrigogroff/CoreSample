@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "" }))
@@ -19,7 +19,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_EmailInvalid_1()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "" }))
@@ -29,7 +29,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_EmailInvalid_2()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "fddd" }))
@@ -39,7 +39,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_EmailInvalid_3()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "fddd@fdsd" }))
@@ -49,7 +49,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_PasswordInvalid_1()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "" }))
@@ -59,7 +59,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_PasswordInvalid_2()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "12345" }))
@@ -69,7 +69,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_UserExist()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
             if (service.Exec(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
@@ -79,10 +79,10 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateAccount_OK()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateAccountV1(repo);
 
-            if (!service.Exec(null, new NewUserData { Name = "xxx", Email = "x@c.com", Password = "123456" }))
+            if (!service.Exec(null, new NewUserData { Name = "xxx", Email = "pass@test.com", Password = "123456" }))
                 Assert.Fail("CreateAccount // Not existing user should create account");
         }
     }

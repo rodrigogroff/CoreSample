@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateProduct_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "" }))
@@ -19,7 +19,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateProduct_CategID_Invalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", ProductCategoryID = 0, ProductSubCategoryID = 0 }))
@@ -29,7 +29,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateProduct_SubCategID_Invalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", ProductCategoryID = 1, ProductSubCategoryID = 0 }))
@@ -39,7 +39,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateProduct_Product_Exists()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", ProductCategoryID = 1, ProductSubCategoryID = 1 }))
@@ -49,7 +49,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateProduct_Product_OK()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateProductV1(repo);
 
             if (!service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", ProductCategoryID = 1, ProductSubCategoryID = 2 }))

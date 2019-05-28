@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_Authenticate_LoginInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
@@ -20,7 +20,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_Authenticate_PasswordInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
@@ -31,7 +31,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_Authenticate_PasswordInvalid_2()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
@@ -42,11 +42,11 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_Authenticate_OK()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminAuthenticateV1(repo);
             var ua = new AuthenticatedUser();
 
-            if (!service.Exec(null, new LoginInformation { Login = "test@test.com", Passwd = "123456" }, ref ua))
+            if (!service.Exec(null, new LoginInformation { Login = "pass@test.com", Passwd = "123456" }, ref ua))
                 Assert.Fail("Authenticate // Failed!");
         }
     }

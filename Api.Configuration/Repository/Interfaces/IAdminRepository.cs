@@ -10,7 +10,8 @@ namespace Api.Configuration.Repository
         bool AdminExists(SqlConnection db, string email );
         bool AdminLogin(SqlConnection db, string email, string password, ref User user);
         long AdminAdd(SqlConnection db, NewUserData user);
-        
+        Admin AdminById(SqlConnection db, long Id);
+
         bool CategoryExists(SqlConnection db, string name);
         bool CategoryExistsId(SqlConnection db, long id);
         long CategoryAdd(SqlConnection db, NewCategoryData obj);

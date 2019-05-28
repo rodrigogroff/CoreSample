@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateCategory_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateCategoryV1(repo);
 
             if (service.Exec(null, new NewCategoryData { Name = "" }))
@@ -19,7 +19,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateCategory_CategoryExist()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateCategoryV1(repo);
 
             if (service.Exec(null, new NewCategoryData { Name = "xxx" }))
@@ -29,10 +29,10 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_CreateCategory_OK()
         {
-            var repo = new mockAdminRepositoryUserNotExists();
+            var repo = new mockAdminRepository();
             var service = new AdminCreateCategoryV1(repo);
 
-            if (!service.Exec(null, new NewCategoryData { Name = "xxx" }))
+            if (!service.Exec(null, new NewCategoryData { Name = "pass" }))
                 Assert.Fail("CreateCategory // Not existing user should create account");
         }
     }

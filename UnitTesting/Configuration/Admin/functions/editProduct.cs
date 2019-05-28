@@ -9,7 +9,7 @@ namespace UnitTesting
         [Test]
         public void UT_Admin_EditProduct_NameInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "", Id = 0 }))
@@ -18,7 +18,7 @@ namespace UnitTesting
 
         public void UT_Admin_EditProduct_IdInvalid()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditProductV1(repo);
 
             if (service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", Id = 0 }))
@@ -27,7 +27,7 @@ namespace UnitTesting
 
         public void UT_Admin_EditProduct_OK()
         {
-            var repo = new mockAdminRepositoryUserExists();
+            var repo = new mockAdminRepository();
             var service = new AdminEditProductV1(repo);
 
             if (!service.Exec(null, new AuthenticatedUser(), new NewProductData { Name = "test", Id = 1 }))

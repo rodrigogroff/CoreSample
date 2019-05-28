@@ -266,5 +266,25 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpGet("api/v1/admin/product/{id}")]
+        public ActionResult<string> Product(long id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminProductV1(repository);
+                    var resp = service.Exec(db, id);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
     }
 }

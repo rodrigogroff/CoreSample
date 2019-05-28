@@ -13,4 +13,11 @@ namespace Entities.Api.Configuration
         public long Id;
         public string Name;        
     }
+
+    public class NewSubCategoryData
+    {
+        public long Id;
+        public long ProductCategoryID;
+        public string Name;
+    }
 }

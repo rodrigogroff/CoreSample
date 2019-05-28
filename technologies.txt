@@ -6,7 +6,7 @@ Web Server
 	JWT Authentication
 	Feature On/off
 	Api versioning (v1/v2)
-	Master (LoadBalancer, dispatcher)
+	Master (LoadBalancer)
 	Api (scalability)
 	Cache (performance)
 
