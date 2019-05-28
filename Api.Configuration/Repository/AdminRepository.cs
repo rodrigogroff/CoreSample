@@ -165,5 +165,35 @@ namespace Api.Configuration.Repository
 
             return db.Query<long>(sql, obj).Single();
         }
+
+        public bool ProductExistsId(SqlConnection db, long id)
+        {
+            return db.QueryFirstOrDefault<long>
+                ("select Id from [Product] (nolock) where Id=@id", new
+                {
+                    id
+                }) > 0;
+        }
+
+        public void ProductEdit(SqlConnection db, NewProductData obj)
+        {
+            db.Query(@"update [Product] set Name=@Name where Id=@Id", new { obj.Name, obj.Id });
+        }
+
+        public Product ProductById(SqlConnection db, long Id)
+        {
+            return db.Query<Product>("select * from [Product] where Id=@Id", new { Id }).FirstOrDefault();
+        }
+
+        public void ProductEdit(SqlConnection db, Product obj)
+        {
+            db.Query(@"update [Product] set Name=@Name,DateEdit=@DateEdit,LastEditByAdminID=@LastEditByAdminID where Id=@Id", new
+            {
+                obj.Name,
+                obj.DateEdit,
+                obj.LastEditByAdminID,
+                obj.Id
+            });
+        }
     }
 }

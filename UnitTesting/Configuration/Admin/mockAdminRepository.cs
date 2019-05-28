@@ -128,6 +128,29 @@ namespace UnitTesting
             return 1;
         }
 
+        public bool ProductExistsId(SqlConnection db, long id)
+        {
+            if (id == 0)
+                return false;
+
+            return true;
+        }
+
+        public void ProductEdit(SqlConnection db, NewProductData obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Product ProductById(SqlConnection db, long Id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ProductEdit(SqlConnection db, Product obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 
@@ -232,6 +255,26 @@ namespace UnitTesting
         }
 
         public long ProductAdd(SqlConnection db, Product obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool ProductExistsId(SqlConnection db, long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ProductEdit(SqlConnection db, NewProductData obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Product ProductById(SqlConnection db, long Id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ProductEdit(SqlConnection db, Product obj)
         {
             throw new System.NotImplementedException();
         }

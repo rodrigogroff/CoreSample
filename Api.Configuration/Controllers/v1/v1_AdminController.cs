@@ -244,5 +244,27 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpPost("api/v1/admin/editProduct")]
+        public ActionResult<string> EditProduct([FromBody] NewProductData obj)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminEditProductV1(repository);
+                    var au = GetCurrentAuthenticatedUser();
+
+                    if (!service.Exec(db, au, obj))
+                        return BadRequest(service.Error);
+
+                    return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }

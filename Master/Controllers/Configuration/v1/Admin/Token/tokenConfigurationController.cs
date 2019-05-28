@@ -102,5 +102,13 @@ namespace Api.Master.Controllers
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpPost("api/v1/admin/editProduct")]
+        public ActionResult<string> Token_AdminEditProduct([FromBody] NewProductData obj)
+        {
+            SetupAuthenticatedNetwork();
+            serviceRequest.AddJsonBody(obj);
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

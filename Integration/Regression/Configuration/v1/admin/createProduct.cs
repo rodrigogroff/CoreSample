@@ -9,19 +9,8 @@ namespace Integration
 {
     public partial class Configuration : BaseTest
     {
-        [TestMethod]
-        public void AdminCreateProduct()
+        public long CreateProduct(string bearer, string objProductName, long categId, long subcategid )
         {
-            string email = "";
-
-            string objCategName = "categ test " + GetRandomNumber(10000, 90000);
-            string objSubCategName = "sub categ test " + GetRandomNumber(10000, 90000);
-            string objProductName = "product " + GetRandomNumber(10000, 90000);
-
-            var bearer = CreateAndAuthorizeAdmin(ref email);
-            long categId = CreateProductCategory (bearer, objCategName);
-            long subcategid = CreateProductSubCategory(bearer, categId, objSubCategName);
-
             var client = new RestClient(master);
             var request = new RestRequest("api/v1/admin/createproduct", Method.POST);
 
@@ -60,6 +49,23 @@ namespace Integration
                 if (ret.ProductSubCategoryID != subcategid)
                     Assert.Fail("product nok 4");
             }
+
+            return obj.Id;
+        }
+
+        [TestMethod]
+        public void AdminCreateProduct()
+        {
+            string email = "";
+
+            string objCategName = "categ test " + GetRandomNumber(10000, 90000);
+            string objSubCategName = "sub categ test " + GetRandomNumber(10000, 90000);
+            string objProductName = "product " + GetRandomNumber(10000, 90000);
+
+            var bearer = CreateAndAuthorizeAdmin(ref email);
+            long categId = CreateProductCategory (bearer, objCategName);
+            long subcategid = CreateProductSubCategory(bearer, categId, objSubCategName);
+            long prodId = CreateProduct(bearer, objProductName, categId, subcategid);
         }
     }
 }
