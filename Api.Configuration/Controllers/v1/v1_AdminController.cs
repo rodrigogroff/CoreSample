@@ -231,9 +231,8 @@ namespace Api.Configuration.Controllers
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new AdminCreateProductV1(repository);
-                    var au = GetCurrentAuthenticatedUser();
 
-                    if (!service.Exec(db, au, obj))
+                    if (!service.Exec(db, GetCurrentAuthenticatedUser(), obj))
                         return BadRequest(service.Error);
 
                     return Ok(new { Id = service.IdCreated });
@@ -253,9 +252,8 @@ namespace Api.Configuration.Controllers
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new AdminEditProductV1(repository);
-                    var au = GetCurrentAuthenticatedUser();
-
-                    if (!service.Exec(db, au, obj))
+                    
+                    if (!service.Exec(db, GetCurrentAuthenticatedUser(), obj))
                         return BadRequest(service.Error);
 
                     return Ok();
@@ -286,5 +284,23 @@ namespace Api.Configuration.Controllers
             }
         }
 
+        [HttpGet("api/v1/admin/products")]
+        public ActionResult<string> Products(long categID, long subcategID, int skip, int take)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminProductsV1(repository);
+                    var resp = service.Exec(db, categID, subcategID, skip, take);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }

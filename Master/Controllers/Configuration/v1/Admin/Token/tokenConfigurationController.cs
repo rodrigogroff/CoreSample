@@ -118,5 +118,18 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("id", id);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [HttpGet("api/v1/admin/products")]
+        public ActionResult<string> Token_AdminProducts(long categID, long subcategID, int skip, int take)
+        {
+            SetupAuthenticatedNetwork();
+
+            serviceRequest.AddParameter("categID", categID);
+            serviceRequest.AddParameter("subcategID", subcategID);
+            serviceRequest.AddParameter("skip", skip);
+            serviceRequest.AddParameter("take", take);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

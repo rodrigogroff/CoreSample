@@ -198,7 +198,28 @@ namespace Api.Configuration.Repository
 
         public Admin AdminById(SqlConnection db, long Id)
         {
-            throw new System.NotImplementedException();
+            return db.Query<Admin>("select * from [Admin] where Id=@Id", new { Id }).FirstOrDefault();
+        }
+
+        public List<Product> ProductList(SqlConnection db, long categID, long subcategID, int skip, int take, ref int total)
+        {
+            total = db.Query<int>("select count(*) from [Product] where ProductCategoryID=@categID and ProductSubCategoryID=@subcategID", new
+            {
+                categID,
+                subcategID
+            }).
+            Single();
+
+            return db.Query<Product>(@"select * from [Product] 
+                                       where ProductCategoryID=@categID and ProductSubCategoryID=@subcategID
+                                       order by Name desc offset @skip rows fetch next @take rows only", new
+            {
+                categID,
+                subcategID,
+                skip,
+                take
+            }).
+            ToList();
         }
     }
 }

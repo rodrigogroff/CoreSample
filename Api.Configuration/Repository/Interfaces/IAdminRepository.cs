@@ -31,5 +31,6 @@ namespace Api.Configuration.Repository
         bool ProductExistsId(SqlConnection db, long id);
         Product ProductById(SqlConnection db, long Id);
         void ProductEdit(SqlConnection db, Product obj);
+        List<Product> ProductList(SqlConnection db, long categID, long subcategID, int skip, int take, ref int total);
     }
 }

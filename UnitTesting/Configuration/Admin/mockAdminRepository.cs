@@ -159,6 +159,14 @@ namespace UnitTesting
 
         public Admin AdminById(SqlConnection db, long Id)
         {
+            return new Admin
+            {
+
+            };
+        }
+
+        public List<Product> ProductList(SqlConnection db, long categID, long subcategID, int skip, int take, ref int total)
+        {
             throw new System.NotImplementedException();
         }
 
