@@ -60,6 +60,9 @@ namespace UnitTesting
 
         public ProductCategory CategoryById(SqlConnection db, long Id)
         {
+            if (Id == 0)
+                return null;
+
             return new ProductCategory
             {
                 Id = 1,
@@ -102,6 +105,9 @@ namespace UnitTesting
 
         public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
         {
+            if (Id == 0)
+                return null;
+
             return new ProductSubCategory
             {
                 Id = Id,
@@ -111,12 +117,15 @@ namespace UnitTesting
 
         public bool ProductExists(SqlConnection db, long pcID, long subID, string name)
         {
-            throw new System.NotImplementedException();
+            if (pcID == 1 && subID == 1)
+                return true;
+
+            return false;
         }
 
         public long ProductAdd(SqlConnection db, Product obj)
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         #endregion

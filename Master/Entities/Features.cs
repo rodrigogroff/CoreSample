@@ -13,5 +13,6 @@ namespace Master
         public FeatureState Authenticate { get; set; }
         public FeatureState CreateCategory { get; set; }
         public FeatureState CreateSubCategory { get; set; }
+        public FeatureState CreateProduct { get; set; }
     }
 }

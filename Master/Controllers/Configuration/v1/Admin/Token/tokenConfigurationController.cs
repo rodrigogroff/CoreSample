@@ -92,6 +92,12 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/createproduct")]
         public ActionResult<string> Token_AdminCreateProduct([FromBody] NewProductData obj)
         {
+            if (!this.features.CreateProduct.Execute)
+                return BadRequest(new ServiceError
+                {
+                    Message = this.features.CreateProduct.ErrorMessage
+                });
+
             SetupAuthenticatedNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
