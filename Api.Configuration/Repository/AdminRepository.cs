@@ -12,9 +12,9 @@ namespace Api.Configuration.Repository
         public bool AdminExists(SqlConnection db, string email)
         {
             return db.QueryFirstOrDefault<long>
-                ("select Id from [Admin] (nolock) where Email=@email", new
+                ("select Id from [Admin] (nolock) where UPPER(Email)=@email", new
                 {
-                    email                    
+                    email = email.ToUpper()
                 }) > 0;
         }
 
@@ -32,9 +32,9 @@ namespace Api.Configuration.Repository
         public bool AdminLogin(SqlConnection db, string email, string password, ref User user_db)
         {
             user_db = db.QueryFirstOrDefault<User >
-                        ("select * from [Admin] (nolock) where Email=@email and Password=@password", new
+                        ("select * from [Admin] (nolock) where UPPER(Email)=@email and Password=@password", new
                         {
-                            email,
+                            email = email.ToUpper(),
                             password,
                         });
 
@@ -44,9 +44,9 @@ namespace Api.Configuration.Repository
         public bool CategoryExists(SqlConnection db, string name)
         {
             return db.QueryFirstOrDefault<long>
-                ("select Id from [ProductCategory] (nolock) where Name=@name", new
+                ("select Id from [ProductCategory] (nolock) where UPPER(Name)=@name", new
                 {
-                    name
+                    name = name.ToUpper()
                 }) > 0;
         }
 
@@ -92,9 +92,9 @@ namespace Api.Configuration.Repository
         public bool SubCategoryExists(SqlConnection db, long pcID, string name)
         {
             return db.QueryFirstOrDefault<long>
-                ("select Id from [ProductSubCategory] (nolock) where Name=@name and ProductCategoryID=@pcID", new
+                ("select Id from [ProductSubCategory] (nolock) where UPPER(Name)=@name and ProductCategoryID=@pcID", new
                 {
-                    name,
+                    name = name.ToUpper(),
                     pcID
                 }) > 0;
         }
@@ -142,6 +142,28 @@ namespace Api.Configuration.Repository
         public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
         {
             return db.Query<ProductSubCategory>("select * from [ProductSubCategory] where Id=@Id", new { Id }).FirstOrDefault();
+        }
+
+        public bool ProductExists(SqlConnection db, long pcID, long subID, string name)
+        {
+            return db.QueryFirstOrDefault<long>
+                            ("select Id from [Product] (nolock) where UPPER(Name)=@name and ProductCategoryID=@pcID and ProductSubCategoryID=@subID", new
+                            {
+                                name = name.ToUpper(),
+                                pcID,
+                                subID
+                            }) > 0;
+        }
+
+        public long ProductAdd(SqlConnection db, Product obj)
+        {
+            string sql = @"INSERT INTO [Product] 
+                          (ProductCategoryID,ProductSubCategoryID,Name,CreatedByAdminID,DateAdded,LastEditByAdminID,DateEdit) 
+                          VALUES 
+                          (@ProductCategoryID,@ProductSubCategoryID,@Name,@CreatedByAdminID,@DateAdded,@LastEditByAdminID,@DateEdit); 
+                          SELECT CAST(SCOPE_IDENTITY() as bigint)";
+
+            return db.Query<long>(sql, obj).Single();
         }
     }
 }

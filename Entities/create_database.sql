@@ -162,14 +162,24 @@ BEGIN
     ALTER TABLE [Product] ADD [Name] [varchar](500) NULL
 END
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'Views')
-BEGIN
-    ALTER TABLE [Product] ADD [Views] int NULL
-END
-
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'CreatedByAdminID')
 BEGIN
     ALTER TABLE [Product] ADD [CreatedByAdminID] bigint NULL
+END;
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'DateAdded')
+BEGIN
+    ALTER TABLE [Product] ADD [DateAdded] datetime NULL
+END;
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'LastEditByAdminID')
+BEGIN
+    ALTER TABLE [Product] ADD [LastEditByAdminID] bigint NULL
+END;
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[Product]') AND name = 'DateEdit')
+BEGIN
+    ALTER TABLE [Product] ADD [DateEdit] datetime NULL
 END;
 
 ------------------------------------------------

@@ -23,5 +23,8 @@ namespace Api.Configuration.Repository
         List<Entities.Database.ProductSubCategory> SubCategoryList(SqlConnection db, long categID, int skip, int take, ref int total);
         void SubCategoryEdit(SqlConnection db, NewSubCategoryData obj);
         Entities.Database.ProductSubCategory SubCategoryById(SqlConnection db, long Id);
+
+        bool ProductExists(SqlConnection db, long pcID, long subID, string name);
+        long ProductAdd(SqlConnection db, Entities.Database.Product obj);
     }
 }

@@ -211,10 +211,32 @@ namespace Api.Configuration.Controllers
             {
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
-                    var service = new AdminCategoryV1(repository);
+                    var service = new AdminSubCategoryV1(repository);
                     var resp = service.Exec(db, GetCurrentAuthenticatedUser(), id);
 
                     return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpPost("api/v1/admin/createproduct")]
+        public ActionResult<string> CreateProduct([FromBody] NewProductData obj)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new AdminCreateProductV1(repository);
+                    var au = GetCurrentAuthenticatedUser();
+
+                    if (!service.Exec(db, au, obj))
+                        return BadRequest(service.Error);
+
+                    return Ok(new { Id = service.IdCreated });
                 }
             }
             catch (System.Exception ex)

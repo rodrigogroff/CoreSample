@@ -109,6 +109,16 @@ namespace UnitTesting
             };
         }
 
+        public bool ProductExists(SqlConnection db, long pcID, long subID, string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public long ProductAdd(SqlConnection db, Product obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 
@@ -203,6 +213,16 @@ namespace UnitTesting
         }
 
         public ProductSubCategory SubCategoryById(SqlConnection db, long Id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool ProductExists(SqlConnection db, long pcID, long subID, string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public long ProductAdd(SqlConnection db, Product obj)
         {
             throw new System.NotImplementedException();
         }

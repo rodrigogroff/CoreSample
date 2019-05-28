@@ -15,7 +15,7 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateAccount.ErrorMessage
                 });
 
-            SetupNetwork();
+            SetupAuthenticatedNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
@@ -23,7 +23,7 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/editCategory")]
         public ActionResult<string> Token_AdminEditCategory([FromBody] NewCategoryData obj)
         {
-            SetupNetwork();
+            SetupAuthenticatedNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
@@ -31,8 +31,7 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/admin/categories")]
         public ActionResult<string> Token_AdminCategories(int skip, int take)
         {
-            SetupNetwork();
-            GetAuthentication(ref serviceRequest);
+            SetupAuthenticatedNetwork();
 
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
@@ -43,11 +42,8 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/admin/category/{id}")]
         public ActionResult<string> Token_AdminCategory(long id)
         {
-            SetupNetwork();
-            GetAuthentication(ref serviceRequest);
-
+            SetupAuthenticatedNetwork();
             serviceRequest.AddParameter("id", id);
-
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
 
@@ -60,7 +56,7 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateAccount.ErrorMessage
                 });
 
-            SetupNetwork();
+            SetupAuthenticatedNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
@@ -68,8 +64,7 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/admin/subcategories")]
         public ActionResult<string> Token_AdminSubCategories(long categID, int skip, int take)
         {
-            SetupNetwork();
-            GetAuthentication(ref serviceRequest);
+            SetupAuthenticatedNetwork();
 
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("skip", skip);
@@ -81,7 +76,7 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/editsubCategory")]
         public ActionResult<string> Token_AdminEditSubCategory([FromBody] NewSubCategoryData obj)
         {
-            SetupNetwork();
+            SetupAuthenticatedNetwork();
             serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
@@ -89,11 +84,16 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/admin/subcategory/{id}")]
         public ActionResult<string> Token_AdminSubCategory(long id) 
         {
-            SetupNetwork();
-            GetAuthentication(ref serviceRequest);
-
+            SetupAuthenticatedNetwork();
             serviceRequest.AddParameter("id", id);
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
 
+        [HttpPost("api/v1/admin/createproduct")]
+        public ActionResult<string> Token_AdminCreateProduct([FromBody] NewProductData obj)
+        {
+            SetupAuthenticatedNetwork();
+            serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
     }

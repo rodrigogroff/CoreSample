@@ -41,6 +41,13 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
+        public void SetupAuthenticatedNetwork()
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+        }
+
+        [NonAction]
         public Method ConvertMethod( string methodStr)
         {
             switch (methodStr)
