@@ -6,17 +6,82 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
+using Entities.Api.Portal;
+using Entities.Api.Configuration;
 
 namespace Api.Configuration.Controllers
 {
     [ApiController]
     public class PortalV1Controller : BaseController
     {
-        public PortalRepository repository = new PortalRepository();
+        public PortalRepository portalRepository = new PortalRepository();
+        public UserRepository userRepository = new UserRepository();
 
         public PortalV1Controller(IConfiguration _configuration)
         {        
             this.configuration = _configuration;
+        }
+
+        [HttpPost("api/v1/portal/createAccount")]
+        public ActionResult<string> CreateAccount([FromBody] NewUserData newUser)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new UserCreateAccountV1(userRepository);
+
+                    if (!service.Exec(db, newUser))
+                        return BadRequest(service.Error);
+
+                    return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpPost("api/v1/portal/authenticate")]
+        public ActionResult<string> Authenticate([FromBody] LoginInformation login)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new UserAuthenticateV1(userRepository);
+                    var ua = new AuthenticatedUser();
+
+                    if (!service.Exec(db, login, ref ua))
+                        return BadRequest(service.Error);
+
+                    return Ok(ua);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpGet("api/v1/portal/comments")]
+        public ActionResult<string> Comments(int skip, int take)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new UserCommentsV1(userRepository);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), skip, take);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
         }
 
         [HttpGet("api/v1/portal/categories")]
@@ -26,7 +91,7 @@ namespace Api.Configuration.Controllers
             {
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
-                    var service = new PortalCategoriesV1(repository);
+                    var service = new PortalCategoriesV1(portalRepository);
                     var resp = service.Exec(db, GetCurrentAuthenticatedUser(), skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));
@@ -45,7 +110,7 @@ namespace Api.Configuration.Controllers
             {
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
-                    var service = new PortalSubCategoriesV1(repository);
+                    var service = new PortalSubCategoriesV1(portalRepository);
                     var resp = service.Exec(db, GetCurrentAuthenticatedUser(), categID, skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));

@@ -1,4 +1,5 @@
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;
@@ -117,7 +118,7 @@ namespace Integration
             email = dtStamp + "_z@z.com";
             
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/createAccount", Method.POST);
+            var request = new RestRequest("api/v1/portal/createAccount", Method.POST);
 
             request.AddJsonBody(new NewUserData
             {
@@ -142,7 +143,7 @@ namespace Integration
             CreateIntegrationUser(ref email);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/authenticate", Method.POST);
+            var request = new RestRequest("api/v1/portal/authenticate", Method.POST);
 
             request.AddJsonBody(new LoginInformation
             {

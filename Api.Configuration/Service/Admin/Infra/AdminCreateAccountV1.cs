@@ -2,6 +2,7 @@
 using Entities.Api.Configuration;
 using Entities.Api;
 using System.Data.SqlClient;
+using Entities.Api.Portal;
 
 namespace Api.Configuration.Service
 {

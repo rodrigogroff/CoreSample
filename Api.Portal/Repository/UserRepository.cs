@@ -1,10 +1,10 @@
 ﻿using Dapper;
-using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Api.Configuration.Repository
+namespace Api.Portal.Repository
 {
     public class UserRepository : IUserRepository
     {        

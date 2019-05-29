@@ -1,6 +1,7 @@
 ﻿using Api.Configuration.Repository;
 using Entities.Api;
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using System.Data.SqlClient;
 
 namespace Api.Configuration.Service

@@ -3,6 +3,7 @@ using Api.Configuration.Service;
 using Api.Master.Controllers;
 using Entities.Api;
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;

@@ -1,5 +1,5 @@
 ﻿
-namespace Entities.Api.Configuration
+namespace Entities.Api.Portal
 {
     public class LoginInformation
     {

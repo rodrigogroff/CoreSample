@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Entities.Api.Configuration
+namespace Entities.Api.Portal
 {
     public class UserComments
     {

@@ -1,9 +1,10 @@
-﻿using Api.Configuration.Repository;
+﻿using Api.Portal.Repository;
 using Entities.Api;
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using System.Data.SqlClient;
 
-namespace Api.Configuration.Service
+namespace Api.Portal.Service
 {
     public class UserAuthenticateV1
     {

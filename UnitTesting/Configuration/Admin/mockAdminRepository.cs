@@ -1,5 +1,6 @@
 ﻿using Api.Configuration.Repository;
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using Entities.Database;
 using System;
 using System.Collections.Generic;

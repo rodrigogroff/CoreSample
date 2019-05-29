@@ -1,4 +1,5 @@
 using Entities.Api.Configuration;
+using Entities.Api.Portal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using RestSharp;

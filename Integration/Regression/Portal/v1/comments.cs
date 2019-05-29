@@ -12,7 +12,7 @@ namespace Integration
             string bearer = CreateAndAuthorizeUser(ref email);
 
             var client = new RestClient(master);
-            var request = new RestRequest("api/v1/user/comments?skip=0&take=1", Method.GET);
+            var request = new RestRequest("api/v1/portal/comments?skip=0&take=1", Method.GET);
 
             request.AddHeader("Authorization", "Bearer " + bearer);
 

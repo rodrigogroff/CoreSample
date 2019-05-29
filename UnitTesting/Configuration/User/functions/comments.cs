@@ -1,4 +1,5 @@
 using Api.Configuration.Service;
+using Api.Portal.Service;
 using Entities.Api.Configuration;
 using NUnit.Framework;
 
