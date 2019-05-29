@@ -2,8 +2,6 @@
 ------------------------------------------------------------------------------------------------------------------
 Api					Name								Public	Status		Featured	
 ------------------------------------------------------------------------------------------------------------------
-Configuration		api/v1/user/createAccount			y		OK			y			
-Configuration		api/v1/user/authenticate			y		OK			y			
 Configuration		api/v1/admin/createAccount			y		OK			n
 Configuration		api/v1/admin/authenticate			y		OK			n
 Configuration		api/v1/admin/createCategory			n		OK			y
@@ -19,9 +17,10 @@ Configuration		api/v1/admin/editProduct			n		OK			n
 Configuration		api/v1/admin/product				n		OK			n
 Configuration		api/v1/admin/products				n		OK			n
 
-Portal (*)			api/v1/user/comments				n		PLAN		n	
-Portal (*)			api/v1/user/favorites				n		PLAN		n
-	
+Portal				api/v1/portal/createAccount			y		OK			y			
+Portal				api/v1/portal/authenticate			y		OK			y			
+Portal				api/v1/portal/comments				n		OK			n	
+Portal 				api/v1/portal/favorites				n		OK			n	
 Portal				api/v1/portal/categories			y		OK			n
 Portal				api/v1/portal/subcategories			y		OK			n		
 Portal				api/v1/portal/product				y		PLAN		n
