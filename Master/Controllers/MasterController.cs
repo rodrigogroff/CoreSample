@@ -75,9 +75,8 @@ namespace Api.Master.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("Id", user.Id.ToString()),
-                    new Claim("Phone", user.Phone),
-                    new Claim("Email", user.Phone),
-                    new Claim("Name", user.Phone),
+                    new Claim("Email", user.Email),
+                    new Claim("Name", user.Name),
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
