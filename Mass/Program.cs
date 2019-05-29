@@ -32,6 +32,12 @@ namespace Mass
             return str.TrimEnd();
         }
 
+        static string GetSobreNome(ref List<string> lstSobrenomes)
+        {
+            var r = new Random();
+            return lstSobrenomes[r.Next(0, lstSobrenomes.Count)];
+        }
+
         static void Main(string[] args)
         {
             List<string> lstPrimeirosNomes = new List<string>();
@@ -68,6 +74,9 @@ namespace Mass
             {
                 db.Query("truncate table [Admin]");
                 db.Query("truncate table [User]");
+                db.Query("truncate table [ProductCategory]");
+                db.Query("truncate table [ProductSubCategory]");
+                db.Query("truncate table [Product]");
             }
 
             using (var db = new SqlConnection(strCon))
@@ -84,9 +93,63 @@ namespace Mass
 
                     if (j % 100 == 0)
                     {
-                        Console.WriteLine(j);
                         db.Query(sb.ToString());
                         sb.Clear();
+                    }                        
+                }
+
+                sb.Clear();
+
+                int totCat = 20;
+                int totSubPerCat = 100;
+                int totProds = 100;
+
+                for (int j = 1; j <= totCat; j++)
+                {
+                    sb.AppendLine("insert into [ProductCategory] (Name) values ('" + GetSobreNome(ref lstSobrenomes) + j.ToString() + "');");
+
+                    if (j % 10 == 0)
+                    {
+                        db.Query(sb.ToString());
+                        sb.Clear();
+                    }
+                }
+
+                sb.Clear();
+
+                for (int cat = 1; cat <= totCat; cat++)
+                    for (int sub = 1; sub <= totSubPerCat; sub++)
+                {
+                    sb.AppendLine("insert into [ProductSubCategory] (Name,ProductCategoryID) values ('sub" + GetSobreNome(ref lstSobrenomes) + sub.ToString() + "'," + cat + ");");
+
+                    if (sub % 10 == 0)
+                    {                        
+                        db.Query(sb.ToString());
+                        sb.Clear();
+                    }
+                }
+
+                sb.Clear();
+
+                for (int cat = 1; cat <= totCat; cat++)
+                {
+                    Console.WriteLine(cat + "/" + totCat);
+
+                    for (int sub = 1; sub <= totSubPerCat; sub++)
+                    {
+                        int indexSub = (cat -1) * totSubPerCat + sub;
+
+                        for (int i = 0; i < totProds; i++)
+                        {
+                            sb.AppendLine("insert into [Product] (Name,ProductCategoryID,ProductSubCategoryID,CreatedByAdminID,DateAdded,LastEditByAdminID,DateEdit) values ('prod" + 
+                                GetSobreNome(ref lstSobrenomes) + "'," + cat + "," + indexSub + ", 1, '2019-01-01',1,'2019-01-01');");
+
+                            if (i % 100 == 0)
+                            {
+                                db.Query(sb.ToString());
+                                sb.Clear();
+                            }
+                        }
                     }                        
                 }
             }

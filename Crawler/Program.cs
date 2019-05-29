@@ -10,6 +10,7 @@ namespace Crawler
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
