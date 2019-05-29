@@ -219,6 +219,7 @@ IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[
 BEGIN
     ALTER TABLE [ProductComment] ADD [DateAdded] datetime NULL
 END
+
 ------------------------------------------------
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[ProductFavorited]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -245,4 +246,32 @@ END
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductFavorited]') AND name = 'UserID')
 BEGIN
     ALTER TABLE [ProductFavorited] ADD [UserID] bigint NULL
+END
+
+----------------------------------------------
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[ProductView]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+CREATE TABLE [dbo].[ProductView] ( [Id] [bigint] IDENTITY(1,1) NOT NULL );
+END
+
+ALTER TABLE [dbo].[ProductView] ADD CONSTRAINT [PK_ProductView] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductView]') AND name = 'ProductID')
+BEGIN
+    ALTER TABLE [ProductView] ADD [ProductID] bigint NULL
+END
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductView]') AND name = 'UserID')
+BEGIN
+    ALTER TABLE [ProductView] ADD [UserID] bigint NULL
+END
+
+IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductView]') AND name = 'DateAdded')
+BEGIN
+    ALTER TABLE [ProductView] ADD [DateAdded] datetime NULL
 END

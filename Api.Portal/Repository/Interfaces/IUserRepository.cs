@@ -1,5 +1,4 @@
-﻿using Entities.Api.Configuration;
-using Entities.Api.Portal;
+﻿using Entities.Api.Portal;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 

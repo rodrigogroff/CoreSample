@@ -74,5 +74,17 @@ namespace Api.Master.Controllers
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
+
+        [AllowAnonymous]
+        [HttpGet("api/v1/portal/product/{id}")]
+        public ActionResult<string> PortalProduct(long id)
+        {
+            SetupNetwork();
+            GetAuthentication(ref serviceRequest);
+
+            serviceRequest.AddParameter("id", id);
+
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
     }
 }

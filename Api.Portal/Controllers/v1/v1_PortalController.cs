@@ -92,7 +92,7 @@ namespace Api.Configuration.Controllers
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new PortalCategoriesV1(portalRepository);
-                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), skip, take);
+                    var resp = service.Exec(db, skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));
                 }
@@ -111,7 +111,7 @@ namespace Api.Configuration.Controllers
                 using (var db = new SqlConnection(GetDBConnectionString()))
                 {
                     var service = new PortalSubCategoriesV1(portalRepository);
-                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), categID, skip, take);
+                    var resp = service.Exec(db, categID, skip, take);
 
                     return Ok(JsonConvert.SerializeObject(resp));
                 }
@@ -120,6 +120,31 @@ namespace Api.Configuration.Controllers
             {
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
+        }
+
+        [HttpGet("api/v1/portal/product_auth/{id}")]
+        public ActionResult<string> PortalProductAuth(int id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new PortalProductV1(portalRepository);
+                    var resp = service.Exec(db, GetCurrentAuthenticatedUser(), id);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
+
+        [HttpGet("api/v1/portal/product/{id}")]
+        public ActionResult<string> PortalProduct(int id)
+        {
+            return PortalProductAuth(id);
         }
     }
 }

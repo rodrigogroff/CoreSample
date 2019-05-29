@@ -15,14 +15,9 @@ namespace Api.Portal.Service
             repository = _repository;
         }
 
-        public AdminSubCategories Exec(SqlConnection db, AuthenticatedUser au, long categID, int skip, int take)
+        public AdminSubCategories Exec(SqlConnection db, long categID, int skip, int take)
         {
             var ret = new AdminSubCategories();
-
-            if (au != null)
-            {
-
-            }
 
             foreach (var item in repository.SubCategoryList(db, categID, skip, take, ref ret.total))
             {

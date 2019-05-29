@@ -1,31 +1,31 @@
 
 ------------------------------------------------------------------------------------------------------------------
-Api					Name								Public	Status		Featured	
+Api					Type		Name								Public	Status		Featured	
 ------------------------------------------------------------------------------------------------------------------
-Configuration		api/v1/admin/createAccount			y		OK			n
-Configuration		api/v1/admin/authenticate			y		OK			n
-Configuration		api/v1/admin/createCategory			n		OK			y
-Configuration		api/v1/admin/editCategory			n		OK			n
-Configuration		api/v1/admin/categories				n		OK			n
-Configuration		api/v1/admin/category				n		OK			n		
-Configuration		api/v1/admin/createSubCategory		n		OK			y
-Configuration		api/v1/admin/subcategories			n		OK			n
-Configuration		api/v1/admin/editSubCategory		n		OK			n
-Configuration		api/v1/admin/subcategory			n		OK			n
-Configuration		api/v1/admin/createProduct			n		OK			y
-Configuration		api/v1/admin/editProduct			n		OK			n
-Configuration		api/v1/admin/product				n		OK			n
-Configuration		api/v1/admin/products				n		OK			n
+Configuration		POST		api/v1/admin/createAccount			y		OK			n
+Configuration		POST		api/v1/admin/authenticate			y		OK			n
+Configuration		POST		api/v1/admin/createCategory			n		OK			y
+Configuration		POST		api/v1/admin/editCategory			n		OK			n
+Configuration		GET			api/v1/admin/categories				n		OK			n
+Configuration		GET			api/v1/admin/category				n		OK			n		
+Configuration		POST		api/v1/admin/createSubCategory		n		OK			y
+Configuration		GET			api/v1/admin/subcategories			n		OK			n
+Configuration		POST		api/v1/admin/editSubCategory		n		OK			n
+Configuration		GET			api/v1/admin/subcategory			n		OK			n
+Configuration		POST		api/v1/admin/createProduct			n		OK			y
+Configuration		POST		api/v1/admin/editProduct			n		OK			n
+Configuration		GET			api/v1/admin/product				n		OK			n
+Configuration		GET			api/v1/admin/products				n		OK			n
 
-Portal				api/v1/portal/createAccount			y		OK			y			
-Portal				api/v1/portal/authenticate			y		OK			y			
-Portal				api/v1/portal/comments				n		OK			n	
-Portal 				api/v1/portal/favorites				n		OK			n	
-Portal				api/v1/portal/categories			y		OK			n
-Portal				api/v1/portal/subcategories			y		OK			n		
-Portal				api/v1/portal/product				y		PLAN		n
-Portal				api/v1/portal/productComment		n		PLAN		n
-Portal				api/v1/portal/productFavorited		n		PLAN		n
-Portal				api/v1/portal/products				y		PLAN		n
+Portal				POST		api/v1/portal/createAccount			y		OK			y			
+Portal				POST		api/v1/portal/authenticate			y		OK			y			
+Portal				GET			api/v1/portal/comments				n		OK			n	
+Portal 				GET			api/v1/portal/favorites				n		OK			n	
+Portal				GET			api/v1/portal/categories			y		OK			n
+Portal				GET			api/v1/portal/subcategories			y		OK			n		
+Portal				GET			api/v1/portal/product				y		int/TU		n
+Portal				POST		api/v1/portal/productComment		n		PLAN		n
+Portal				POST		api/v1/portal/productFavorited		n		PLAN		n
+Portal				GET			api/v1/portal/products				y		PLAN		n
 
 [Master]			api/stats

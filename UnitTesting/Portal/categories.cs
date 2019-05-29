@@ -1,6 +1,4 @@
 using Api.Portal.Service;
-using Api.Portal.Service;
-using Entities.Api.Configuration;
 using NUnit.Framework;
 
 namespace UnitTesting
@@ -13,7 +11,7 @@ namespace UnitTesting
             var repo = new mockPortalRepository();
             var service = new PortalCategoriesV1(repo);
 
-            var resp = service.Exec(null, new AuthenticatedUser(), 0, 10);
+            var resp = service.Exec(null, 0, 10);
 
             if (resp.list.Count != 1)
                 Assert.Fail("categories // fail 1");

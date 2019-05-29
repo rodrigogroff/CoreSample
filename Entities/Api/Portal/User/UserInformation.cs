@@ -1,7 +1,7 @@
 ﻿
 namespace Entities.Api.Portal
 {
-    public class DTO_UserInformation
+    public class UserInformation
     {
         public string Id;
         public string Nome;

@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace Integration
 {
-    public partial class Configuration : BaseTest
+    public partial class Portal : BaseTest
     {
         [TestMethod]
         public void UserComments()
