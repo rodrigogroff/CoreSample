@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Entities.Api.Portal;
 using Entities.Database;
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,33 @@ namespace Api.Portal.Repository
                 take,
             }).
             ToList();
+        }
+
+        public long ProductAddComment(SqlConnection db, long userId, NewProductComment comment)
+        {
+            string sql = @"INSERT INTO [ProductComment] 
+                 (ProductID,UserID,Comment,DateAdded) 
+                 VALUES 
+                 (@ProductID,@UserID,@Comment,@DateAdded); 
+                 SELECT CAST(SCOPE_IDENTITY() as bigint)";
+
+            return db.Query<long>(sql, new { comment.ProductID, UserID = userId, comment.Comment, DateAdded = DateTime.Now }).Single();
+        }
+
+        public List<ProductComment> ProductComments(SqlConnection db, long productID)
+        {
+            return db.Query<ProductComment>(@"select * from [ProductComment] 
+                                              where ProductID=@productID
+                                              order by DateAdded desc", new
+            {
+                productID
+            }).
+            ToList();
+        }
+
+        public User UserById(SqlConnection db, long? Id)
+        {
+            return db.Query<User>("select * from [User] where Id=@Id", new { Id }).FirstOrDefault();
         }
     }
 }

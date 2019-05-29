@@ -24,8 +24,7 @@ Portal 				GET			api/v1/portal/favorites				n		OK			n
 Portal				GET			api/v1/portal/categories			y		OK			n
 Portal				GET			api/v1/portal/subcategories			y		OK			n		
 Portal				GET			api/v1/portal/product				y		OK			n
-Portal				GET			api/v1/portal/products				y		PLAN		n
-Portal				POST		api/v1/portal/productComment		n		PLAN		n
-Portal				POST		api/v1/portal/productFavorited		n		PLAN		n
+Portal				GET			api/v1/portal/products				y		OK			n
+Portal				POST		api/v1/portal/productComment		n		DEV			n
 
 [Master]			api/stats

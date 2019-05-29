@@ -13,6 +13,7 @@ namespace Entities.Api.Portal
     {
         public long Id;
         public long Views;
+        public long Comments;
         public string Name;        
     }
 
@@ -24,5 +25,15 @@ namespace Entities.Api.Portal
         public string Name;        
         public string Category;
         public string SubCategory;
+
+        public List<NewProductComment> Comments = new List<NewProductComment>();
+    }
+
+    public class NewProductComment
+    {
+        public long ProductID;
+        public string Comment;
+        public string Date;
+        public string UserName;
     }
 }

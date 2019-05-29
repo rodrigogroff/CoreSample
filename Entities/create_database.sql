@@ -205,11 +205,6 @@ BEGIN
     ALTER TABLE [ProductComment] ADD [UserID] bigint NULL
 END
 
-IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductComment]') AND name = 'UserID')
-BEGIN
-    ALTER TABLE [ProductComment] ADD [UserID] bigint NULL
-END
-
 IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[ProductComment]') AND name = 'Comment')
 BEGIN
     ALTER TABLE [ProductComment] ADD [Comment] [varchar](500) NULL
@@ -275,3 +270,18 @@ IF NOT EXISTS ( SELECT * FROM sys.columns WHERE  object_id = OBJECT_ID(N'[dbo].[
 BEGIN
     ALTER TABLE [ProductView] ADD [DateAdded] datetime NULL
 END
+
+
+
+
+-- cleanup
+
+truncate table [Admin];
+truncate table [User];
+truncate table [UserLogin];
+truncate table [ProductCategory];
+truncate table [ProductSubCategory];
+truncate table [Product];
+truncate table [ProductComment];
+truncate table [ProductFavorited];
+truncate table [ProductView];

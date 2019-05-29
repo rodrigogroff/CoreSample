@@ -34,13 +34,26 @@ namespace Api.Portal.Service
                 repository.ProductAddView(db, au.Id, Id);
             }
 
+            var retComments = new System.Collections.Generic.List<NewProductComment>();
+
+            foreach (var item in repository.ProductComments(db, Id))
+            {
+                retComments.Add(new NewProductComment
+                {
+                    Comment = item.Comment,
+                    Date = item.DateAdded?.ToString("dd/MM/yyyy HH:mm"),
+                    UserName = repository.UserById(db, (long)item.UserID)?.Name
+                });
+            }
+
             return new ProductDto
             {
                 Id = ret.Id,
                 Name = ret.Name,
                 Views = repository.ProductViews(db, Id),
                 Category = retCateg.Name,
-                SubCategory = retSubCateg.Name
+                SubCategory = retSubCateg.Name,
+                Comments = retComments
             };
         }
     }

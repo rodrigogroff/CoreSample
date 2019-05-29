@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Api.Portal;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Master.Controllers
 {
@@ -16,12 +17,20 @@ namespace Api.Master.Controllers
         }
 
         [HttpGet("api/v1/portal/product_auth/{id}")]
-        public ActionResult<string> PortalProductAuth(long id)
+        public ActionResult<string> Token_ProductAuth(long id)
         {
             SetupAuthenticatedNetwork();
             
             serviceRequest.AddParameter("id", id);
 
+            return ExecuteRemoteService(serviceClient, serviceRequest);
+        }
+
+        [HttpPost("api/v1/portal/productComment")]
+        public ActionResult<string> Token_ProductComment([FromBody] NewProductComment obj)
+        {
+            SetupAuthenticatedNetwork();
+            serviceRequest.AddJsonBody(obj);
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
     }

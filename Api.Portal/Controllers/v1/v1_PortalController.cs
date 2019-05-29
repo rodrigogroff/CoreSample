@@ -165,5 +165,27 @@ namespace Api.Configuration.Controllers
                 return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
             }
         }
+
+        [HttpPost("api/v1/portal/productComment")]
+        public ActionResult<string> ProductComment([FromBody] NewProductComment comment)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new PortalProductCommentV1(portalRepository);
+                    var ua = new AuthenticatedUser();
+
+                    if (!service.Exec(db, GetCurrentAuthenticatedUser(), comment))
+                        return BadRequest(service.Error);
+
+                    return Ok();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }
