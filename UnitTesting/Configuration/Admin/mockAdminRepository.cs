@@ -1,6 +1,7 @@
 ﻿using Api.Configuration.Repository;
 using Entities.Api.Configuration;
 using Entities.Database;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -149,25 +150,43 @@ namespace UnitTesting
 
         public Product ProductById(SqlConnection db, long Id)
         {
-            throw new System.NotImplementedException();
+            return new Product
+            {
+                Id = Id,
+                Name = "test",
+                ProductCategoryID = 1,
+                ProductSubCategoryID = 1,
+                CreatedByAdminID = 1,
+                LastEditByAdminID = 1,
+                DateAdded = DateTime.Now,
+                DateEdit = DateTime.Now,
+            };
         }
 
         public void ProductEdit(SqlConnection db, Product obj)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public Admin AdminById(SqlConnection db, long Id)
         {
             return new Admin
             {
-
+                Name = "admin"
             };
         }
 
         public List<Product> ProductList(SqlConnection db, long categID, long subcategID, int skip, int take, ref int total)
         {
-            throw new System.NotImplementedException();
+            return new List<Product>
+            {
+                new Product
+                {
+                    Name = "test",
+                    ProductCategoryID = 1,
+                    ProductSubCategoryID = 1
+                }
+            };
         }
 
         #endregion

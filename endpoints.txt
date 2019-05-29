@@ -19,8 +19,8 @@ Configuration		api/v1/admin/editSubCategory		n		OK			n
 Configuration		api/v1/admin/subcategory			n		OK			n
 Configuration		api/v1/admin/createProduct			n		OK			y
 Configuration		api/v1/admin/editProduct			n		OK			n
-Configuration		api/v1/admin/product				n		DEV			n
-Configuration		api/v1/admin/products				n		PLAN		n
+Configuration		api/v1/admin/product				n		OK			n
+Configuration		api/v1/admin/products				n		OK			n
 	
 Portal				api/v1/portal/categories			y		OK			n
 Portal				api/v1/portal/subcategories			y		OK			n		
