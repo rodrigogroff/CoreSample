@@ -12,7 +12,7 @@ Prototype: E-Commerce
 	- Backend performance (cache)
 
 2) Backend development demo:
-	- Master [1] -> Api [n]
+	- Master [1*] -> Api [n]  (*) -> n worker processes
 	- Server / Unit Testing
 	- Server / Regression Testing
 	- Server / Mass setup

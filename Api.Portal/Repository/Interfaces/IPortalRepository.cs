@@ -14,5 +14,6 @@ namespace Api.Portal.Repository
 
         ProductCategory CategoryById(SqlConnection db, long Id);
         ProductSubCategory SubCategoryById(SqlConnection db, long Id);
+        List<Entities.Database.Product> ProductList(SqlConnection db, long categID, long subcategID, int skip, int take, ref int total);
     }
 }

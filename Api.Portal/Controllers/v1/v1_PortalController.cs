@@ -146,5 +146,24 @@ namespace Api.Configuration.Controllers
         {
             return PortalProductAuth(id);
         }
+
+        [HttpGet("api/v1/portal/products")]
+        public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
+        {
+            try
+            {
+                using (var db = new SqlConnection(GetDBConnectionString()))
+                {
+                    var service = new PortalProductsV1(portalRepository);
+                    var resp = service.Exec(db, categID, subcategID, skip, take);
+
+                    return Ok(JsonConvert.SerializeObject(resp));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(new ServiceError { DebugInfo = ex.ToString(), Message = _defaultError });
+            }
+        }
     }
 }
