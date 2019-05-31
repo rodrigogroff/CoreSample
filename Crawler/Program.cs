@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -86,14 +87,22 @@ namespace Crawler
 
         static void NavigateProducts(int cat, int sub)
         {
+            var sw = new Stopwatch();
+
+            sw.Start();
+
             var client = new RestClient(master);
 
             string requestStr = "api/v1/portal/products?categID=" + cat + "&subcategID=" + sub + "&skip=0&take=10";
-            Console.WriteLine(requestStr);
+            Console.Write(requestStr);
 
             var request = new RestRequest(requestStr, Method.GET);
                         
             IRestResponse response = client.Execute(request);
+
+            sw.Stop();
+
+            Console.Write(" -> " + sw.ElapsedMilliseconds + "\n");
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
             {

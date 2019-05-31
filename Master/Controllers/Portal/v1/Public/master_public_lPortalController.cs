@@ -10,6 +10,20 @@ namespace Api.Master.Controllers
     public partial class PortalController : MasterController
     {
         [AllowAnonymous]
+        [HttpGet("api/v1/portal/stats")]
+        public ActionResult<string> PortalStats()
+        {
+            return JsonConvert.SerializeObject (network.GetStats());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("api/v1/portal/stats_last5")]
+        public ActionResult<string> PortalStatsLast5()
+        {
+            return JsonConvert.SerializeObject(network.GetStats(5));
+        }
+
+        [AllowAnonymous]
         [HttpPost("api/v1/portal/createAccount")]
         public ActionResult<string> Public_PortalCreateAccount([FromBody] NewUserData obj)
         {

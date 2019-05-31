@@ -16,6 +16,7 @@ Prototype: E-Commerce
 	- Server / Unit Testing
 	- Server / Regression Testing
 	- Server / Mass setup
+	- Server / Crawler
 	- Server / Api testing (insomnia)
 
 3) Frontend development demo:
