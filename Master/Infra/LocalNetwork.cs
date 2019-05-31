@@ -7,7 +7,7 @@ namespace Master
 {
     public enum LocalNetworkTypes
     {
-        Config = 1,
+        Configuration = 1,
         Portal = 2,
     }
 
@@ -29,6 +29,7 @@ namespace Master
         public long requests = 0;
 
         public Hashtable hshStats = new Hashtable();
+        public List<string> lstStats = new List<string>();
 
         int idx_config = 0, count_config = 0;
         int idx_portal = 0, count_portal = 0;
@@ -56,7 +57,7 @@ namespace Master
 
             for (int i = 0; i < lastMinutes; i++)
             {
-                string tag = dt.ToString("ddMMyyyyHHmm");
+                string tag = GetTimeTag(dt);
                 var ns = hshStats[tag] as NetworkStats;
 
                 if (ns == null)
@@ -75,27 +76,49 @@ namespace Master
             return ret;
         }
 
+        public string GetTimeTag(DateTime dt)
+        {
+            return dt.Minute.ToString() + dt.Second.ToString();
+        }
+
+        public void UpdateRequestStat()
+        {
+            string tag = GetTimeTag(DateTime.Now);
+
+            if (!(hshStats[tag] is NetworkStats ns))
+            {
+                ns = new NetworkStats();
+                hshStats[tag] = ns;
+                lstStats.Add(tag);
+
+                int maxMinutesStatistics = 5;
+
+                if (lstStats.Count > maxMinutesStatistics)
+                {
+                    var indexEl = lstStats.Count - maxMinutesStatistics;
+
+                    for (int i = 0; i < indexEl; i++)
+                        hshStats[lstStats[i]] = null;
+
+                    lstStats.RemoveRange(0, indexEl);
+                }
+            }
+
+            ns.requests++;
+        }
+
         public string GetHost(LocalNetworkTypes _type)
         {
             lock (this)
             {
-                string tag = DateTime.Now.ToString("ddMMyyyyHHmm");
-                var ns = hshStats[tag] as NetworkStats;
+                UpdateRequestStat();
 
-                if (ns == null)
-                {
-                    ns = new NetworkStats();
-                    hshStats[tag] = ns;
-                }
-
-                ns.requests++;
-                
                 List<string> lst = null;
                 int idx = 0, count = 0;
 
                 switch (_type)
                 {
-                    case LocalNetworkTypes.Config:
+                    case LocalNetworkTypes.Configuration:
                         lst = ConfigurationHosts;
                         idx = idx_config;
                         if (count_config == 0) count_config = lst.Count();

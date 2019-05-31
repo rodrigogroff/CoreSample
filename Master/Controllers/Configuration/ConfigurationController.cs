@@ -11,7 +11,7 @@ namespace Api.Master.Controllers
                                         IOptions<LocalNetwork> _network) :                             
                                         base (_feature, _network)
         {
-            myNetworkType = LocalNetworkTypes.Config;
+            myNetworkType = LocalNetworkTypes.Configuration;
         }
     }
 }
