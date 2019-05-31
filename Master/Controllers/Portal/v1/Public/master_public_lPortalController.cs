@@ -67,11 +67,10 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalCategories(int skip, int take)
         {
             SetupNetwork();
-            GetAuthentication(ref serviceRequest);
-
+            
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
-
+            
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
 
@@ -80,8 +79,7 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalSubCategories(long categID, int skip, int take)
         {
             SetupNetwork();
-            GetAuthentication(ref serviceRequest);
-
+            
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
@@ -94,9 +92,9 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalProduct(long id)
         {
             SetupNetwork();
-            GetAuthentication(ref serviceRequest);
-
+            
             serviceRequest.AddParameter("id", id);
+            serviceRequest.AddParameter("cache", this.features.Cache);
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }
@@ -105,13 +103,22 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/portal/products")]
         public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
         {
-            SetupNetwork();
-            GetAuthentication(ref serviceRequest);
+            if (features.Cache)
+            {
+                SetupCache(categID + "_" + subcategID + "_" + skip + "_" + take);
+                var resp = ExecuteRemoteService(serviceClient, serviceRequest);
+
+                if (IsOk)
+                    return Ok(ReverseCachedContent(contentServiceResponse));
+            }
+
+            SetupNetwork();            
 
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("subcategID", subcategID);
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
+            serviceRequest.AddParameter("cache", features.Cache);
 
             return ExecuteRemoteService(serviceClient, serviceRequest);
         }

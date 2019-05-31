@@ -4,6 +4,7 @@ using System.Linq;
 using Entities.Api.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using RestSharp;
 
 namespace Api.Master.Controllers
 {    
@@ -22,6 +23,23 @@ namespace Api.Master.Controllers
 #if RELEASE
             return _config.GetConnectionString("Production");
 #endif
+        }
+
+        [NonAction]
+        public void SaveCacheContent(string cacheLocation, string tag, string cachedContent)
+        {
+            var serviceClient = new RestClient(cacheLocation);
+            var serviceRequest = new RestRequest("api/memorySave", Method.POST);
+
+            serviceRequest.AddHeader("Content-type", "application/json");
+
+            serviceRequest.AddJsonBody(new
+            {
+                tag,
+                cachedContent = cachedContent.Replace ("{","<!>").Replace("}",">!<")
+            });
+
+            var resp = serviceClient.Execute(serviceRequest);
         }
 
         [NonAction]

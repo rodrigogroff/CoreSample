@@ -22,8 +22,10 @@ namespace Api.Portal
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+#if DEBUG
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+#endif
 
             app.UseMvc();
         }

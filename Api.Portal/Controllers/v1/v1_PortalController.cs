@@ -148,7 +148,7 @@ namespace Api.Configuration.Controllers
         }
 
         [HttpGet("api/v1/portal/products")]
-        public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
+        public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take, bool cache)
         {
             try
             {
@@ -157,7 +157,14 @@ namespace Api.Configuration.Controllers
                     var service = new PortalProductsV1(portalRepository);
                     var resp = service.Exec(db, categID, subcategID, skip, take);
 
-                    return Ok(JsonConvert.SerializeObject(resp));
+                    var strResp = JsonConvert.SerializeObject(resp);
+
+                    if (cache)
+                        SaveCacheContent (  configuration.GetConnectionString("Cache"), 
+                                            categID + "_" + subcategID + "_" + skip + "_" + take, 
+                                            strResp );
+
+                    return Ok(strResp);
                 }
             }
             catch (System.Exception ex)

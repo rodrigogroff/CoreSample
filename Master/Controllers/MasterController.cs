@@ -41,10 +41,17 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
+        public void SetupCache(string tag)
+        {
+            serviceClient = new RestClient(features.CacheLocation);
+            serviceRequest = new RestRequest("api/memory/" + tag, Method.GET);
+        }
+
+        [NonAction]
         public void SetupAuthenticatedNetwork()
         {
             SetupNetwork();
-            GetAuthentication(ref serviceRequest);
+            SetAuthentication(ref serviceRequest);
         }
 
         [NonAction]
@@ -60,7 +67,7 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public void GetAuthentication(ref RestRequest request)
+        public void SetAuthentication(ref RestRequest request)
         {
             request.AddHeader(AuthorizationTag, this.Request.Headers[AuthorizationTag]);
         }
@@ -103,7 +110,7 @@ namespace Api.Master.Controllers
 
                 case HttpStatusCode.OK:
                     IsOk = true;
-                    contentServiceResponse = response.Content;
+                    contentServiceResponse = strResp;
                     return Ok(strResp);
             }
         }
@@ -112,6 +119,12 @@ namespace Api.Master.Controllers
         public string Cleanup(string src)
         {
             return src.Replace("\\\"", "\"").TrimStart('\"').TrimEnd('\"');
-        }        
+        }
+
+        [NonAction]
+        public string ReverseCachedContent(string src)
+        {
+            return src.Replace("<!>", "{").Replace (">!<", "}");
+        }
     }
 }

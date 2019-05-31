@@ -1,10 +1,8 @@
 ﻿using Cache;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClusterApp.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class MemoryController : ControllerBase
     {
@@ -15,30 +13,24 @@ namespace ClusterApp.Controllers
             _cache = cache;
         }
 
-        // GET api/values
-        [HttpGet]
-        public ActionResult<List<string>> Get()
-        {            
-            return _cache.GetValues();            
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(string id)
+        [HttpGet("api/memory/{tag}")]
+        public ActionResult<string> Get(string tag)
         {
-            var resp = _cache.GetAttr(id);
+            var resp = _cache.GetAttr(tag);
 
             if (resp == null)
-                _cache.SetAttr(id, "opa");
+                return BadRequest();
 
-            return resp ?? "";
+            return Ok(resp);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string tag, string value)
+        [HttpPost("api/memorySave")]
+        public void Post([FromBody] string tag, string cachedContent)
         {
-            _cache.SetAttr(tag,value);
+            if (cachedContent == "")
+                _cache.SetAttr(tag, null);
+            else
+                _cache.SetAttr(tag, cachedContent);
         }
     }
 }
