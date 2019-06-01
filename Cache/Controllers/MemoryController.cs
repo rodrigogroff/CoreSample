@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClusterApp.Controllers
 {
+    public class CacheRequest
+    {
+        public string tag { get; set; }
+        public string cachedContent { get; set; }
+    }
+
     [ApiController]
     public class MemoryController : ControllerBase
     {
@@ -25,12 +31,12 @@ namespace ClusterApp.Controllers
         }
 
         [HttpPost("api/memorySave")]
-        public void Post([FromBody] string tag, string cachedContent)
+        public void Post([FromBody] CacheRequest obj)
         {
-            if (cachedContent == "")
-                _cache.SetAttr(tag, null);
+            if (obj.cachedContent == "")
+                _cache.SetAttr(obj.tag, null);
             else
-                _cache.SetAttr(tag, cachedContent);
+                _cache.SetAttr(obj.tag, obj.cachedContent);
         }
     }
 }

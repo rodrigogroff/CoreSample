@@ -17,6 +17,7 @@ namespace Api.Master.Controllers
     {
         public const string AuthorizationTag = "Authorization";
         public string contentServiceResponse = "";
+        public string currentCacheTag = "";
 
         public bool IsOk = false;
 
@@ -41,10 +42,27 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public void SetupCache(string tag)
+        public void CacheGet(string tag)
         {
+            currentCacheTag = tag;
             serviceClient = new RestClient(features.CacheLocation);
             serviceRequest = new RestRequest("api/memory/" + tag, Method.GET);
+            ExecuteRemoteService(serviceClient, serviceRequest);
+        }
+
+        [NonAction]
+        public void CacheUpdate()
+        {
+            serviceClient = new RestClient(features.CacheLocation);
+            serviceRequest = new RestRequest("api/memorySave", Method.POST);
+
+            serviceRequest.AddHeader("Content-Type", "application/json; charset=utf-8");
+            serviceRequest.AddJsonBody(new
+            {
+                tag = currentCacheTag,
+                cachedContent = contentServiceResponse
+            });
+            ExecuteRemoteService(serviceClient, serviceRequest);
         }
 
         [NonAction]

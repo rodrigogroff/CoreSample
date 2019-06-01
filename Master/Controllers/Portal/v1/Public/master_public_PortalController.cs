@@ -105,22 +105,27 @@ namespace Api.Master.Controllers
         {
             if (features.Cache)
             {
-                SetupCache(categID + "_" + subcategID + "_" + skip + "_" + take);
-                var resp = ExecuteRemoteService(serviceClient, serviceRequest);
-
+                CacheGet(categID + "_" + subcategID + "_" + skip + "_" + take);
                 if (IsOk)
-                    return Ok(ReverseCachedContent(contentServiceResponse));
+                    return Ok(contentServiceResponse);
             }
 
-            SetupNetwork();            
+            SetupNetwork();
 
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("subcategID", subcategID);
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
-            serviceRequest.AddParameter("cache", features.Cache);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            var ret = ExecuteRemoteService(serviceClient, serviceRequest);
+
+            if (!IsOk)
+                return ret;
+
+            if (features.Cache)
+                CacheUpdate();         
+
+            return ret;
         }
     }
 }
