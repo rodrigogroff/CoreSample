@@ -14,8 +14,9 @@ namespace Master
     public class NetworkStats
     {
         public string Date;
-        public int requests = 0;
-        public int requestsPerSecond = 0;
+
+        public int requests = 0, cachedRequests = 0, microCached = 0, bytes = 0, cachePct = 0;
+        public int requestsPerSecond = 0, kbytesPerSecond;
     }
 
     public class LocalNetwork
@@ -24,30 +25,19 @@ namespace Master
 
         public List<string> ConfigurationHosts { get; set; }
 
-        public List<string> PortalHosts { get; set; }
+        public Hashtable hshLocalCache = new Hashtable();
 
-        public long requests = 0;
+        public List<string> PortalHosts { get; set; }
 
         public Hashtable hshStats = new Hashtable();
         public List<string> lstStats = new List<string>();
 
-        int idx_config = 0, count_config = 0;
-        int idx_portal = 0, count_portal = 0;
+        int idx_config = 0, count_config = 0,
+            idx_portal = 0, count_portal = 0;
 
         public NetworkStats GetStats()
         {
-            string tag = DateTime.Now.ToString("ddMMyyyyHHmm");
-            var ns = hshStats[tag] as NetworkStats;
-
-            if (ns == null)
-                ns = new NetworkStats();
-
-            return new NetworkStats
-            {
-                Date = DateTime.Now.ToShortTimeString(),
-                requests = ns.requests,
-                requestsPerSecond = ns.requests > 0 ? ns.requests / 60 : 0
-            };
+            return GetStats(1)[0];
         }
 
         public List<NetworkStats> GetStats(int lastMinutes)
@@ -67,7 +57,12 @@ namespace Master
                 {
                     Date = dt.ToShortTimeString(),
                     requests = ns.requests,
-                    requestsPerSecond = ns.requests > 0 ? ns.requests / 60 : 0
+                    requestsPerSecond = ns.requests > 0 ? ns.requests / 60 : 0,
+                    bytes = ns.bytes,
+                    kbytesPerSecond = ns.bytes > 0 ? (ns.bytes / 60) / 1024 : 0,
+                    microCached = ns.microCached,
+                    cachedRequests = ns.cachedRequests,
+                    cachePct = ns.requests > 0 ? (ns.cachedRequests * 100) / ns.requests : 0
                 });
 
                 dt = dt.AddMinutes(-1);
@@ -78,10 +73,10 @@ namespace Master
 
         public string GetTimeTag(DateTime dt)
         {
-            return dt.Minute.ToString() + dt.Second.ToString();
+            return dt.Hour.ToString() + dt.Minute.ToString();
         }
 
-        public void UpdateRequestStat()
+        public void UpdateRequestStat(int bytes, bool cached, bool micro)
         {
             string tag = GetTimeTag(DateTime.Now);
 
@@ -89,6 +84,7 @@ namespace Master
             {
                 ns = new NetworkStats();
                 hshStats[tag] = ns;
+
                 lstStats.Add(tag);
 
                 int maxMinutesStatistics = 5;
@@ -104,15 +100,21 @@ namespace Master
                 }
             }
 
+            if (cached)
+                ns.cachedRequests++;
+
+            if (micro)
+                ns.microCached++;
+            
             ns.requests++;
+
+            ns.bytes += bytes;
         }
 
         public string GetHost(LocalNetworkTypes _type)
         {
             lock (this)
             {
-                UpdateRequestStat();
-
                 List<string> lst = null;
                 int idx = 0, count = 0;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -42,12 +43,54 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public void CacheGet(string tag)
+        public bool CacheGet(string tag, CacheAutomaticRecycle recycleParam)
         {
             currentCacheTag = tag;
+
+            if (network.hshLocalCache[tag] is CachedLocalObject localObj)
+            {
+                if (DateTime.Now < localObj.expires)
+                {
+                    contentServiceResponse = localObj.cachedContent;
+                    network.UpdateRequestStat(contentServiceResponse.Length, true, true);
+                    return true;
+                }
+                else
+                    network.hshLocalCache[tag] = null;
+            }
+
             serviceClient = new RestClient(features.CacheLocation);
             serviceRequest = new RestRequest("api/memory/" + tag, Method.GET);
-            ExecuteRemoteService(serviceClient, serviceRequest);
+
+            var response = serviceClient.Execute(serviceRequest);
+
+            switch (response.StatusCode)
+            {
+                default:
+                case HttpStatusCode.BadRequest:
+                    return false;
+
+                case HttpStatusCode.OK:
+                    contentServiceResponse = Cleanup(response.Content);
+                    network.UpdateRequestStat(contentServiceResponse.Length, true, false);
+
+                    localObj = new CachedLocalObject
+                    {
+                        cachedContent = contentServiceResponse
+                    };
+
+                    switch (recycleParam)
+                    {
+                        case CacheAutomaticRecycle.Critical: localObj.expires = DateTime.Now.AddSeconds(5);  break;
+                        case CacheAutomaticRecycle.High: localObj.expires = DateTime.Now.AddSeconds(30); break;
+                        case CacheAutomaticRecycle.Normal: localObj.expires = DateTime.Now.AddMinutes(1); break;
+                        case CacheAutomaticRecycle.Low: localObj.expires = DateTime.Now.AddSeconds(5); break;
+                        case CacheAutomaticRecycle.Lowest: localObj.expires = DateTime.Now.AddSeconds(10); break;
+                    }
+
+                    network.hshLocalCache[tag] = localObj;
+                    return true;
+            }
         }
 
         [NonAction]
@@ -62,7 +105,8 @@ namespace Api.Master.Controllers
                 tag = currentCacheTag,
                 cachedContent = contentServiceResponse
             });
-            ExecuteRemoteService(serviceClient, serviceRequest);
+
+            ExecuteRemoteServiceCache(serviceClient, serviceRequest);
         }
 
         [NonAction]
@@ -119,6 +163,8 @@ namespace Api.Master.Controllers
 
             var response = client.Execute(request);
             var strResp = Cleanup(response.Content);
+            
+            network.UpdateRequestStat(strResp.Length, false, false);
 
             switch (response.StatusCode)
             {
@@ -129,6 +175,27 @@ namespace Api.Master.Controllers
                 case HttpStatusCode.OK:
                     IsOk = true;
                     contentServiceResponse = strResp;
+
+                    if (features.Cache)
+                        CacheUpdate();
+
+                    return Ok(strResp);
+            }
+        }
+
+        [NonAction]
+        public ActionResult<string> ExecuteRemoteServiceCache(RestClient client, RestRequest request)
+        {
+            var response = client.Execute(request);
+            var strResp = Cleanup(response.Content);
+
+            switch (response.StatusCode)
+            {
+                default:
+                case HttpStatusCode.BadRequest:
+                    return BadRequest(strResp);
+
+                case HttpStatusCode.OK:
                     return Ok(strResp);
             }
         }

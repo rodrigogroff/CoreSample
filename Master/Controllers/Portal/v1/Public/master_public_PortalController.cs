@@ -1,6 +1,7 @@
 ﻿using Entities.Api;
 using Entities.Api.Configuration;
 using Entities.Api.Portal;
+using Master;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -104,11 +105,8 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
         {
             if (features.Cache)
-            {
-                CacheGet(categID + "_" + subcategID + "_" + skip + "_" + take);
-                if (IsOk)
+                if (CacheGet("_" + categID + "_" + subcategID + "_" + skip + "_" + take + "_", CacheAutomaticRecycle.Normal ))
                     return Ok(contentServiceResponse);
-            }
 
             SetupNetwork();
 
@@ -117,15 +115,7 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            var ret = ExecuteRemoteService(serviceClient, serviceRequest);
-
-            if (!IsOk)
-                return ret;
-
-            if (features.Cache)
-                CacheUpdate();         
-
-            return ret;
+            return ExecuteRemoteService(serviceClient, serviceRequest);
         }
     }
 }
