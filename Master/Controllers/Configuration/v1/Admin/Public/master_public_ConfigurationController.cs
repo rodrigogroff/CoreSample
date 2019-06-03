@@ -12,19 +12,14 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/createAccount")]
         public ActionResult<string> Public_AdminCreateAccount([FromBody] NewUserData obj)
         {
-            SetupNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj);
         }
 
         [AllowAnonymous]
         [HttpPost("api/v1/admin/authenticate")]
         public ActionResult<string> Public_AdminAuthenticate([FromBody] LoginInformation obj)
         {
-            SetupNetwork();
-            serviceRequest.AddJsonBody(obj);
-
-            var resp = ExecuteRemoteService(serviceClient, serviceRequest);
+            var resp = ExecuteRemoteService(obj);
 
             if (!this.IsOk)
                 return resp;

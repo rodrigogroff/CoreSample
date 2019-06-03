@@ -37,7 +37,7 @@ namespace Master
 
         public NetworkStats GetStats()
         {
-            return GetStats(1)[0];
+            return GetStats(5)[0];
         }
 
         public List<NetworkStats> GetStats(int lastMinutes)

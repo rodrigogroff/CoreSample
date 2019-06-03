@@ -8,30 +8,28 @@ namespace Api.Master.Controllers
         [HttpGet("api/v1/portal/comments")]
         public ActionResult<string> Token_UserComments(int skip, int take)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
             
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpGet("api/v1/portal/product_auth/{id}")]
         public ActionResult<string> Token_ProductAuth(long id)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
             
             serviceRequest.AddParameter("id", id);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpPost("api/v1/portal/productComment")]
         public ActionResult<string> Token_ProductComment([FromBody] NewProductComment obj)
         {
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj, token: true);
         }
     }
 }

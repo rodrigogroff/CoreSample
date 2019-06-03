@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -36,10 +36,13 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public void SetupNetwork()
+        public void SetupNetwork(object obj = null)
         {
             serviceClient = new RestClient(network.GetHost(myNetworkType));
             serviceRequest = new RestRequest(Request.Path.Value, ConvertMethod(Request.Method));
+
+            if (obj != null)
+                serviceRequest.AddJsonBody(obj);
         }
 
         [NonAction]
@@ -84,13 +87,22 @@ namespace Api.Master.Controllers
                         case CacheAutomaticRecycle.Critical: localObj.expires = DateTime.Now.AddSeconds(5);  break;
                         case CacheAutomaticRecycle.High: localObj.expires = DateTime.Now.AddSeconds(30); break;
                         case CacheAutomaticRecycle.Normal: localObj.expires = DateTime.Now.AddMinutes(1); break;
-                        case CacheAutomaticRecycle.Low: localObj.expires = DateTime.Now.AddSeconds(5); break;
-                        case CacheAutomaticRecycle.Lowest: localObj.expires = DateTime.Now.AddSeconds(10); break;
+                        case CacheAutomaticRecycle.Low: localObj.expires = DateTime.Now.AddMinutes(5); break;
+                        case CacheAutomaticRecycle.Lowest: localObj.expires = DateTime.Now.AddMinutes(10); break;
                     }
 
                     network.hshLocalCache[tag] = localObj;
                     return true;
             }
+        }
+
+        [NonAction]
+        public string GetCacheMask_Products(long categID, long subcategId, int skip = 0, int take = 0)
+        {
+            if (skip == 0 && take == 0)
+                return "PortalProducts_" + categID + "_" + subcategId + "_";
+            else
+                return "PortalProducts_" + categID + "_" + subcategId + "_" + skip + "_" + take + "_";
         }
 
         [NonAction]
@@ -110,10 +122,19 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public void SetupAuthenticatedNetwork()
+        public void CacheClean(string tag)
         {
-            SetupNetwork();
-            SetAuthentication(ref serviceRequest);
+            serviceClient = new RestClient(features.CacheLocation);
+            serviceRequest = new RestRequest("api/memorySave", Method.POST);
+
+            serviceRequest.AddHeader("Content-Type", "application/json; charset=utf-8");
+            serviceRequest.AddJsonBody(new
+            {
+                tag,
+                cachedContent = ""
+            });
+
+            ExecuteRemoteServiceCache(serviceClient, serviceRequest);
         }
 
         [NonAction]
@@ -157,11 +178,20 @@ namespace Api.Master.Controllers
         }
 
         [NonAction]
-        public ActionResult<string> ExecuteRemoteService(RestClient client, RestRequest request)
+        public ActionResult<string> ExecuteRemoteService (  object obj,                                                             
+                                                            bool token = false, 
+                                                            bool updateCache = true, 
+                                                            List<string> lstCacheCleanup = null )
         {
+            if (obj != null)
+                SetupNetwork(obj);
+
+            if (token == true)
+                SetAuthentication(ref serviceRequest);
+
             IsOk = false;
 
-            var response = client.Execute(request);
+            var response = serviceClient.Execute(serviceRequest);
             var strResp = Cleanup(response.Content);
             
             network.UpdateRequestStat(strResp.Length, false, false);
@@ -176,8 +206,12 @@ namespace Api.Master.Controllers
                     IsOk = true;
                     contentServiceResponse = strResp;
 
-                    if (features.Cache)
+                    if (features.Cache && updateCache == true)
                         CacheUpdate();
+
+                    if (features.Cache && lstCacheCleanup != null)
+                        foreach (var item in lstCacheCleanup)
+                            CacheClean(item);
 
                     return Ok(strResp);
             }
@@ -204,12 +238,6 @@ namespace Api.Master.Controllers
         public string Cleanup(string src)
         {
             return src.Replace("\\\"", "\"").TrimStart('\"').TrimEnd('\"');
-        }
-
-        [NonAction]
-        public string ReverseCachedContent(string src)
-        {
-            return src.Replace("<!>", "{").Replace (">!<", "}");
         }
     }
 }

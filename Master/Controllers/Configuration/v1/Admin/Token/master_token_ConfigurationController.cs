@@ -1,6 +1,7 @@
 ﻿using Entities.Api;
 using Entities.Api.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Api.Master.Controllers
 {
@@ -15,36 +16,34 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateAccount.ErrorMessage
                 });
 
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj, token: true);
         }
 
         [HttpPost("api/v1/admin/editCategory")]
         public ActionResult<string> Token_AdminEditCategory([FromBody] NewCategoryData obj)
         {
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj, token: true);
         }
 
         [HttpGet("api/v1/admin/categories")]
         public ActionResult<string> Token_AdminCategories(int skip, int take)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
 
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpGet("api/v1/admin/category/{id}")]
         public ActionResult<string> Token_AdminCategory(long id)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
+
             serviceRequest.AddParameter("id", id);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpPost("api/v1/admin/createSubCategory")]
@@ -56,37 +55,33 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateAccount.ErrorMessage
                 });
 
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj, token: true);
         }
 
         [HttpGet("api/v1/admin/subcategories")]
         public ActionResult<string> Token_AdminSubCategories(long categID, int skip, int take)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
 
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpPost("api/v1/admin/editsubCategory")]
         public ActionResult<string> Token_AdminEditSubCategory([FromBody] NewSubCategoryData obj)
         {
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj, token: true);
         }
 
         [HttpGet("api/v1/admin/subcategory/{id}")]
         public ActionResult<string> Token_AdminSubCategory(long id) 
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
             serviceRequest.AddParameter("id", id);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpPost("api/v1/admin/createproduct")]
@@ -98,38 +93,45 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateProduct.ErrorMessage
                 });
 
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            var tags = new List<string>
+            {
+                GetCacheMask_Products (obj.ProductCategoryID, obj.ProductSubCategoryID )
+            };
+
+            return ExecuteRemoteService(obj, token: true, lstCacheCleanup: tags);
         }
 
         [HttpPost("api/v1/admin/editProduct")]
         public ActionResult<string> Token_AdminEditProduct([FromBody] NewProductData obj)
         {
-            SetupAuthenticatedNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            var tags = new List<string>
+            {
+                "PortalProducts_",
+//                GetCacheMask_Products (obj.ProductCategoryID, obj.ProductSubCategoryID )
+            };
+
+            return ExecuteRemoteService(obj, token: true, lstCacheCleanup: tags);
         }
 
         [HttpGet("api/v1/admin/product/{id}")]
         public ActionResult<string> Token_AdminProduct(long id)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
             serviceRequest.AddParameter("id", id);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
 
         [HttpGet("api/v1/admin/products")]
         public ActionResult<string> Token_AdminProducts(long categID, long subcategID, int skip, int take)
         {
-            SetupAuthenticatedNetwork();
+            SetupNetwork();
 
             serviceRequest.AddParameter("categID", categID);
             serviceRequest.AddParameter("subcategID", subcategID);
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, token: true);
         }
     }
 }

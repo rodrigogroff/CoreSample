@@ -34,9 +34,7 @@ namespace Api.Master.Controllers
                     Message = this.features.CreateAccount.ErrorMessage
                 });
 
-            SetupNetwork();
-            serviceRequest.AddJsonBody(obj);
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(obj);
         }
 
         [AllowAnonymous]
@@ -49,10 +47,7 @@ namespace Api.Master.Controllers
                     Message = this.features.Authenticate.ErrorMessage
                 });
 
-            SetupNetwork();
-            serviceRequest.AddJsonBody(obj);
-
-            var resp = ExecuteRemoteService(serviceClient, serviceRequest);
+            var resp = ExecuteRemoteService(obj);
 
             if (!this.IsOk)
                 return resp;
@@ -72,7 +67,7 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
             
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null);
         }
 
         [AllowAnonymous]
@@ -85,7 +80,7 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null);
         }
 
         [AllowAnonymous]
@@ -95,9 +90,8 @@ namespace Api.Master.Controllers
             SetupNetwork();
             
             serviceRequest.AddParameter("id", id);
-            serviceRequest.AddParameter("cache", this.features.Cache);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null);
         }
 
         [AllowAnonymous]
@@ -105,7 +99,7 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
         {
             if (features.Cache)
-                if (CacheGet("_" + categID + "_" + subcategID + "_" + skip + "_" + take + "_", CacheAutomaticRecycle.Critical ))
+                if (CacheGet( GetCacheMask_Products (categID, subcategID, skip, take), CacheAutomaticRecycle.Critical ))
                     return Ok(contentServiceResponse);
 
             SetupNetwork();
@@ -115,7 +109,7 @@ namespace Api.Master.Controllers
             serviceRequest.AddParameter("skip", skip);
             serviceRequest.AddParameter("take", take);
 
-            return ExecuteRemoteService(serviceClient, serviceRequest);
+            return ExecuteRemoteService(null, updateCache: true);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace Cache
         List<string> GetValues();
         string GetAttr(string tag);
         void SetAttr(string tag, string value);
+        void CleanAttr(string tag);
     }
 
     public class CacheManager : ICacheManager
@@ -43,6 +45,15 @@ namespace Cache
 
             if (!tags.Contains(tag))
                 tags.Add(tag);
+        }
+
+        void ICacheManager.CleanAttr(string tag)
+        {
+            foreach (var item in tags.Where(y => y.Contains(tag)).ToList())
+            {
+                hsh[item] = null;
+                tags.Remove(tag);
+            }
         }
     }
 

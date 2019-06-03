@@ -34,7 +34,7 @@ namespace ClusterApp.Controllers
         public void Post([FromBody] CacheRequest obj)
         {
             if (obj.cachedContent == "")
-                _cache.SetAttr(obj.tag, null);
+                _cache.CleanAttr(obj.tag);
             else
                 _cache.SetAttr(obj.tag, obj.cachedContent);
         }
