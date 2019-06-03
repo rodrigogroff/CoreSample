@@ -104,13 +104,12 @@ namespace Api.Master.Controllers
         [HttpPost("api/v1/admin/editProduct")]
         public ActionResult<string> Token_AdminEditProduct([FromBody] NewProductData obj)
         {
-            var tags = new List<string>
-            {
-                "PortalProducts_",
-//                GetCacheMask_Products (obj.ProductCategoryID, obj.ProductSubCategoryID )
+            var obsolete = new List<string>
+            {                
+                GetCacheMask_Products (obj.ProductCategoryID, obj.ProductSubCategoryID )
             };
 
-            return ExecuteRemoteService(obj, token: true, lstCacheCleanup: tags);
+            return ExecuteRemoteService(obj, token: true, lstCacheCleanup: obsolete);
         }
 
         [HttpGet("api/v1/admin/product/{id}")]
