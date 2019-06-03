@@ -24,3 +24,29 @@ Prototype: E-Commerce
 	- React native (mobile)
 	- Selenium for web testing (navigation)
 	
+---------------------------------
+Tech Stack
+---------------------------------
+
+Web Server
+	Asp.NET Core 2.2
+	JWT Authentication
+	Feature On/off
+	Api versioning (v1/v2)
+	Master (LoadBalancer)
+	Api (scalability)
+	Cache (performance)
+
+User Interface
+	Portal (react)
+	Mobile (react-native)
+
+QA
+	Unit testing
+	Full regression tests
+	Api Test (Insomnia environment)
+
+Platform
+	Mass setup (fake data)
+	Crawler (rest sharp)
+	Robot testing (selenium)

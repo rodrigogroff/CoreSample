@@ -3,12 +3,7 @@ using Entities.Api.Portal;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Crawler
 {
@@ -60,27 +55,12 @@ namespace Crawler
             {
                 token = JsonConvert.DeserializeObject<AuthenticatedUser>(response.Content).Token;
 
-                int totCat = 20;
-                int totSubPerCat = 100;
-                int totProds = 100;
-
                 while (true)
                 {
-                    Thread.Sleep(1);
+                    int cat = GetRandomCat();
+                    int sub = GetRandomSubCat(cat);
 
-                    int dest = GetNumber(1, 10);
-
-                    if (dest <5)
-                    {
-                        int cat = GetRandomCat();
-                        int sub = GetRandomSubCat(cat);
-
-                        NavigateProducts(cat, sub);
-                    }
-                    else
-                    {
-
-                    }                    
+                    NavigateProducts(cat, sub);
                 }
             }
         }
@@ -93,7 +73,10 @@ namespace Crawler
 
             var client = new RestClient(master);
 
-            string requestStr = "api/v1/portal/products?categID=" + cat + "&subcategID=" + sub + "&skip=0&take=10";
+            int skip = GetNumber(0, 50) * 10;
+
+            string requestStr = "api/v1/portal/products?categID=" + cat + "&subcategID=" + sub + "&skip=" + skip + "&take=10";
+
             Console.Write(requestStr);
 
             var request = new RestRequest(requestStr, Method.GET);
