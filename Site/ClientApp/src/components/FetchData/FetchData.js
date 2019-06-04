@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ApiLocation } from '../shared/ApiLocation'
+import { ApiLocation } from '../../shared/ApiLocation'
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
