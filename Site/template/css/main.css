@@ -4710,6 +4710,7 @@ label {
 ============================================================================================ */
 .login_box_area .login_box_img {
   margin-right: -30px;
+  padding-top:40px;
   position: relative; }
   .login_box_area .login_box_img img {
     width: 100%; }
