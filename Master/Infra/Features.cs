@@ -12,10 +12,11 @@ namespace Master
     public enum CacheAutomaticRecycle
     {
         Critical = 0,
-        High = 1 ,
-        Normal = 2,
-        Low = 3,
-        Lowest = 4
+        Highest = 1,
+        High = 2 ,
+        Normal = 3,
+        Low = 4,
+        Lowest = 5
     }
 
     public class CachedLocalObject

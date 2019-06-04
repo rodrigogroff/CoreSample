@@ -52,14 +52,17 @@ namespace Api.Master.Controllers
 
             if (network.hshLocalCache[tag] is CachedLocalObject localObj)
             {
-                if (DateTime.Now < localObj.expires)
+                if (localObj != null)
                 {
-                    contentServiceResponse = localObj.cachedContent;
-                    network.UpdateRequestStat(contentServiceResponse.Length, true, true);
-                    return true;
-                }
-                else
-                    network.hshLocalCache[tag] = null;
+                    if (DateTime.Now < localObj.expires)
+                    {
+                        contentServiceResponse = localObj.cachedContent;
+                        network.UpdateRequestStat(contentServiceResponse.Length, true, true);
+                        return true;
+                    }
+                    else
+                        network.hshLocalCache[tag] = null;
+                }                
             }
 
             serviceClient = new RestClient(features.CacheLocation);
@@ -77,21 +80,25 @@ namespace Api.Master.Controllers
                     contentServiceResponse = Cleanup(response.Content);
                     network.UpdateRequestStat(contentServiceResponse.Length, true, false);
 
-                    localObj = new CachedLocalObject
+                    if (recycleParam != CacheAutomaticRecycle.Critical)
                     {
-                        cachedContent = contentServiceResponse
-                    };
+                        localObj = new CachedLocalObject
+                        {
+                            cachedContent = contentServiceResponse
+                        };
 
-                    switch (recycleParam)
-                    {
-                        case CacheAutomaticRecycle.Critical: localObj.expires = DateTime.Now.AddSeconds(5);  break;
-                        case CacheAutomaticRecycle.High: localObj.expires = DateTime.Now.AddSeconds(30); break;
-                        case CacheAutomaticRecycle.Normal: localObj.expires = DateTime.Now.AddMinutes(1); break;
-                        case CacheAutomaticRecycle.Low: localObj.expires = DateTime.Now.AddMinutes(5); break;
-                        case CacheAutomaticRecycle.Lowest: localObj.expires = DateTime.Now.AddMinutes(10); break;
+                        switch (recycleParam)
+                        {
+                            case CacheAutomaticRecycle.Highest: localObj.expires = DateTime.Now.AddSeconds(10); break;
+                            case CacheAutomaticRecycle.High: localObj.expires = DateTime.Now.AddSeconds(30); break;
+                            case CacheAutomaticRecycle.Normal: localObj.expires = DateTime.Now.AddMinutes(1); break;
+                            case CacheAutomaticRecycle.Low: localObj.expires = DateTime.Now.AddMinutes(5); break;
+                            case CacheAutomaticRecycle.Lowest: localObj.expires = DateTime.Now.AddMinutes(10); break;
+                        }
+
+                        network.hshLocalCache[tag] = localObj;
                     }
 
-                    network.hshLocalCache[tag] = localObj;
                     return true;
             }
         }
