@@ -1,49 +1,54 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { NavItem, NavLink, NavbarBrand } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+    static displayName = NavMenu.name;
 
-  constructor (props) {
-    super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            collapsed: true
+        };
+    }
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
-  }
-
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
-
-  render () {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">Portal</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
-    );
-  }
+    render() {
+        return (
+            <header class="header_area sticky-header">
+                <div class="main_menu">
+                    <nav class="navbar navbar-expand-lg navbar-light main_box">
+                        <div class="container">
+                            <NavbarBrand className="navbar-brand logo_h" tag={Link} to="/"><img src="img/logo.png" alt=""></img></NavbarBrand>
+                            <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                                <ul class="nav navbar-nav menu_nav ml-auto">
+                                    <li class="nav-item active"><NavItem><NavLink tag={Link} className="text-dark" to="/">Home</NavLink></NavItem></li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><NavItem><NavLink tag={Link} to="/fetch-data">Shop Category</NavLink></NavItem></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><NavItem><NavLink tag={Link} to="/counter">Login</NavLink></NavItem></li>
+                                            <li class="nav-item"><NavItem><NavLink tag={Link} to="/counter">Register</NavLink></NavItem></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                                    <li class="nav-item">
+                                        <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+        );
+    }
 }
