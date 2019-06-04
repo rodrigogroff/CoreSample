@@ -12,7 +12,7 @@ export class FetchData extends Component {
     componentDidMount() {
         fetch(ApiLocation.api_host + ':' +
             ApiLocation.api_port +
-            ApiLocation.api_portal +
+            ApiLocation.api_portal +  
             'categories?skip=0&take=10')
             .then(response => response.json())
             .then(data => {
