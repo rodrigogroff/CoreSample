@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
+import { ApiLocation } from '../../shared/ApiLocation'
 
 export class BannerItem extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { forecasts: [], loading: true };
+    }
+
+    componentDidMount() {
+        fetch(ApiLocation.api_host + ':' +
+            ApiLocation.api_port +
+            ApiLocation.api_portal +
+            'product/1')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+    }
+    
     render() {
         return (
             <section className="banner-area">
