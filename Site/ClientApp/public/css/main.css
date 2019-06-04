@@ -1005,6 +1005,7 @@ h1, h2, h3, h4, h5, h6 {
 .banner-area {
   background: url(../img/banner/banner-bg.jpg) center no-repeat;
   background-size: cover;
+  height:100%;  
   position: relative; }
   @media (max-width: 768px) {
     .banner-area .fullscreen {
@@ -1034,8 +1035,11 @@ h1, h2, h3, h4, h5, h6 {
       .banner-area .active-banner-slider .owl-nav .owl-prev:hover,
       .banner-area .active-banner-slider .owl-nav .owl-next:hover {
         opacity: 1; }
-  .banner-area .banner-content {
-    padding-left: 10px; }
+.banner-area .banner-content {
+    padding-left: 10px;
+    padding-top: 120px;
+    padding-bottom: 50px;
+}
     @media (max-width: 991px) {
       .banner-area .banner-content {
         padding-left: 0; } }
