@@ -33,7 +33,7 @@ export class NavMenu extends Component {
                                         <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
                                         <ul className="dropdown-menu">
                                             <li className="nav-item"><NavItem><NavLink tag={Link} to="/login">Login</NavLink></NavItem></li>
-                                            <li className="nav-item"><NavItem><NavLink tag={Link} to="/counter">Register</NavLink></NavItem></li>
+                                            <li className="nav-item"><NavItem><NavLink tag={Link} to="/register">Register</NavLink></NavItem></li>
                                         </ul>
                                     </li>
                                 </ul>
