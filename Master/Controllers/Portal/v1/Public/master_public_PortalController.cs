@@ -99,7 +99,7 @@ namespace Api.Master.Controllers
         public ActionResult<string> PortalProducts(long categID, long subcategID, int skip, int take)
         {
             if (features.Cache)
-                if (CacheGet( GetCacheMask_Products (categID, subcategID, skip, take), CacheAutomaticRecycle.Critical ))
+                if (CacheGet( GetCacheMask_Products (categID, subcategID, skip, take), CacheAutomaticRecycle.Normal))
                     return Ok(contentServiceResponse);
 
             SetupNetwork();
